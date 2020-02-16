@@ -1,4 +1,10 @@
+language: generic
 sudo: false
+
+env:
+  global:
+    - DEV_FINAL_TARGET=docs-final
+    - DEV_TEST_TARGET=docs-test
 
 notifications:
   email:
@@ -12,6 +18,7 @@ before_install:
 install:
 
 script:
+  - ./scripts/deploy-condition.sh $TRAVIS_COMMIT_RANGE 
   
 
 deploy:
