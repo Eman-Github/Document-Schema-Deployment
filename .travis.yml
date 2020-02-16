@@ -18,7 +18,7 @@ before_install:
 install:
 
 script:
-  - ./scripts/deploy-condition.sh $TRAVIS_COMMIT_RANGE 
+  - if ./scripts/prepare-target.sh $TRAVIS_COMMIT_RANGE; then echo " $TRAVIS_COMMIT_RANGE is being built"  
   
 
 deploy:
