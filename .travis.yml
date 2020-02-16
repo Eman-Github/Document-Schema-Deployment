@@ -1,0 +1,28 @@
+sudo: false
+
+notifications:
+  email:
+    recipients:
+      - emanaty@eg.ibm.com
+    on_success: always
+    on_failure: always
+
+before_install:
+    
+install:
+
+script:
+  
+
+deploy:
+  - provider: script
+    script: ./scripts/deploy.sh $DEPLOYMENT_ENV
+    on:
+      branch: develop
+  - provider: script
+    script: ./scripts/deploy.sh $DEPLOYMENT_ENV
+    on:
+      branch: master
+
+after_deploy:
+  - ./scripts/update-db.sh
