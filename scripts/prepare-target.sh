@@ -4,16 +4,16 @@ if [[ -z $1 ]]; then
 fi
 
 echo "Before Git diff command"
-CHNAGED_FILE = $(git diff --name-only $1 2>&1);
+CHNAGED_FILE = $(git diff --name-only $1 | sort -u | uniq | grep docs);
 echo "CHNAGED_FILE = $CHNAGED_FILE";
 
 if [ "$TRAVIS_BRANCH" == "develop" ]; then
    
-   if [[ "$CHNAGED_FILE" == *docs-test* ]]; then
+   if [[ "$CHNAGED_FILE" == "*docs-test*" ]]; then
      echo "Changes done on docs-test folder";
      export CHANGED_FOLDER="docs-test";
    
-   elif[[ "$CHNAGED_FILE" == *docs-final* ]]; then
+   elif [[ "$CHNAGED_FILE" == "*docs-final*" ]]; then
      echo "Changes done on docs-final folder";
      export CHANGED_FOLDER="docs-final";
    
