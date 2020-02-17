@@ -7,7 +7,7 @@ par="--name-only"
 echo "par = $par"
 echo "Before Git diff command : git diff $par $1 | sort -u | uniq | grep "docs" "
 CHANGED_FILE=$(git diff $par $1 | sort -u | uniq | grep "docs")
-echo "CHANGED_FILE = $CHANGED_FILE";
+echo "CHANGED_FILE is $CHANGED_FILE";
 
 if [[ -z $CHANGED_FILE ]]; then
     echo "No Schema document changed"
