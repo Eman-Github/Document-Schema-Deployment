@@ -9,6 +9,10 @@ echo "Before Git diff command : git diff $par $1 | sort -u | uniq | grep "docs" 
 CHANGED_FILE=$(git diff $par $1 | sort -u | uniq | grep "docs")
 echo "CHANGED_FILE = $CHANGED_FILE";
 
+if [[ -z $CHANGED_FILE ]]; then
+    echo "No Schema document changed"
+fi
+
 if [[ "$TRAVIS_BRANCH" == "develop" ]]; then
    
    if [[ "$CHANGED_FILE" == *"docs-test"* ]]; then
