@@ -3,8 +3,8 @@ sudo: false
 
 env:
   global:
-    - DEV_FINAL_TARGET=docs-final
-    - DEV_TEST_TARGET=docs-test
+    - DEV_FINAL_TARGET=Document-Schema-Deployment/docs-final
+    - DEV_TEST_TARGET=Document-Schema-Deployment/docs-test
 
 notifications:
   email:
@@ -18,7 +18,8 @@ before_install:
 install:
 
 script:
-  - if ./scripts/prepare-target.sh $TRAVIS_COMMIT_RANGE; then echo " $TRAVIS_COMMIT_RANGE is being built"; fi  
+  - if ./scripts/prepare-target.sh $TRAVIS_COMMIT_RANGE $DEV_TEST_TARGET ; then echo "$DEV_TEST_TARGET is being built"; fi
+  - if ./scripts/prepare-target.sh $TRAVIS_COMMIT_RANGE $DEV_FINAL_TARGET ; then echo "$DEV_FINAL_TARGET is being built"; fi  
   
 
 deploy:
