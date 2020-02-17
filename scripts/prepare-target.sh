@@ -3,8 +3,8 @@ if [[ -z $1 ]]; then
     exit 1
 fi
 
-echo "Before Git diff command"
-CHNAGED_FILE ="$(git diff --name-only $1 | sort -u | uniq | grep 'docs')";
+echo "Before Git diff command : git diff --name-only $1 | sort -u | uniq | grep "docs" "
+CHNAGED_FILE =$(git diff --name-only $1 | sort -u | uniq | grep "docs");
 echo "CHNAGED_FILE = $CHNAGED_FILE";
 
 if [ "$TRAVIS_BRANCH" == "develop" ]; then
