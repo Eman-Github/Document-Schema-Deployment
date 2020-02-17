@@ -4,14 +4,10 @@ if [[ -z $1 ]]; then
 fi
 
 echo "Before Git diff command"
-CHNAGED_FILE = $(git diff --name-only $1 | sort -u | uniq | grep $DEV_TEST_TARGET);
+CHNAGED_FILE = $(git diff --name-only $1 2>&1);
 echo "CHNAGED_FILE = $CHNAGED_FILE";
 
 if [ "$TRAVIS_BRANCH" == "develop" ]; then
-
-   echo "Before Git diff command"
-   CHNAGED_FILE = $(git diff --name-only $1 | sort -u | uniq | grep $DEV_TEST_TARGET);
-   echo "CHNAGED_FILE = $CHNAGED_FILE";
    
    if [[ "$CHNAGED_FILE" == *docs-test* ]]; then
      echo "Changes done on docs-test folder";
