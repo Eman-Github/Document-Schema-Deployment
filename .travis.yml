@@ -3,8 +3,8 @@ sudo: false
 
 env:
   global:
-    - DEV_FINAL_TARGET=Document-Schema-Deployment/docs-final
-    - DEV_TEST_TARGET=Document-Schema-Deployment/docs-test
+    - DEV_FINAL_TARGET=docs-final/
+    - DEV_TEST_TARGET=docs-test/
 
 notifications:
   email:
@@ -13,24 +13,26 @@ notifications:
     on_success: always
     on_failure: always
 
-before_install:
-    
-install:
-
 script:
-  - if ./scripts/prepare-target.sh $TRAVIS_COMMIT_RANGE $DEV_TEST_TARGET ; then echo "$DEV_TEST_TARGET is being built"; fi
-  - if ./scripts/prepare-target.sh $TRAVIS_COMMIT_RANGE $DEV_FINAL_TARGET ; then echo "$DEV_FINAL_TARGET is being built"; fi  
+  - ./scripts/prepare-target.sh $TRAVIS_COMMIT_RANGE
   
-
 deploy:
   - provider: script
-    script: ./scripts/deploy.sh $DEPLOYMENT_ENV
+    script: ./scripts/deploy.sh develop $CHANGED_FOLDER $CHANGED_DOC
     on:
       branch: develop
   - provider: script
-    script: ./scripts/deploy.sh $DEPLOYMENT_ENV
+    script: ./scripts/deploy.sh master $CHANGED_FOLDER $CHANGED_DOC
     on:
       branch: master
+  - provider: script
+    script: ./scripts/deploy.sh test $CHANGED_FOLDER $CHANGED_DOC 
+    on:
+      branch: test
+  - provider: script
+    script: ./scripts/deploy.sh sandbox $CHANGED_FOLDER $CHANGED_DOC 
+    on:
+      branch: sandbox
 
 after_deploy:
-  - ./scripts/update-db.sh
+  - ./scripts/update-db.sh 

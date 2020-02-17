@@ -3,14 +3,41 @@ if [[ -z $1 ]]; then
     exit 1
 fi
 
-if [[ -z $2 ]]; then
-    echo "Updated folder name cannot be empty"
-    exit 1
-fi
-
 echo "Before Git diff command"
+CHNAGED_FILE = $(git diff --name-only $1 | sort -u | uniq | grep $DEV_TEST_TARGET);
+echo "CHNAGED_FILE = $CHNAGED_FILE";
 
-git diff --name-only $1 | sort -u | uniq | grep $2 > /dev/null
+if [ "$TRAVIS_BRANCH" == "develop" ]; then
 
-echo "After Git diff command"
+   echo "Before Git diff command"
+   CHNAGED_FILE = $(git diff --name-only $1 | sort -u | uniq | grep $DEV_TEST_TARGET);
+   echo "CHNAGED_FILE = $CHNAGED_FILE";
+   
+   if [[ "$CHNAGED_FILE" == *docs-test* ]]; then
+     echo "Changes done on docs-test folder";
+     export CHANGED_FOLDER="docs-test";
+   
+   elif[[ "$CHNAGED_FILE" == *docs-final* ]]; then
+     echo "Changes done on docs-final folder";
+     export CHANGED_FOLDER="docs-final";
+   
+   fi;         
+fi;
 
+if[[ "$CHNAGED_FILE" == *BillOfLading* ]]; then
+  echo "BillOfLading document schema has been changed";
+  export CHANGED_DOC="BillOfLading";
+
+elif[[ "$CHNAGED_FILE" == *SeaWaybill* ]]; then
+  echo "SeaWaybill document schema has been changed";
+  export CHANGED_DOC="SeaWaybill";
+
+elif[[ "$CHNAGED_FILE" == *VerifyCopy* ]]; then
+  echo "VerifyCopy document schema has been changed";
+  export CHANGED_DOC="VerifyCopy";
+
+elif[[ "$CHNAGED_FILE" == *ShippingInstructions* ]]; then
+  echo "ShippingInstructions document schema has been changed";
+  export CHANGED_DOC="ShippingInstructions";
+
+fi;
