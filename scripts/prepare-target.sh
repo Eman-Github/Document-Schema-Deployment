@@ -4,7 +4,7 @@ if [[ -z $1 ]]; then
 fi
 
 echo "Before Git diff command"
-CHNAGED_FILE = $(git diff --name-only $1 | sort -u | uniq | grep docs);
+CHNAGED_FILE ="$(git diff --name-only $1 | sort -u | uniq | grep 'docs')";
 echo "CHNAGED_FILE = $CHNAGED_FILE";
 
 if [ "$TRAVIS_BRANCH" == "develop" ]; then
