@@ -34,5 +34,3 @@ deploy:
     on:
       branch: sandbox
 
-after_deploy:
-  - ./scripts/update-db.sh 
