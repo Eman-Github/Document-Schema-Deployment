@@ -14,7 +14,6 @@ echo "CHANGED_FILE is $CHANGED_FILE";
 
 if [[ -z $CHANGED_FILE ]]; then
     echo "No Schema document changed"
-    exit 0
 fi
 
 if [[ "$CHANGED_FILE" = *"BillOfLading"* ]]
