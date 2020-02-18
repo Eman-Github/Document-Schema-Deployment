@@ -1,0 +1,38 @@
+language: generic
+sudo: false
+
+env:
+  global:
+    - DEV_FINAL_TARGET=docs-final
+    - DEV_TEST_TARGET=docs-test
+
+notifications:
+  email:
+    recipients:
+      - emanaty@eg.ibm.com
+    on_success: always
+    on_failure: always
+
+script:
+  - ./scripts/prepare-target.sh $TRAVIS_COMMIT_RANGE
+  
+deploy:
+  - provider: script
+    script: ./scripts/deploy-develop.sh
+    on:
+      branch: develop
+  - provider: script
+    script: ./scripts/deploy-prod.sh
+    on:
+      branch: master
+  - provider: script
+    script: ./scripts/deploy-test.sh
+    on:
+      branch: test
+  - provider: script
+    script: ./scripts/deploy-sandbox.sh 
+    on:
+      branch: sandbox
+
+after_deploy:
+  - ./scripts/update-db.sh 
