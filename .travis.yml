@@ -3,8 +3,8 @@ sudo: false
 
 env:
   global:
-    - DEV_FINAL_TARGET=docs-final/
-    - DEV_TEST_TARGET=docs-test/
+    - DEV_FINAL_TARGET=docs-final
+    - DEV_TEST_TARGET=docs-test
 
 notifications:
   email:
@@ -18,19 +18,19 @@ script:
   
 deploy:
   - provider: script
-    script: ./scripts/deploy.sh develop $CHANGED_FOLDER $CHANGED_DOC
+    script: ./scripts/deploy-develop.sh
     on:
       branch: develop
   - provider: script
-    script: ./scripts/deploy.sh master $CHANGED_FOLDER $CHANGED_DOC
+    script: ./scripts/deploy-prod.sh
     on:
       branch: master
   - provider: script
-    script: ./scripts/deploy.sh test $CHANGED_FOLDER $CHANGED_DOC 
+    script: ./scripts/deploy-test.sh
     on:
       branch: test
   - provider: script
-    script: ./scripts/deploy.sh sandbox $CHANGED_FOLDER $CHANGED_DOC 
+    script: ./scripts/deploy-sandbox.sh 
     on:
       branch: sandbox
 

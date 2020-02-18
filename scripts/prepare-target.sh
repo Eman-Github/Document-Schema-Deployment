@@ -1,3 +1,6 @@
+#!/bin/bash
+set -ev
+
 if [[ -z $1 ]]; then
     echo "Commit range cannot be empty"
     exit 1
@@ -17,11 +20,11 @@ if [[ "$TRAVIS_BRANCH" == "develop" ]]; then
    
    if [[ "$CHANGED_FILE" == *"docs-test"* ]]; then
      echo "Changes done on docs-test folder";
-     export CHANGED_FOLDER="docs-test";
+     export CHANGED_FOLDER=$DEV_TEST_TARGET;
    
    elif [[ "$CHANGED_FILE" == *"docs-final"* ]]; then
      echo "Changes done on docs-final folder";
-     export CHANGED_FOLDER="docs-final";
+     export CHANGED_FOLDER=$DEV_FINAL_TARGET;
    
    fi         
 fi
