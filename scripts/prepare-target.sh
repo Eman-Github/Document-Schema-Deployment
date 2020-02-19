@@ -6,7 +6,8 @@ if [[ -z $1 ]]; then
     exit 1
 fi
 
-echo "CHANGED_FILE is $2";
+echo "CHANGED_FILE 2 is $2"
+echo "CHANGED_FILE 2 is $CHANGED_FILE";
 
 if [[ -z $CHANGED_FILE ]]; then
     echo "No Schema document changed"
