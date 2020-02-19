@@ -10,7 +10,7 @@ par="--name-only"
 echo "par = $par"
 echo "Before Git diff command "
 
-CHANGED_FILE=$("git diff $par $1 | sort -u | uniq | grep ".json" ")
+CHANGED_FILE=$("git diff $par $1 | sort -u | uniq | grep '.json'")
 
 echo "CHANGED_FILE is $CHANGED_FILE";
 
