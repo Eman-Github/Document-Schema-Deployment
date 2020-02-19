@@ -8,10 +8,16 @@ fi
 
 par="--name-only"
 echo "par = $par"
-echo "Before Git diff command : git diff $par $1 | sort -u | uniq | grep "docs-schema" "
+echo "Before Git diff command "
 
-CHANGED_FILE=$("git diff $par $1")
-echo $?
+if ! git diff $par $1 | grep -qvE '(.json$)'
+then
+  echo "No json files are updated, not running the CI."
+  exit
+fi
+
+CHANGED_FILE=$("git diff $par $1 | grep -qvE '(.json$)'")
+
 echo "CHANGED_FILE is $CHANGED_FILE";
 
 if [[ -z $CHANGED_FILE ]]; then
