@@ -10,7 +10,7 @@ par="--name-only"
 echo "par = $par"
 echo "Before Git diff command "
 
-if ! git diff $par $1 | grep -qvE '(.json$)'
+if ! git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qvE '(.json$)'
 then
   echo "No json files are updated, not running the CI."
   exit
