@@ -18,8 +18,8 @@ script:
        exit;
     else
        CHANGED_FILE=`git diff --name-only $TRAVIS_COMMIT_RANGE | grep ".json"`;
-       echo "$CHANGED_FILE"
-       ./scripts/prepare-target.sh $TRAVIS_COMMIT_RANGE $CHANGED_FILE
+       echo "$CHANGED_FILE";
+       ./scripts/prepare-target.sh $TRAVIS_COMMIT_RANGE $CHANGED_FILE;
     fi;
   
 deploy:
