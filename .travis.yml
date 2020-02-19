@@ -4,8 +4,7 @@ sudo: false
 env:
   global:
     - DEV_FINAL_TARGET=docs-final
-    - DEV_TEST_TARGET=docs-test
-
+    
 notifications:
   email:
     recipients:
@@ -18,7 +17,8 @@ script:
      echo "Not running CI since only docs were changed." ;
        exit;
     else
-       ./scripts/prepare-target.sh $TRAVIS_COMMIT_RANGE;
+       CHANGED_FILE = $(git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qvE ".json")
+       ./scripts/prepare-target.sh $TRAVIS_COMMIT_RANGE $CHANGED_FILE;
     fi;
   
 deploy:
