@@ -17,7 +17,7 @@ script:
      echo "Not running CI since no json file was changed." ;
        exit;
     else
-       CHANGED_FILE = $(git diff --name-only $TRAVIS_COMMIT_RANGE | grep ".json")
+       CHANGED_FILE=`git diff --name-only $TRAVIS_COMMIT_RANGE | grep ".json"`
        ./scripts/prepare-target.sh $TRAVIS_COMMIT_RANGE $CHANGED_FILE;
     fi;
   
