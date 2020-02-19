@@ -3,16 +3,15 @@ set -ev
 
 if [[ -z $1 ]]; then
     echo "Commit range cannot be empty"
-    exit 1
+    exit
 fi
 
-echo "CHANGED_FILE 2 is $2"
-echo "CHANGED_FILE 2 is $CHANGED_FILE";
-
-if [[ -z $CHANGED_FILE ]]; then
+if [[ -z $2 ]]; then
     echo "No Schema document changed"
     exit
 fi
+
+export CHANGED_FILE=$2
 
 if [[ "$CHANGED_FILE" = *"BillOfLading"* ]]
 then
