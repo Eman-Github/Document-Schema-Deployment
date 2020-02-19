@@ -11,6 +11,7 @@ echo "par = $par"
 echo "Before Git diff command : git diff $par $1 | sort -u | uniq | grep "docs-schema" "
 
 CHANGED_FILE=$("git diff $par $1 | sort -u | uniq | grep "docs-schema"")
+echo $?
 echo "CHANGED_FILE is $CHANGED_FILE";
 
 if [[ -z $CHANGED_FILE ]]; then
