@@ -1,0 +1,17 @@
+{
+  "urls": [{"url": "https://raw.githubusercontent.com/Eman-Github/Document-Schema-Deployment/master/docs-schema/BillOfLading.yml",
+    "name": "Prod- Bill of Lading"},
+    {"url": "https://raw.githubusercontent.com/Eman-Github/Document-Schema-Deployment/master/docs-schema/SeaWaybill.yml",
+      "name":"Prod- Sea Waybill"} ],
+  "defaultModelRendering": "model",
+  "dom_id": "#swagger-ui",
+  "deepLinking": true,
+  "presets": [
+    SwaggerUIBundle.presets.apis,
+    SwaggerUIStandalonePreset
+  ],
+  "plugins": [
+    SwaggerUIBundle.plugins.DownloadUrl
+  ],
+  "layout": "StandaloneLayout"
+}

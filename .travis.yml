@@ -14,7 +14,9 @@ notifications:
     on_failure: always
 
 script:
+  - ./scripts/utilities.sh
   - ./scripts/prepare-target.sh $TRAVIS_COMMIT_RANGE
+  - ./scripts/publish.sh
   
 deploy:
   - provider: script
