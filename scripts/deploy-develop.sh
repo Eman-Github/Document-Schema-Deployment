@@ -1,26 +1,40 @@
 #!/bin/bash
 set -ev
 
-# - CHANGED_FOLDER: Check if the CHANGED_FOLDER is test or final
-if [ -z "$CHANGED_FOLDER" ] && [ -z "$CHANGED_DOC" ] &&  [ -z "$CHANGED_FILE" ]
-then
-      echo "no changes in either docs-test or docs-final folders, nothing to deploy ";
-      exit
-fi
+# - CHANGED_DOC_NAME: Check if the CHANGED_FOLDER is test or final
+if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then 
+   echo $TRAVIS_BRANCH;
+   if [ -z $CHANGED_DOC_NAME ]; then
+    echo "CHANGED_DOC_NAME can't be null ";
+    exit;
+   fi;
+   if [ -z $1 ]; then
+    echo "CHANGED_FILE can't be null ";
+    exit;
+   fi;
+   
+   export BRANCH=$TRAVIS_BRANCH
+   export TRIGGERED_BY="PUSH"
+else
+  export FROM_BRANCH=$TRAVIS_PULL_REQUEST_BRANCH
+  export TO_BRANCH=$TRAVIS_BRANCH
+  export TRIGGERED_BY="PULLREQUEST"
+fi;
 
-HEADER_CONTENT_TYPE="Content-Type: application/xml"
-HEADER_ACCEPT="Accept: application/xml"
+#Getting the Refresh Access key 
+HEADER_CONTENT_TYPE="Content-Type: application/x-www-form-urlencoded"
+BODY="grant_type=urn:ibm:params:oauth:grant-type:apikey&apikey=$DEV_API_KEY"
 
-local uri=$1
-local xml=$2
-local certAtt=""
+response=`curl --location --request POST 'https://iam.ng.bluemix.net/oidc/token' --header ${HEADER_CONTENT_TYPE} --data-raw ${BODY}`
+echo "$response"
+#---------------------------------------------------------------------------------
 
-if [[ -n "$CA_CERT_PATH" ]]; then
-   certAtt="--cacert $CA_CERT_PATH"
-fi
 
-echo "Calling URI (POST): " ${uri}
-curl -X POST -H "${HEADER_ACCEPT}" -H "${HEADER_CONTENT_TYPE}" -u "${USER_NAME}:${USER_PASSW}" "$certAtt" "${ENGINE_URL}${uri}" -d "${xml}" 2> /dev/null > "${COMM_FILE}"
 
+#access_token=`echo $RESPONSE | grep "access_token"`
+
+# curl -X PUT -H "${HEADER_ACCEPT}" -H "${HEADER_CONTENT_TYPE}" -u "${USER_NAME}:${USER_PASSW}" "$certAtt" "${ENGINE_URL}${uri}" -d "${xml}" 2> /dev/null > "${COMM_FILE}"
+
+#curl --location --request PUT ‘https://platform-dev.tradelens.com/api/v1/documentSchema/<schemaId>’ \
 
 

@@ -2,7 +2,7 @@ language: generic
 
 env:
   global:
-    - DEV_FINAL_TARGET=docs-final
+    - DEV_URL=https://platform-dev.tradelens.com/
     
 notifications:
   email:
@@ -23,19 +23,19 @@ script:
   
 deploy:
   - provider: script
-    script: ./scripts/deploy-develop.sh
+    script: ./scripts/deploy-develop.sh $CHANGED_FILE
     on:
       branch: develop
   - provider: script
-    script: ./scripts/deploy-prod.sh
+    script: ./scripts/deploy-prod.sh $CHANGED_FILE
     on:
       branch: master
   - provider: script
-    script: ./scripts/deploy-test.sh
+    script: ./scripts/deploy-test.sh $CHANGED_FILE
     on:
       branch: test
   - provider: script
-    script: ./scripts/deploy-sandbox.sh 
+    script: ./scripts/deploy-sandbox.sh $CHANGED_FILE
     on:
       branch: sandbox
 
