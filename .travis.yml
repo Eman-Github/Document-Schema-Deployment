@@ -19,7 +19,7 @@ script:
        exit;
     else
        ./scripts/prepare-target.sh $TRAVIS_COMMIT_RANGE $CHANGED_FILE;
-       ./scripts/deploy-develop.sh $CHANGED_FILE 
+       ./scripts/deploy-develop.sh $CHANGED_FILE; 
     fi;
   
 deploy:
