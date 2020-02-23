@@ -22,15 +22,25 @@ else
 fi;
 
 #Getting the Refresh Access key 
+#==============================
 HEADER_CONTENT_TYPE="Content-Type:application/x-www-form-urlencoded"
 BODY="grant_type=urn:ibm:params:oauth:grant-type:apikey&apikey=$DEV_API_KEY"
 
 echo "parameters = $HEADER_CONTENT_TYPE and $BODY "
-response=`curl --location --request POST 'https://iam.ng.bluemix.net/oidc/token' --header ${HEADER_CONTENT_TYPE} --data-raw ${BODY}`
-echo "$response"
+RESPONSE_REFRESH_TOKEN=`curl --location --request POST 'https://iam.ng.bluemix.net/oidc/token' --header ${HEADER_CONTENT_TYPE} --data-raw ${BODY}`
+echo "$RESPONSE_REFRESH_TOKEN"
 #---------------------------------------------------------------------------------
+#Getting Bearer Token
+#==============================
+HEADER_CONTENT_TYPE="Content-Type:application/json"
+HEADER_ACCEPT="Accept:application/json"
 
+RESPONSE_BEARER=`curl --location --request POST 'https://platform-dev.tradelens.com/onboarding/v1/iam/exchange_token/solution/gtd-dev/organization/gtd-ibm-authority' \
+--header ${HEADER_CONTENT_TYPE} \
+--header ${HEADER_ACCEPT} \
+--data-raw ${response_refresh_token}`
 
+echo "RESPONSE_BEARER = $RESPONSE_BEARER"
 
 #access_token=`echo $RESPONSE | grep "access_token"`
 
