@@ -28,8 +28,9 @@ BODY="grant_type=urn:ibm:params:oauth:grant-type:apikey&apikey=$DEV_API_KEY"
 
 echo "parameters = $HEADER_CONTENT_TYPE and $BODY "
 RESPONSE_REFRESH_TOKEN=`curl --location --request POST 'https://iam.ng.bluemix.net/oidc/token' --header ${HEADER_CONTENT_TYPE} --data-raw ${BODY}`
-echo "$RESPONSE_REFRESH_TOKEN"
+
 #---------------------------------------------------------------------------------
+
 #Getting Bearer Token
 #==============================
 HEADER_CONTENT_TYPE="Content-Type:application/json"
@@ -46,8 +47,8 @@ echo "RESPONSE_BEARER = $RESPONSE_BEARER"
 
 BEARER_TOKEN=`echo $RESPONSE_BEARER | grep -oP '(?<="onboarding_token":")[^"]*'`
 
-echo "BEARER_TOKEN = $BEARER_TOKEN"
 #------------------------------------------------------------------------------------
+
 #Getting Bearer Token
 #==============================
 HEADER_CONTENT_TYPE="Content-Type:application/json"
@@ -56,7 +57,11 @@ HEADER_AUTHORIZATION="Authorization: Bearer $BEARER_TOKEN"
 
 RESPONSE=`curl --location --request GET 'https://platform-dev.tradelens.com/api/v1/documentSchema/1847e163-b4a9-44e2-ad76-1ed83d8a2012' \
 --header "${HEADER_AUTHORIZATION}"`
+echo "RESPONSE = $RESPONSE"
 
 #curl --location --request PUT ‘https://platform-dev.tradelens.com/api/v1/documentSchema/<schemaId>’ \
+#-----------------------------------------------------------------------------------
 
+
+psql --host=127.0.0.1 --port=5432 --dbname=SIEM --username=dbauser
 

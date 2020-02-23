@@ -3,13 +3,21 @@ language: generic
 env:
   global:
     - DEV_URL=https://platform-dev.tradelens.com
-    
+    - PGPORT=5433
+
 notifications:
   email:
     recipients:
       - emanaty@eg.ibm.com
     on_success: always
     on_failure: always
+
+addons:
+  postgresql: "10"
+  apt:
+    packages:
+    - postgresql-10
+    - postgresql-client-10
 
 script:
   - CHANGED_FILE=`git diff --name-only $TRAVIS_COMMIT_RANGE | grep ".json"`
