@@ -37,16 +37,16 @@ HEADER_ACCEPT="Accept:application/json"
 URL="$DEV_URL/onboarding/v1/iam/exchange_token/solution/gtd-dev/organization/gtd-ibm-authority"
 echo "URL = $URL"
 
-RESPONSE_BEARER=`curl --location --request POST '${URL}' \
+RESPONSE_BEARER=`curl --location --request POST 'https://platform-dev.tradelens.com/onboarding/v1/iam/exchange_token/solution/gtd-dev/organization/gtd-ibm-authority' \
 --header ${HEADER_CONTENT_TYPE} \
 --header ${HEADER_ACCEPT} \
 --data-raw "${RESPONSE_REFRESH_TOKEN}"`
 
 echo "RESPONSE_BEARER = $RESPONSE_BEARER"
 
-#access_token=`echo $RESPONSE | grep "access_token"`
+BEARER_TOKEN=`echo $RESPONSE_BEARER | grep -Po '"onboarding_token":.*?[^\\]",'`
 
-# curl -X PUT -H "${HEADER_ACCEPT}" -H "${HEADER_CONTENT_TYPE}" -u "${USER_NAME}:${USER_PASSW}" "$certAtt" "${ENGINE_URL}${uri}" -d "${xml}" 2> /dev/null > "${COMM_FILE}"
+echo "BEARER_TOKEN = $BEARER_TOKEN"
 
 #curl --location --request PUT ‘https://platform-dev.tradelens.com/api/v1/documentSchema/<schemaId>’ \
 
