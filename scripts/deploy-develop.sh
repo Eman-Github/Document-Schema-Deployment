@@ -4,13 +4,13 @@ set -ev
 # - CHANGED_DOC_NAME: Check if the CHANGED_FOLDER is test or final
 if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then 
    echo $TRAVIS_BRANCH;
-   if [ -z "$CHANGED_DOC_NAME" ]; then
-    echo "CHANGED_DOC_NAME can't be null ";
-    exit;
-   fi;
    if [ -z $1 ]; then
     echo "CHANGED_FILE can't be null ";
-    exit;
+#    exit;
+   fi;
+   if [ -z "$CHANGED_DOC_NAME" ]; then
+    echo "CHANGED_DOC_NAME can't be null ";
+#    exit;
    fi;
    
    export BRANCH=$TRAVIS_BRANCH
