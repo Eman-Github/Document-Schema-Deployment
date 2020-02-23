@@ -44,7 +44,7 @@ RESPONSE_BEARER=`curl --location --request POST 'https://platform-dev.tradelens.
 
 echo "RESPONSE_BEARER = $RESPONSE_BEARER"
 
-BEARER_TOKEN=`echo $RESPONSE_BEARER | grep -Po '"onboarding_token":.*?[^\\]",'`
+BEARER_TOKEN=`echo $RESPONSE_BEARER | grep -oP '(?<="onboarding_token":")[^"]*'`
 
 echo "BEARER_TOKEN = $BEARER_TOKEN"
 
