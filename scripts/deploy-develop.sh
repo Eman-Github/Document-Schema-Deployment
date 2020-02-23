@@ -54,8 +54,8 @@ HEADER_CONTENT_TYPE="Content-Type:application/json"
 HEADER_ACCEPT="Accept:application/json"
 HEADER_AUTHORIZATION="Authorization: Bearer $BEARER_TOKEN"
 
-curl --location --request GET 'https://platform-dev.tradelens.com/api/v1/documentSchema/1847e163-b4a9-44e2-ad76-1ed83d8a2012' \
---header ${HEADER_AUTHORIZATION}
+RESPONSE=`curl --location --request GET 'https://platform-dev.tradelens.com/api/v1/documentSchema/1847e163-b4a9-44e2-ad76-1ed83d8a2012' \
+--header "${HEADER_AUTHORIZATION}"`
 
 #curl --location --request PUT ‘https://platform-dev.tradelens.com/api/v1/documentSchema/<schemaId>’ \
 
