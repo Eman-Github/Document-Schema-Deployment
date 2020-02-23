@@ -38,7 +38,7 @@ HEADER_ACCEPT="Accept:application/json"
 RESPONSE_BEARER=`curl --location --request POST 'https://platform-dev.tradelens.com/onboarding/v1/iam/exchange_token/solution/gtd-dev/organization/gtd-ibm-authority' \
 --header ${HEADER_CONTENT_TYPE} \
 --header ${HEADER_ACCEPT} \
---data-raw ${"RESPONSE_REFRESH_TOKEN"}`
+--data-raw "${RESPONSE_REFRESH_TOKEN}"`
 
 echo "RESPONSE_BEARER = $RESPONSE_BEARER"
 
