@@ -2,7 +2,7 @@ language: generic
 
 env:
   global:
-    - DEV_URL=https://platform-dev.tradelens.com/
+    - DEV_URL=https://platform-dev.tradelens.com
     
 notifications:
   email:
