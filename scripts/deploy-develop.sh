@@ -37,7 +37,7 @@ HEADER_ACCEPT="Accept:application/json"
 URL="$DEV_URL/onboarding/v1/iam/exchange_token/solution/gtd-dev/organization/gtd-ibm-authority"
 echo "URL = $URL"
 
-RESPONSE_BEARER=`curl --location --request POST '$URL' \
+RESPONSE_BEARER=`curl --location --request POST '${URL}' \
 --header ${HEADER_CONTENT_TYPE} \
 --header ${HEADER_ACCEPT} \
 --data-raw "${RESPONSE_REFRESH_TOKEN}"`
