@@ -58,14 +58,19 @@ export PGPASSWORD=$POSTGRESQL_DB_PASSWORD
 export PGSSLROOTCERT=$POSTGRESQL_DB_CERTIFICATE
 
 DEV_SCHEMA_ID=`PGPASSWORD="$POSTGRESQL_DB_PASSWORD" psql 'host=f71fe839-f73b-4365-aeb5-10a15f98fb1b.6131b73286f34215871dfad7254b4f7d.databases.appdomain.cloud port=31175 dbname=ibmclouddb user=ibm_cloud_8a18fe62_348f_47a0_a715_34ebe430e5c3' -t -c "select schema_id from document_schema_details where environment = 'develop' and document_name = 'Bill Of Lading'"`
+echo "DEV_SCHEMA_ID = $DEV_SCHEMA_ID"
+
 #-----------------------------------------------------------------------------------
 #Getting Bearer Token
 #==============================
 HEADER_CONTENT_TYPE="Content-Type:application/json"
 HEADER_ACCEPT="Accept:application/json"
 HEADER_AUTHORIZATION="Authorization: Bearer $BEARER_TOKEN"
+DEV_API_URL="$DEV_URL/api/v1/documentSchema/$DEV_SCHEMA_ID"
 
-RESPONSE=`curl --location --request GET 'https://platform-dev.tradelens.com/api/v1/documentSchema/"$DEV_SCHEMA_ID"' \
+echo "DEV_API_URL = $DEV_API_URL"
+ 
+RESPONSE=`curl --location --request GET "$DEV_API_URL" \
 --header "${HEADER_AUTHORIZATION}"`
 echo "RESPONSE = $RESPONSE"
 
