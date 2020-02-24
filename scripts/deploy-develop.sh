@@ -61,7 +61,12 @@ echo "RESPONSE = $RESPONSE"
 
 #curl --location --request PUT ‘https://platform-dev.tradelens.com/api/v1/documentSchema/<schemaId>’ \
 #-----------------------------------------------------------------------------------
+DATABASE=ibmclouddb
+USERNAME=ibm_cloud_8a18fe62_348f_47a0_a715_34ebe430e5c3
+HOSTNAME=f71fe839-f73b-4365-aeb5-10a15f98fb1b.6131b73286f34215871dfad7254b4f7d.databases.appdomain.cloud
+PORT=31175
+export PGPASSWORD=$POSTGRESQL_DB_PASSWORD
 
-
-psql --host=f71fe839-f73b-4365-aeb5-10a15f98fb1b.6131b73286f34215871dfad7254b4f7d.databases.appdomain.cloud --port=31175 --dbname=ibmclouddb --username=ibm_cloud_8a18fe62_348f_47a0_a715_34ebe430e5c3
-
+psql -h $HOSTNAME -U $USERNAME $DATABASE << EOF
+select * from document_schema_details
+EOF
