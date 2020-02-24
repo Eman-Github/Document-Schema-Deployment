@@ -1,10 +1,9 @@
 language: generic
-sudo: false
 
 env:
   global:
-    - DEV_FINAL_TARGET=docs-final
-    - DEV_TEST_TARGET=docs-test
+    - DEV_URL=https://platform-dev.tradelens.com
+    - PGPORT=5433
 
 notifications:
   email:
@@ -13,26 +12,39 @@ notifications:
     on_success: always
     on_failure: always
 
+addons:
+  postgresql: "10"
+  apt:
+    packages:
+    - postgresql-10
+    - postgresql-client-10
+
 script:
-  - ./scripts/prepare-target.sh $TRAVIS_COMMIT_RANGE
+  - CHANGED_FILE=`git diff --name-only $TRAVIS_COMMIT_RANGE | grep ".json"`
+  - echo "Changed file = $CHANGED_FILE"
+  - if  [[ -z $CHANGED_FILE ]] ; then
+     echo "Not running CI since no json file was changed." ;
+       exit;
+    else
+       ./scripts/prepare-target.sh $TRAVIS_COMMIT_RANGE $CHANGED_FILE;
+       ./scripts/deploy-develop.sh $CHANGED_FILE; 
+    fi;
   
 deploy:
   - provider: script
-    script: ./scripts/deploy-develop.sh
+    script: ./scripts/deploy-develop.sh $CHANGED_FILE
     on:
       branch: develop
   - provider: script
-    script: ./scripts/deploy-prod.sh
+    script: ./scripts/deploy-prod.sh $CHANGED_FILE
     on:
       branch: master
   - provider: script
-    script: ./scripts/deploy-test.sh
+    script: ./scripts/deploy-test.sh $CHANGED_FILE
     on:
       branch: test
   - provider: script
-    script: ./scripts/deploy-sandbox.sh 
+    script: ./scripts/deploy-sandbox.sh $CHANGED_FILE
     on:
       branch: sandbox
 
-after_deploy:
-  - ./scripts/update-db.sh 
