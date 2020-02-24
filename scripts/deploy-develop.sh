@@ -63,5 +63,5 @@ echo "RESPONSE = $RESPONSE"
 #-----------------------------------------------------------------------------------
 
 
-psql --host=127.0.0.1 --port=5432 --dbname=SIEM --username=dbauser
+psql --host=f71fe839-f73b-4365-aeb5-10a15f98fb1b.6131b73286f34215871dfad7254b4f7d.databases.appdomain.cloud --port=31175 --dbname=ibmclouddb --username=ibm_cloud_8a18fe62_348f_47a0_a715_34ebe430e5c3
 
