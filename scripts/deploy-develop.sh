@@ -69,6 +69,6 @@ sslmode=verify-full
 export PGPASSWORD=$POSTGRESQL_DB_PASSWORD
 export PGSSLROOTCERT=$POSTGRESQL_DB_CERTIFICATE
 
-psql -h $HOSTNAME -U $USERNAME $DATABASE $sslmode << EOF
+PGPASSWORD=$POSTGRESQL_DB_PASSWORD PGSSLROOTCERT=$POSTGRESQL_DB_CERTIFICATE psql 'host=$HOSTNAME port=$PORT dbname=$DATABASE user=$USERNAME sslmode=verify-full' << EOF
 select * from document_schema_details
 EOF
