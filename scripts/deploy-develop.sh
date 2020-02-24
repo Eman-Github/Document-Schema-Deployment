@@ -69,6 +69,6 @@ sslmode=verify-full
 export PGPASSWORD=$POSTGRESQL_DB_PASSWORD
 export PGSSLROOTCERT=$POSTGRESQL_DB_CERTIFICATE
 
-PGPASSWORD="$POSTGRESQL_DB_PASSWORD" PGSSLROOTCERT="$POSTGRESQL_DB_CERTIFICATE" psql 'host=f71fe839-f73b-4365-aeb5-10a15f98fb1b.6131b73286f34215871dfad7254b4f7d.databases.appdomain.cloud port=31175 dbname=ibmclouddb user=ibm_cloud_8a18fe62_348f_47a0_a715_34ebe430e5c3 sslmode=verify-full' << EOF
+PGPASSWORD="$POSTGRESQL_DB_PASSWORD" psql 'host=f71fe839-f73b-4365-aeb5-10a15f98fb1b.6131b73286f34215871dfad7254b4f7d.databases.appdomain.cloud port=31175 dbname=ibmclouddb user=ibm_cloud_8a18fe62_348f_47a0_a715_34ebe430e5c3' << EOF
 select * from document_schema_details
 EOF
