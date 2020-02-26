@@ -17,7 +17,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
    export TRIGGERED_BY="PUSH"
 else
   export FROM_BRANCH=$TRAVIS_PULL_REQUEST_BRANCH
-  export TO_BRANCH=$TRAVIS_BRANCH
+  export BRANCH=$TRAVIS_BRANCH
   export TRIGGERED_BY="PULLREQUEST"
 fi;
 
@@ -48,19 +48,14 @@ RESPONSE_BEARER=`curl --location --request POST 'https://platform-dev.tradelens.
 BEARER_TOKEN=`echo $RESPONSE_BEARER | grep -oP '(?<="onboarding_token":")[^"]*'`
 
 #------------------------------------------------------------------------------------
+#Get the Document Schema Id from document_schema_data.csv file
+#==============================================================
 
-DATABASE=ibmclouddb
-USERNAME=ibm_cloud_8a18fe62_348f_47a0_a715_34ebe430e5c3
-HOSTNAME=f71fe839-f73b-4365-aeb5-10a15f98fb1b.6131b73286f34215871dfad7254b4f7d.databases.appdomain.cloud
-PORT=31175
-sslmode=verify-full
-export PGPASSWORD=$POSTGRESQL_DB_PASSWORD
-export PGSSLROOTCERT=$POSTGRESQL_DB_CERTIFICATE
+echo "Get the Document Schema Id from document_schema_data.csv file ";
+CHANGED_DOC_NAME=`echo $1 | grep -oP '(?<=/).*?(?=.)'`
+line=`grep -Fn '$CHANGED_DOC_NAME*$BRANCH*' ./scripts/document_schema_data.csv`
 
-OUTPUT=`PGPASSWORD="$POSTGRESQL_DB_PASSWORD" psql 'host=f71fe839-f73b-4365-aeb5-10a15f98fb1b.6131b73286f34215871dfad7254b4f7d.databases.appdomain.cloud port=31175 dbname=ibmclouddb user=ibm_cloud_8a18fe62_348f_47a0_a715_34ebe430e5c3' -t -c "select schema_id from document_schema_details where environment = 'develop' and document_name = 'Bill Of Lading'"`
-DEV_SCHEMA_ID=`echo $OUTPUT | sed -e 's/^[[:space:]]*//'`
-echo "DEV_SCHEMA_ID=$DEV_SCHEMA_ID"
-
+echo "line = $line"
 #-----------------------------------------------------------------------------------
 #Getting Bearer Token
 #==============================
@@ -77,14 +72,4 @@ echo "RESPONSE = $RESPONSE"
 
 #curl --location --request PUT ‘https://platform-dev.tradelens.com/api/v1/documentSchema/<schemaId>’ \
 #-----------------------------------------------------------------------------------
-DATABASE=ibmclouddb
-USERNAME=ibm_cloud_8a18fe62_348f_47a0_a715_34ebe430e5c3
-HOSTNAME=f71fe839-f73b-4365-aeb5-10a15f98fb1b.6131b73286f34215871dfad7254b4f7d.databases.appdomain.cloud
-PORT=31175
-sslmode=verify-full
-export PGPASSWORD=$POSTGRESQL_DB_PASSWORD
-export PGSSLROOTCERT=$POSTGRESQL_DB_CERTIFICATE
 
-PGPASSWORD="$POSTGRESQL_DB_PASSWORD" psql 'host=f71fe839-f73b-4365-aeb5-10a15f98fb1b.6131b73286f34215871dfad7254b4f7d.databases.appdomain.cloud port=31175 dbname=ibmclouddb user=ibm_cloud_8a18fe62_348f_47a0_a715_34ebe430e5c3' << EOF
-select * from document_schema_details
-EOF

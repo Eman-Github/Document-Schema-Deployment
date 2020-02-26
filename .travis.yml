@@ -3,7 +3,6 @@ language: generic
 env:
   global:
     - DEV_URL=https://platform-dev.tradelens.com
-    - PGPORT=5433
 
 notifications:
   email:
