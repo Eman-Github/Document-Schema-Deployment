@@ -51,8 +51,8 @@ BEARER_TOKEN=`echo $RESPONSE_BEARER | grep -oP '(?<="onboarding_token":")[^"]*'`
 #Get the Document Schema Id from document_schema_data.csv file
 #==============================================================
 
-echo "Get the Document Schema Id from document_schema_data.csv file ";
-CHANGED_DOC_NAME=`echo $1 | grep -oP '(?<=/).*?(?=.)'`
+echo "Get the Document Schema Id from document_schema_data.csv file '$1' ";
+CHANGED_DOC_NAME=`echo '$1' | grep -oP '(?<=/).*?(?=.)'`
 line=`grep -Fn '$CHANGED_DOC_NAME*$BRANCH*' ./scripts/document_schema_data.csv`
 
 echo "line = $line"
