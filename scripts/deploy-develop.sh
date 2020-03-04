@@ -55,8 +55,8 @@ echo "Get the Document Schema Id from document_schema_data.csv file '$1' ";
 temp=${1#*/}
 CHANGED_DOC_NAME=${temp%.*}
 echo "Document Name $CHANGED_DOC_NAME"
-echo "${CHANGED_DOC_NAME}','${BRANCH}"
-LINE=`grep "${CHANGED_DOC_NAME}','${BRANCH}" ./scripts/document_schema_data.csv`
+echo "${CHANGED_DOC_NAME},${BRANCH}"
+LINE=`grep "${CHANGED_DOC_NAME},${BRANCH}" ./scripts/document_schema_data.csv`
 echo "LINE = $LINE"
 
 IFS=',' read -r -a data <<< "$LINE"
