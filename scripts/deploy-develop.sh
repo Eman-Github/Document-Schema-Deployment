@@ -72,7 +72,7 @@ done
 HEADER_CONTENT_TYPE="Content-Type:application/json"
 HEADER_ACCEPT="Accept:application/json"
 HEADER_AUTHORIZATION="Authorization: Bearer $BEARER_TOKEN"
-DEV_API_URL="$DEV_URL/api/v1/documentSchema/$DEV_SCHEMA_ID"
+DEV_API_URL="$DEV_URL/api/v1/documentSchema/${data[3]}"
 
 echo "DEV_API_URL = $DEV_API_URL"
  
@@ -80,6 +80,10 @@ RESPONSE=`curl --location --request GET "$DEV_API_URL" \
 --header "${HEADER_AUTHORIZATION}"`
 #echo "RESPONSE = $RESPONSE"
 
-#curl --location --request PUT ‘https://platform-dev.tradelens.com/api/v1/documentSchema/<schemaId>’ \
+#RESPONSE=`curl --location --request PUT "$DEV_API_URL" \
+#--header "${HEADER_AUTHORIZATION}" \
+#--data-raw "${1}"`
+
+echo "curl --location --request PUT "$DEV_API_URL" --header "${HEADER_AUTHORIZATION}" --data-raw "${1}" "
 #-----------------------------------------------------------------------------------
 
