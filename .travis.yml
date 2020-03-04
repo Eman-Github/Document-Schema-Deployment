@@ -19,14 +19,11 @@ addons:
     - postgresql-client-10
 
 script:
-  - CHANGED_FILE=`git diff --name-only $TRAVIS_COMMIT_RANGE | grep ".json"`
+  - CHANGED_FILE=`git diff --name-only $TRAVIS_COMMIT_RANGE | grep "docs-schema/..json"`
   - echo "Changed file = $CHANGED_FILE"
   - if  [[ -z $CHANGED_FILE ]] ; then
      echo "Not running CI since no json file was changed." ;
        exit;
-    else
-       ./scripts/prepare-target.sh $TRAVIS_COMMIT_RANGE $CHANGED_FILE;
-       ./scripts/deploy-develop.sh $CHANGED_FILE; 
     fi;
   
 deploy:
