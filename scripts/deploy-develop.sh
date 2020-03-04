@@ -17,7 +17,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
    export TRIGGERED_BY="PUSH"
 else
   export FROM_BRANCH=$TRAVIS_PULL_REQUEST_BRANCH
-  export TO_BRANCH=$TRAVIS_BRANCH
+  export BRANCH=$TRAVIS_BRANCH
   export TRIGGERED_BY="PULLREQUEST"
 fi;
 
@@ -48,18 +48,23 @@ RESPONSE_BEARER=`curl --location --request POST 'https://platform-dev.tradelens.
 BEARER_TOKEN=`echo $RESPONSE_BEARER | grep -oP '(?<="onboarding_token":")[^"]*'`
 
 #------------------------------------------------------------------------------------
+#Get the Document Schema Id from document_schema_data.csv file
+#==============================================================
 
-DATABASE=ibmclouddb
-USERNAME=ibm_cloud_8a18fe62_348f_47a0_a715_34ebe430e5c3
-HOSTNAME=f71fe839-f73b-4365-aeb5-10a15f98fb1b.6131b73286f34215871dfad7254b4f7d.databases.appdomain.cloud
-PORT=31175
-sslmode=verify-full
-export PGPASSWORD=$POSTGRESQL_DB_PASSWORD
-export PGSSLROOTCERT=$POSTGRESQL_DB_CERTIFICATE
+echo "Get the Document Schema Id from document_schema_data.csv file '$1' ";
+temp=${1#*/}
+CHANGED_DOC_NAME=${temp%.*}
+echo "Document Name $CHANGED_DOC_NAME"
+echo "${CHANGED_DOC_NAME},${BRANCH}"
+LINE=`grep "${CHANGED_DOC_NAME},${BRANCH}" ./scripts/document_schema_data.csv`
+echo "LINE = $LINE"
 
-OUTPUT=`PGPASSWORD="$POSTGRESQL_DB_PASSWORD" psql 'host=f71fe839-f73b-4365-aeb5-10a15f98fb1b.6131b73286f34215871dfad7254b4f7d.databases.appdomain.cloud port=31175 dbname=ibmclouddb user=ibm_cloud_8a18fe62_348f_47a0_a715_34ebe430e5c3' -t -c "select schema_id from document_schema_details where environment = 'develop' and document_name = 'Bill Of Lading'"`
-DEV_SCHEMA_ID=`echo $OUTPUT | sed -e 's/^[[:space:]]*//'`
-echo "DEV_SCHEMA_ID=$DEV_SCHEMA_ID"
+IFS=',' read -r -a data <<< "$LINE"
+
+for i in "${!data[@]}"
+do
+   echo "$i ${data[i]}"
+done
 
 #-----------------------------------------------------------------------------------
 #Getting Bearer Token
@@ -67,7 +72,7 @@ echo "DEV_SCHEMA_ID=$DEV_SCHEMA_ID"
 HEADER_CONTENT_TYPE="Content-Type:application/json"
 HEADER_ACCEPT="Accept:application/json"
 HEADER_AUTHORIZATION="Authorization: Bearer $BEARER_TOKEN"
-DEV_API_URL="$DEV_URL/api/v1/documentSchema/$DEV_SCHEMA_ID"
+DEV_API_URL="$DEV_URL/api/v1/documentSchema/${data[3]}"
 
 echo "DEV_API_URL = $DEV_API_URL"
  
@@ -75,16 +80,14 @@ RESPONSE=`curl --location --request GET "$DEV_API_URL" \
 --header "${HEADER_AUTHORIZATION}"`
 echo "RESPONSE = $RESPONSE"
 
-#curl --location --request PUT ‘https://platform-dev.tradelens.com/api/v1/documentSchema/<schemaId>’ \
-#-----------------------------------------------------------------------------------
-DATABASE=ibmclouddb
-USERNAME=ibm_cloud_8a18fe62_348f_47a0_a715_34ebe430e5c3
-HOSTNAME=f71fe839-f73b-4365-aeb5-10a15f98fb1b.6131b73286f34215871dfad7254b4f7d.databases.appdomain.cloud
-PORT=31175
-sslmode=verify-full
-export PGPASSWORD=$POSTGRESQL_DB_PASSWORD
-export PGSSLROOTCERT=$POSTGRESQL_DB_CERTIFICATE
+JSON_FILE=`cat "${1}"`
+echo "$JSON_FILE"
 
-PGPASSWORD="$POSTGRESQL_DB_PASSWORD" psql 'host=f71fe839-f73b-4365-aeb5-10a15f98fb1b.6131b73286f34215871dfad7254b4f7d.databases.appdomain.cloud port=31175 dbname=ibmclouddb user=ibm_cloud_8a18fe62_348f_47a0_a715_34ebe430e5c3' << EOF
-select * from document_schema_details
-EOF
+#RESPONSE=`curl --location --request PUT "$DEV_API_URL" \
+#--header "${HEADER_AUTHORIZATION}" \
+#--data-raw "${JSON_FILE}"`
+
+
+echo "curl --location --request PUT "$DEV_API_URL" --header "${HEADER_AUTHORIZATION}" --data-raw "${JSON_FILE}" "
+#-----------------------------------------------------------------------------------
+
