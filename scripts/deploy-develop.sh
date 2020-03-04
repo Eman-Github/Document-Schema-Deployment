@@ -56,8 +56,13 @@ temp=${1#*/}
 CHANGED_DOC_NAME=${temp%.*}
 echo "Document Name $CHANGED_DOC_NAME"
 echo "${CHANGED_DOC_NAME}','${BRANCH}"
-line=`grep "${CHANGED_DOC_NAME}','${BRANCH}" ./scripts/document_schema_data.csv`
-echo "line = $line"
+LINE=`grep "${CHANGED_DOC_NAME}','${BRANCH}" ./scripts/document_schema_data.csv`
+echo "LINE = $LINE"
+IFS=',' read -ra  data<<< "$LINE"
+for i in "${data[@]}"; do
+    echo "$i ${data[i]}"
+done
+
 #-----------------------------------------------------------------------------------
 #Getting Bearer Token
 #==============================
@@ -70,7 +75,7 @@ echo "DEV_API_URL = $DEV_API_URL"
  
 RESPONSE=`curl --location --request GET "$DEV_API_URL" \
 --header "${HEADER_AUTHORIZATION}"`
-echo "RESPONSE = $RESPONSE"
+#echo "RESPONSE = $RESPONSE"
 
 #curl --location --request PUT ‘https://platform-dev.tradelens.com/api/v1/documentSchema/<schemaId>’ \
 #-----------------------------------------------------------------------------------
