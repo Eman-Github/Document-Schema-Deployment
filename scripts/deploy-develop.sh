@@ -61,7 +61,7 @@ echo "LINE = $LINE"
 
 IFS=',' read -r -a data <<< "$LINE"
 
-for i in "${data[@]}"
+for i in "${!data[@]}"
 do
    echo "$i ${data[i]}"
 done
