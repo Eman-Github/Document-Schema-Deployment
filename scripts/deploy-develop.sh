@@ -78,7 +78,7 @@ echo "DEV_API_URL = $DEV_API_URL"
  
 RESPONSE=`curl --location --request GET "$DEV_API_URL" \
 --header "${HEADER_AUTHORIZATION}"`
-#echo "RESPONSE = $RESPONSE"
+echo "RESPONSE = $RESPONSE"
 
 #RESPONSE=`curl --location --request PUT "$DEV_API_URL" \
 #--header "${HEADER_AUTHORIZATION}" \
