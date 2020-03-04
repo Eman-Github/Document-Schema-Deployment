@@ -80,10 +80,14 @@ RESPONSE=`curl --location --request GET "$DEV_API_URL" \
 --header "${HEADER_AUTHORIZATION}"`
 echo "RESPONSE = $RESPONSE"
 
+JSON_FILE=`cat "${1}"`
+echo "$JSON_FILE"
+
 #RESPONSE=`curl --location --request PUT "$DEV_API_URL" \
 #--header "${HEADER_AUTHORIZATION}" \
-#--data-raw "${1}"`
+#--data-raw "${JSON_FILE}"`
 
-echo "curl --location --request PUT "$DEV_API_URL" --header "${HEADER_AUTHORIZATION}" --data-raw "${1}" "
+
+echo "curl --location --request PUT "$DEV_API_URL" --header "${HEADER_AUTHORIZATION}" --data-raw "${JSON_FILE}" "
 #-----------------------------------------------------------------------------------
 
