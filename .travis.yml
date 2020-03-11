@@ -23,28 +23,31 @@ script:
   - echo "TRAVIS_PULL_REQUEST_BRANCH = $TRAVIS_PULL_REQUEST_BRANCH"
   - echo "TRAVIS_BRANCH = $TRAVIS_BRANCH"
   - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-       CHANGED_FILE=`git diff --name-only $TRAVIS_COMMIT_RANGE | grep ".json"`;
+       CHANGED_FILES=`git diff --name-only $TRAVIS_COMMIT_RANGE | grep ".json"`;
        echo "Changed file = $CHANGED_FILE";
-       if  [[ -z $CHANGED_FILE ]] ; then
+       if  [[ -z $CHANGED_FILES ]] ; then
           echo "Not running CI since no json file was changed." ;
        fi;
+    else
+       CHANGED_FILES=`git diff --name-only origin/$TRAVIS_BRANCH..$TRAVIS_PULL_REQUEST_BRANCH -- | grep ".json"`;
+       ./scripts/update_versions.sh $CHANGED_FILES;
     fi;
   
 deploy:
   - provider: script
-    script: ./scripts/deploy-develop.sh $CHANGED_FILE
+    script: ./scripts/deploy-develop.sh $CHANGED_FILES
     on:
       branch: develop
   - provider: script
-    script: ./scripts/deploy-prod.sh $CHANGED_FILE
+    script: ./scripts/deploy-prod.sh $CHANGED_FILES
     on:
       branch: master
   - provider: script
-    script: ./scripts/deploy-test.sh $CHANGED_FILE
+    script: ./scripts/deploy-test.sh $CHANGED_FILES
     on:
       branch: test
   - provider: script
-    script: ./scripts/deploy-sandbox.sh $CHANGED_FILE
+    script: ./scripts/deploy-sandbox.sh $CHANGED_FILES
     on:
       branch: sandbox
 
