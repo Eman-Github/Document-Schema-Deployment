@@ -28,9 +28,9 @@ script:
        if  [[ -z $CHANGED_FILES ]] ; then
           echo "Not running CI since no json file was changed." ;
        fi;
-    else
+    else;
        CHANGED_FILES=`git diff --name-only ${TRAVIS_BRANCH}..HEAD -- | grep ".json"`;
-       ./scripts/update_versions.sh $CHANGED_FILES
+       ./scripts/update_versions.sh $CHANGED_FILES;
     fi;
   
 deploy:
