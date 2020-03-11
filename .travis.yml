@@ -29,7 +29,7 @@ script:
           echo "Not running CI since no json file was changed." ;
        fi;
     else
-       CHANGED_FILES=`git diff --name-only HEAD...$TRAVIS_BRANCH | grep ".json"`;
+       CHANGED_FILES=`git diff --name-only HEAD $(git merge-base HEAD $TRAVIS_BRANCH) | grep ".json"`;
        ./scripts/update_versions.sh $CHANGED_FILES;
     fi;
   
