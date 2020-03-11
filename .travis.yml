@@ -29,9 +29,7 @@ script:
           echo "Not running CI since no json file was changed." ;
        fi;
     else
-       git remote set-branches --add origin $TRAVIS_BRNACH
-       git fetch
-       CHANGED_FILES=`git diff --name-only origin/$TRAVIS_BRANCH...HEAD | grep ".json"`;
+       CHANGED_FILES=`git diff --name-only $TRAVIS_BRANCH $TRAVIS_PULL_REQUEST_BRANCH | grep ".json"`;
        ./scripts/update_versions.sh $CHANGED_FILES;
     fi;
   
