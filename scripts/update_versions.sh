@@ -31,12 +31,12 @@ do
    echo "$i ${data[i]}"
    
    if [[i == 6]] && [[$TRAVIS_COMMIT_MESSAGE == *feature* ]] then
-      ((data[i]=data[i]+1))
-      echo "$i after increment ${data[i]}"
-   fi
+      ((data[i]=data[i]+1));
+      echo "$i after increment ${data[i]}";
+   fi;
    
    if [[i == 7]] && [[$TRAVIS_COMMIT_MESSAGE == *fixbug* ]] then
-      ((data[i]=data[i]+1))
-      echo "$i after increment ${data[i]}"
-   fi
+      ((data[i]=data[i]+1));
+      echo "$i after increment ${data[i]}";
+   fi;
 done
