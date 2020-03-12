@@ -6,8 +6,9 @@ if [ -z $1 ]; then
     exit;
 fi;
 
-
-export FROM_BRANCH=$TRAVIS_PULL_REQUEST_BRANCH
+temp=${TRAVIS_COMMIT_MESSAGE#*/}
+FROM_BRANCH=${temp%*}
+echo "FROM_BRANCH = $FROM_BRANCH"
 export TO_BRANCH=$TRAVIS_BRANCH
 
 echo "From Branch $FROM_BRANCH"
@@ -30,10 +31,10 @@ for i in "${!data[@]}"
 do
    echo "$i ${data[i]}"
    
-   if (($i == 6)) && [["${TRAVIS_COMMIT_MESSAGE}" == *feature* ]]; then
+   if (($i == 6)) && [["${$FROM_BRANCH}" == *"feature"* ]]; then
       (($data[i]=$data[i]+1));
       echo "$i after increment ${data[i]}";
-   elif (($i == 7)) && [["${TRAVIS_COMMIT_MESSAGE}" == *fixbug* ]]; then
+   elif (($i == 7)) && [["${$FROM_BRANCH}" == *"fixbug"* ]]; then
       (($data[i]=$data[i]+1));
       echo "$i after increment ${data[i]}";
    fi;
