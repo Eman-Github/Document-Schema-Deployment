@@ -7,11 +7,13 @@ if [ -z $1 ]; then
 fi;
 
 temp1=${TRAVIS_COMMIT_MESSAGE[0]}
+echo "temp1 = $temp1"
+
 FROM_BRANCH=${temp1#*/}
 TO_BRANCH=$TRAVIS_BRANCH
 
-echo "From Branch $FROM_BRANCH"
-echo "To Branch $TO_BRANCH"
+echo "From Branch: $FROM_BRANCH"
+echo "To Branch: $TO_BRANCH"
 
 #Get the Document Schema versions from document_schema_data.csv file
 #==============================================================
