@@ -22,6 +22,7 @@ script:
   - echo "TRAVIS_PULL_REQUEST = $TRAVIS_PULL_REQUEST"
   - echo "TRAVIS_PULL_REQUEST_BRANCH = $TRAVIS_PULL_REQUEST_BRANCH"
   - echo "TRAVIS_BRANCH = $TRAVIS_BRANCH"
+  - echo "TRAVIS_JOB_NAME = $TRAVIS_JOB_NAME"
   - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
        CHANGED_FILES=`git diff --name-only $TRAVIS_COMMIT_RANGE | grep ".json"`;
        echo "Changed file = $CHANGED_FILE";
@@ -29,7 +30,7 @@ script:
           echo "Not running CI since no json file was changed." ;
        fi;
     else
-       CHANGED_FILES=`git diff --name-only origin/$TRAVIS_BRANCH..$TRAVIS_PULL_REQUEST_BRANCH -- | grep ".json"`;
+       CHANGED_FILES=`git diff --name-only HEAD $(git merge-base HEAD origin/$TRAVIS_BRANCH)| grep ".json"`;
        ./scripts/update_versions.sh $CHANGED_FILES;
     fi;
   
