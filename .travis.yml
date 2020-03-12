@@ -31,9 +31,6 @@ script:
        if  [[ -z $CHANGED_FILES ]] ; then
           echo "Not running CI since no json file was changed." ;
        fi;
-    else
-       CHANGED_FILES=`git diff --name-only HEAD $(git merge-base HEAD origin/$TRAVIS_BRANCH)| grep ".json"`;
-       ./scripts/update_versions.sh $CHANGED_FILES;
     fi;
   
 deploy:
@@ -41,16 +38,6 @@ deploy:
     script: ./scripts/deploy-develop.sh $CHANGED_FILES
     on:
       branch: develop
-  - provider: script
-    script: ./scripts/deploy-prod.sh $CHANGED_FILES
-    on:
-      branch: master
-  - provider: script
-    script: ./scripts/deploy-test.sh $CHANGED_FILES
-    on:
-      branch: test
-  - provider: script
-    script: ./scripts/deploy-sandbox.sh $CHANGED_FILES
-    on:
-      branch: sandbox
-
+ 
+after_success:
+  - ./scripts/update_versions.sh $CHANGED_FILES;
