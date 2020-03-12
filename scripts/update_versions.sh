@@ -33,10 +33,10 @@ do
    if [[i == 6]] && [[$TRAVIS_COMMIT_MESSAGE == *feature* ]] then
       ((data[i]=data[i]+1))
       echo "$i after increment ${data[i]}"
-   if;
+   if
    
    if [[i == 7]] && [[$TRAVIS_COMMIT_MESSAGE == *fixbug* ]] then
       ((data[i]=data[i]+1))
       echo "$i after increment ${data[i]}"
-   if;
+   if
 done
