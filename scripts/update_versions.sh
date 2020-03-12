@@ -6,8 +6,8 @@ if [ -z $1 ]; then
     exit;
 fi;
 
-temp=${TRAVIS_COMMIT_MESSAGE#*/}
-FROM_BRANCH=${temp%\n*}
+temp1=${TRAVIS_COMMIT_MESSAGE[0]}
+FROM_BRANCH=${temp1#*/}
 TO_BRANCH=$TRAVIS_BRANCH
 
 echo "From Branch $FROM_BRANCH"
