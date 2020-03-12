@@ -6,7 +6,7 @@ if [ -z $1 ]; then
     exit;
 fi;
 
-temp1=${TRAVIS_COMMIT_MESSAGE[0]}
+temp1=${TRAVIS_COMMIT_MESSAGE[1]}
 echo "temp1 = $temp1"
 
 FROM_BRANCH=${temp1#*/}
