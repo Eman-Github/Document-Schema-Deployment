@@ -33,7 +33,7 @@ IFS=',' read -r -a data <<< "$LINE"
 for i in "${!data[@]}"
 do
    echo "$i ${data[i]}"
-   
+      
    if (($i == 6)) ; then
  
      if [[ "$FROM_BRANCH" == *"feature"* ]]; then
@@ -48,4 +48,7 @@ do
      fi;
 
    fi;
+   NEWLINE=NEWLINE+${data[i]}
 done
+
+echo "NEWLINE = $NEWLINE"
