@@ -48,7 +48,7 @@ do
      fi;
 
    fi;
-   NEWLINE=NEWLINE+${data[i]}
+   NEWLINE="$NEWLINE,${data[i]}"
 done
 
 echo "NEWLINE = $NEWLINE"
