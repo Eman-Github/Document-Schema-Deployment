@@ -36,13 +36,13 @@ do
    
    if (($i == 6)) ; then
  
-     if [[ "$FROM_BRANCH" == "feature"* ]]; then
+     if [[ "$FROM_BRANCH" == *"feature"* ]]; then
        (($data[i]=$data[i]+1));
        echo "$i after increment ${data[i]}";
      fi;
 
    elif (($i == 7)); then
-     if [[ "$FROM_BRANCH" == "fixbug"* ]]; then
+     if [[ "$FROM_BRANCH" == *"fixbug"* ]]; then
         (($data[i]=$data[i]+1));
         echo "$i after increment ${data[i]}";
      fi;
