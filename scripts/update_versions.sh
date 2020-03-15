@@ -7,7 +7,7 @@ if [ -z $1 ]; then
 fi;
 
 FIRSTLINE=(${TRAVIS_COMMIT_MESSAGE[@]})
-temp1=${FIRSTLINE[0]}
+temp1=${FIRSTLINE[5]}
 echo "temp1 = $temp1"
 
 FROM_BRANCH=${temp1#*/}
