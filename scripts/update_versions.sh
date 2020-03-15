@@ -48,7 +48,16 @@ do
      fi;
 
    fi;
-   NEWLINE="$NEWLINE,${data[i]}"
+
+   if (($i == 0)) ; then
+      NEWLINE="${data[i]}"
+   else
+      NEWLINE="$NEWLINE,${data[i]}"
+   fi;
+
 done
 
 echo "NEWLINE = $NEWLINE"
+OUTPUT=`sed -i 's/$LINE/$NEWLINE/g' ./scripts/document_schema_data.csv`
+
+echo "OUTPUT =$OUTPUT"
