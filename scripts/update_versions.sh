@@ -33,11 +33,18 @@ for i in "${!data[@]}"
 do
    echo "$i ${data[i]}"
    
-   if (($i == 6)) && [["${FROM_BRANCH}" == *"feature"* ]]; then
-      (($data[i]=$data[i]+1));
-      echo "$i after increment ${data[i]}";
-   elif (($i == 7)) && [["${FROM_BRANCH}" == *"fixbug"* ]]; then
-      (($data[i]=$data[i]+1));
-      echo "$i after increment ${data[i]}";
+   if (($i == 6)) ; then
+ 
+     if [["$FROM_BRANCH" == "feature"* ]]; then
+       (($data[i]=$data[i]+1));
+       echo "$i after increment ${data[i]}";
+     fi;
+
+   elif (($i == 7)); then
+     if [["$FROM_BRANCH" == "fixbug"* ]]; then
+        (($data[i]=$data[i]+1));
+        echo "$i after increment ${data[i]}";
+     fi;
+
    fi;
 done
