@@ -66,4 +66,5 @@ cat ./scripts/document_schema_data.csv
 git status
 git add ./scripts/document_schema_data.csv
 git commit -m "Auto update the versions"
-git push origin
+git push origin HEAD:"$FROM_BRANCH"
+git push origin HEAD:"$TO_BRANCH" 
