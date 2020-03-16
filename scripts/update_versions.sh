@@ -26,7 +26,6 @@ CHANGED_DOC_NAME=${temp%.*}
 echo "Document Name $CHANGED_DOC_NAME"
 echo "${CHANGED_DOC_NAME},${TO_BRANCH}"
 LINE=`grep "${CHANGED_DOC_NAME},${TO_BRANCH}" ./scripts/document_schema_data.csv`
-echo "LINE = $LINE"
 
 IFS=',' read -r -a data <<< "$LINE"
 
@@ -57,8 +56,14 @@ do
 
 done
 
+echo "LINE = $LINE"
 echo "NEWLINE = $NEWLINE"
-OUTPUT=`sed -i 's/$LINE/$NEWLINE/g' ./scripts/document_schema_data.csv`
 
-echo "OUTPUT =$OUTPUT"
+sed -i 's/$LINE/$NEWLINE/g' ./scripts/document_schema_data.csv
+
 cat ./scripts/document_schema_data.csv
+
+git status
+git add ./scripts/document_schema_data.csv
+git commit -m "Auto update the versions"
+git push origin
