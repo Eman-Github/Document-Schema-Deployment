@@ -66,5 +66,6 @@ cat ./scripts/document_schema_data.csv
 git status
 git add ./scripts/document_schema_data.csv
 git commit -m "Auto update the versions"
-git push origin "$FROM_BRANCH_NAME" https://Eman-Github:$GITHUB_ACCESS_TOKEN:x-oauth-basic@github.com/Document-Schema-Deployment
-git push  origin "$TO_BRANCH" https://Eman-Github:$GITHUB_ACCESS_TOKEN:x-oauth-basic@github.com/Document-Schema-Deployment 
+git show-ref
+#git push origin HEAD:"$FROM_BRANCH_NAME" https://Eman-Github:$GITHUB_ACCESS_TOKEN:x-oauth-basic@github.com/Document-Schema-Deployment origin HEAD:"$FROM_BRANCH_NAME"
+git push https://Eman-Github:$GITHUB_ACCESS_TOKEN:x-oauth-basic@github.com/Document-Schema-Deployment origin HEAD:"$TO_BRANCH"
