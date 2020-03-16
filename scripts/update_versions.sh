@@ -59,7 +59,7 @@ done
 echo "LINE = $LINE"
 echo "NEWLINE = $NEWLINE"
 
-sed -i 's/$LINE/$NEWLINE/g' ./scripts/document_schema_data.csv
+sed -ri 's/"$LINE"/"$NEWLINE"/' ./scripts/document_schema_data.csv
 
 cat ./scripts/document_schema_data.csv
 
