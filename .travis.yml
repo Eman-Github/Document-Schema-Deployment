@@ -35,9 +35,9 @@ script:
   
 deploy:
   - provider: script
-    script: ./scripts/deploy-develop.sh $CHANGED_FILES
+    script: export TL_VERSION_DEV=$(./scripts/deploy-develop.sh $CHANGED_FILES)
     on:
       branch: develop
  
-after_success:
-  - ./scripts/update_versions.sh $CHANGED_FILES;
+after_deploy:
+  - ./scripts/update_versions.sh $CHANGED_FILES $TL_VERSION_DEV;

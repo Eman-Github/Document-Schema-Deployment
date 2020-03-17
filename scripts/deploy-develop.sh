@@ -86,5 +86,6 @@ echo "GET_RESPONSE = $GET_RESPONSE"
 
 TL_VERSION_DEV=`echo $GET_RESPONSE | grep -oP '(?<="version":)[^,]*'`
 echo "TL_VERSION_DEV = $TL_VERSION_DEV"
+return $TL_VERSION_DEV
 #-----------------------------------------------------------------------------------
 
