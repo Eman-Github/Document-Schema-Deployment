@@ -45,7 +45,6 @@ do
         ((data[i]=data[i]+1));
         echo "$i after increment ${data[i]}";
      fi;
-
    fi;
 
    if (($i == 0)) ; then
@@ -53,7 +52,12 @@ do
    else
       NEWLINE="$NEWLINE,${data[i]}"
    fi;
-
+   
+   if(($i == 2)); then
+     CURRENT_DATE=`date +'%Y-%m-%d %T'`
+     echo "CURRENT_DATE = $CURRENT_DATE"
+     NEWLINE="$NEWLINE,${CURRENT_DATE}"
+   fi;
 done
 
 echo "LINE = $LINE"
