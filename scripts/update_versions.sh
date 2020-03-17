@@ -49,14 +49,12 @@ do
 
    if (($i == 0)) ; then
       NEWLINE="${data[i]}"
+   elif (($i == 2)); then
+      CURRENT_DATE=`date +'%Y-%m-%d %T'`
+      echo "CURRENT_DATE = $CURRENT_DATE"
+      NEWLINE="$NEWLINE,${CURRENT_DATE}"
    else
       NEWLINE="$NEWLINE,${data[i]}"
-   fi;
-   
-   if(($i == 2)); then
-     CURRENT_DATE=`date +'%Y-%m-%d %T'`
-     echo "CURRENT_DATE = $CURRENT_DATE"
-     NEWLINE="$NEWLINE,${CURRENT_DATE}"
    fi;
 done
 
