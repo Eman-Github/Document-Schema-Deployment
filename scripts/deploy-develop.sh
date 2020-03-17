@@ -70,19 +70,21 @@ HEADER_AUTHORIZATION="Authorization: Bearer $BEARER_TOKEN"
 DEV_API_URL="$DEV_URL/api/v1/documentSchema/${data[3]}"
 
 echo "DEV_API_URL = $DEV_API_URL"
- 
-RESPONSE=`curl --location --request GET "$DEV_API_URL" \
---header "${HEADER_AUTHORIZATION}"`
-echo "RESPONSE = $RESPONSE"
 
 JSON_FILE=`cat "${1}"`
 echo "$JSON_FILE"
 
-#RESPONSE=`curl --location --request PUT "$DEV_API_URL" \
+#UPDATE_RESPONSE=`curl --location --request PUT "$DEV_API_URL" \
 #--header "${HEADER_AUTHORIZATION}" \
 #--data-raw "${JSON_FILE}"`
 
-
 #echo "curl --location --request PUT "$DEV_API_URL" --header "${HEADER_AUTHORIZATION}" --data-raw "${JSON_FILE}" "
+ 
+GET_RESPONSE=`curl --location --request GET "$DEV_API_URL" \
+--header "${HEADER_AUTHORIZATION}"`
+echo "GET_RESPONSE = $GET_RESPONSE"
+
+export TL_VERSION_DEV=`echo $GET_RESPONSE | grep -oP '(?<="version":")[^"]*'`
+echo "TL_VERSION_DEV = $TL_VERSION_DEV"
 #-----------------------------------------------------------------------------------
 

@@ -53,6 +53,8 @@ do
       CURRENT_DATE=`date +'%Y-%m-%d %T'`
       echo "CURRENT_DATE = $CURRENT_DATE"
       NEWLINE="$NEWLINE,${CURRENT_DATE}"
+   elif (($i == 4)); then
+      NEWLINE="$NEWLINE,$TL_VERSION_DEV"
    else
       NEWLINE="$NEWLINE,${data[i]}"
    fi;
