@@ -63,9 +63,11 @@ sed -i 's/'"$LINE"'/'"$NEWLINE"'/g' ./scripts/document_schema_data.csv
 
 cat ./scripts/document_schema_data.csv
 
+
+#git remote add origin https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git
 git status
 git add ./scripts/document_schema_data.csv
 git commit -m "Auto update the versions"
 git show-ref
 #git push origin HEAD:"$FROM_BRANCH_NAME" https://Eman-Github:$GITHUB_ACCESS_TOKEN:x-oauth-basic@github.com/Document-Schema-Deployment origin HEAD:"$FROM_BRANCH_NAME"
-git push https://Eman-Github:$GITHUB_ACCESS_TOKEN:x-oauth-basic@github.com/Document-Schema-Deployment origin/"$TO_BRANCH"
+git push https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git origin/"$TO_BRANCH"
