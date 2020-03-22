@@ -8,12 +8,12 @@ if [ -z $1 ]; then
 
 if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then 
    echo $TRAVIS_BRANCH;
-   export BRANCH=$TRAVIS_BRANCH
-   export TRIGGERED_BY="PUSH"
+   BRANCH=$TRAVIS_BRANCH
+   TRIGGERED_BY="PUSH"
 else
-  export FROM_BRANCH=$TRAVIS_PULL_REQUEST_BRANCH
-  export BRANCH=$TRAVIS_BRANCH
-  export TRIGGERED_BY="PULLREQUEST"
+   FROM_BRANCH=$TRAVIS_PULL_REQUEST_BRANCH
+   BRANCH=$TRAVIS_BRANCH
+   TRIGGERED_BY="PULLREQUEST"
 fi;
 
 #Getting the Refresh Access key 
@@ -86,7 +86,7 @@ echo "GET_RESPONSE = $GET_RESPONSE"
 
 export TL_VERSION_DEV=`echo $GET_RESPONSE | grep -oP '(?<="version":)[^,]*'`
 echo "TL_VERSION_DEV = $TL_VERSION_DEV"
-#exit $TL_VERSION_DEV
+exit $TL_VERSION_DEV
 #DEV_TL_VERSION=$TL_VERSION_DEV
 #echo "DEV_TL_VERSION = $DEV_TL_VERSION"
 #-----------------------------------------------------------------------------------
