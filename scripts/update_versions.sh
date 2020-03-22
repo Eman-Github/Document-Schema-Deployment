@@ -54,8 +54,8 @@ do
       echo "CURRENT_DATE = $CURRENT_DATE"
       NEWLINE="$NEWLINE,${CURRENT_DATE}"
    elif (($i == 4)); then
-      echo "TL_VERSION_DEV = $2"
-      NEWLINE="$NEWLINE,$2"
+      echo "DEV_TL_VERSION = $DEV_TL_VERSION"
+      NEWLINE="$NEWLINE,$DEV_TL_VERSION"
    else
       NEWLINE="$NEWLINE,${data[i]}"
    fi;
