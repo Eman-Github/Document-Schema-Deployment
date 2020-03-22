@@ -84,7 +84,7 @@ GET_RESPONSE=`curl --location --request GET "$DEV_API_URL" \
 --header "${HEADER_AUTHORIZATION}"`
 echo "GET_RESPONSE = $GET_RESPONSE"
 
-export TL_VERSION_DEV=`echo $GET_RESPONSE | grep -oP '(?<="version":)[^,]*'`
+TL_VERSION_DEV=`echo $GET_RESPONSE | grep -oP '(?<="version":)[^,]*'`
 echo "In TL_VERSION_DEV = $TL_VERSION_DEV"
 exit $TL_VERSION_DEV
 #DEV_TL_VERSION=$TL_VERSION_DEV
