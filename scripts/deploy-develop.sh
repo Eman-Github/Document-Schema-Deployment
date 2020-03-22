@@ -7,7 +7,7 @@ if [ -z $1 ]; then
    fi;
 
 if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then 
-   echo $TRAVIS_BRANCH;
+   #echo $TRAVIS_BRANCH;
    BRANCH=$TRAVIS_BRANCH
    TRIGGERED_BY="PUSH"
 else
