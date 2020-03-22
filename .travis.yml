@@ -33,8 +33,8 @@ script:
           echo "Not running CI since no json file was changed." ;
        elif [[ "$TRAVIS_BRANCH" == "develop" ]]; then 
           export TL_VERSION_DEV=`./scripts/deploy-develop.sh $CHANGED_FILES`;
-          echo "TL_VERSION_DEV = $TL_VERSION_DEV";
-          if [[ -z $TL_VERSION_DEV ]] ; then
+          echo "Out TL_VERSION_DEV = $TL_VERSION_DEV";
+          if (( $TL_VERSION_DEV > 0)) ; then
             ./scripts/update_versions.sh $CHANGED_FILES $TL_VERSION_DEV;
           fi;
        fi;
