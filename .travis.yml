@@ -31,14 +31,11 @@ script:
        echo "Changed file = $CHANGED_FILE";
        if  [[ -z $CHANGED_FILES ]] ; then
           echo "Not running CI since no json file was changed." ;
+       elif [ "$TRAVIS_BRANCH" == "develop" ]; then 
+          export TL_VERSION_DEV=`./scripts/deploy-develop.sh $CHANGED_FILES` ;
+          if [[ -z $TL_VERSION_DEV ]] ; then
+            ./scripts/update_versions.sh $CHANGED_FILES $TL_VERSION_DEV;
+          fi;
        fi;
+       
     fi;
-  
-deploy:
-  - provider: script
-    script: export TL_VERSION_DEV=`./scripts/deploy-develop.sh $CHANGED_FILES`
-    on:
-      branch: develop
- 
-after_deploy:
-  - ./scripts/update_versions.sh $CHANGED_FILES $TL_VERSION_DEV;
