@@ -25,7 +25,7 @@ temp=${1#*/}
 CHANGED_DOC_NAME=${temp%.*}
 echo "Document Name $CHANGED_DOC_NAME"
 echo "${CHANGED_DOC_NAME},${TO_BRANCH}"
-LINE=`grep "${CHANGED_DOC_NAME},${TO_BRANCH}" ./scripts/document_schema_data.csv`
+LINE=`grep "${CHANGED_DOC_NAME},${TO_BRANCH}" ./document_schema_data.csv`
 
 IFS=',' read -r -a data <<< "$LINE"
 
@@ -64,14 +64,14 @@ done
 echo "LINE = $LINE"
 echo "NEWLINE = $NEWLINE"
 
-sed -i 's/'"$LINE"'/'"$NEWLINE"'/g' ./scripts/document_schema_data.csv
+sed -i 's/'"$LINE"'/'"$NEWLINE"'/g' ./document_schema_data.csv
 
-cat ./scripts/document_schema_data.csv
+cat ./document_schema_data.csv
 
 
 #git remote add origin https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git
 git status
-git add ./scripts/document_schema_data.csv
+git add ./document_schema_data.csv
 git commit -m "Auto update the versions"
 git show-ref
 #git push origin HEAD:"$FROM_BRANCH_NAME" https://Eman-Github:$GITHUB_ACCESS_TOKEN:x-oauth-basic@github.com/Document-Schema-Deployment origin HEAD:"$FROM_BRANCH_NAME"
