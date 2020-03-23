@@ -38,5 +38,12 @@ script:
           if (( $TL_VERSION_DEV > 0)) ; then
             ./scripts/update_versions.sh $CHANGED_FILES $TL_VERSION_DEV;
           fi;
+       elif [[ "$TRAVIS_BRANCH" == "test" ]]; then
+          ./scripts/deploy-envs.sh $CHANGED_FILES;
+          TL_VERSION=$? ;
+          echo "Out TL_VERSION = $TL_VERSION";
+          if (( $TL_VERSION > 0)) ; then
+            ./scripts/update_versions.sh $CHANGED_FILES $TL_VERSION;
+          fi;
        fi;
     fi;
