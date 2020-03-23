@@ -7,24 +7,24 @@ if [ -z $1 ]; then
 fi;
 
 if [ "$TRAVIS_BRANCH" == "develop" ]; then
-   API_KEY=$DEV_API_KEY"
-   HOST_URL=$DEV_URL
+   API_KEY=$DEV_API_KEY;
+   HOST_URL=$DEV_URL;
 
 elif [ "$TRAVIS_BRANCH" == "test" ]; then
-   API_KEY=$TEST_API_KEY"
-   HOST_URL=$TEST_URL
+   API_KEY=$TEST_API_KEY;
+   HOST_URL=$TEST_URL;
 
 elif [ "$TRAVIS_BRANCH" == "sandbox" ]; then
-   API_KEY=$SANDBOX_API_KEY"
-   HOST_URL=$SANDBOX_URL
+   API_KEY=$SANDBOX_API_KEY;
+   HOST_URL=$SANDBOX_URL;
 
 elif [ "$TRAVIS_BRANCH" == "prod" ]; then
-   API_KEY=$PROD_API_KEY"
-   HOST_URL=$PROD_URL
+   API_KEY=$PROD_API_KEY;
+   HOST_URL=$PROD_URL;
 
 elif [ "$TRAVIS_BRANCH" == "demo" ]; then
-   API_KEY=$DEMO_API_KEY"
-   HOST_URL=$DEMO_URL
+   API_KEY=$DEMO_API_KEY;
+   HOST_URL=$DEMO_URL;
 fi;
 
 
