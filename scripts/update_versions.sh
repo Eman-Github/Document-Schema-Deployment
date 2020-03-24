@@ -84,4 +84,4 @@ git show-ref
 git branch
 git push https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git HEAD:"$TO_BRANCH"
 git push https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git HEAD:"$FROM_BRANCH_NAME"
-git tag "v$TAG_VERSION" 
+git tag -a "v$TAG_VERSION" -m "${TO_BRANCH} v$TAG_VERSION"
