@@ -72,7 +72,7 @@ echo "TAG_VERSION = $TAG_VERSION"
 
 COMMIT_ID=`git rev-parse HEAD`
 git tag -a "v$TAG_VERSION" $COMMIT_ID -m "${TO_BRANCH} v$TAG_VERSION"
-git push origin "v$TAG_VERSION"
+git push "v$TAG_VERSION" https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git HEAD:"$TO_BRANCH"
 
 sed -i 's/'"$LINE"'/'"$NEWLINE"'/g' ./document_schema_data.csv
 
