@@ -41,14 +41,14 @@ do
        ((data[i]=data[i]+1));
        echo "$i after increment ${data[i]}";
      fi;
-     TAG_VERSION="$TAG_VERSION.data[i]."
+     TAG_VERSION="$TAG_VERSIONdata[i]."
 
    elif (($i == 7)); then
      if [[ "$FROM_BRANCH" == *"fixbug"* ]]; then
         ((data[i]=data[i]+1));
         echo "$i after increment ${data[i]}";
      fi;
-     TAG_VERSION="$TAG_VERSION.data[i]"
+     TAG_VERSION="$TAG_VERSIONdata[i]"
 
    fi;
 
