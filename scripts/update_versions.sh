@@ -32,19 +32,24 @@ IFS=',' read -r -a data <<< "$LINE"
 for i in "${!data[@]}"
 do
    echo "$i ${data[i]}"
-      
+   if (($i == 5)) ; then   
+      TAG_VERSION="data[i]."   
+   fi;
    if (($i == 6)) ; then
  
      if [[ "$FROM_BRANCH" == *"feature"* ]]; then
        ((data[i]=data[i]+1));
        echo "$i after increment ${data[i]}";
      fi;
+     TAG_VERSION="$TAG_VERSION.data[i]."
 
    elif (($i == 7)); then
      if [[ "$FROM_BRANCH" == *"fixbug"* ]]; then
         ((data[i]=data[i]+1));
         echo "$i after increment ${data[i]}";
      fi;
+     TAG_VERSION="$TAG_VERSION.data[i]"
+
    fi;
 
    if (($i == 0)) ; then
@@ -63,6 +68,7 @@ done
 
 echo "LINE = $LINE"
 echo "NEWLINE = $NEWLINE"
+echo "TAG_VERSION = $TAG_VERSION"
 
 sed -i 's/'"$LINE"'/'"$NEWLINE"'/g' ./document_schema_data.csv
 
@@ -78,3 +84,4 @@ git show-ref
 git branch
 git push https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git HEAD:"$TO_BRANCH"
 git push https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git HEAD:"$FROM_BRANCH_NAME"
+git tag "v$TAG_VERSION" 
