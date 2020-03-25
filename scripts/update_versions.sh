@@ -14,8 +14,8 @@ FROM_BRANCH_NAME=${temp1#*/}
 FROM_BRANCH=${TRAVIS_COMMIT_MESSAGE}
 TO_BRANCH=$TRAVIS_BRANCH
 
-echo "From Branch: $FROM_BRANCH"
-echo "To Branch: $FROM_BRANCH_NAME"
+echo "commit message: $FROM_BRANCH"
+echo "From Branch: $FROM_BRANCH_NAME"
 echo "To Branch: $TO_BRANCH"
 
 #Get the Document Schema versions from document_schema_data.csv file
@@ -40,14 +40,14 @@ if [[ "$FROM_BRANCH" != *"feature"* ]] && [[ "$FROM_BRANCH" != *"fixbug"* ]] ; t
    do
       echo "$i ${from_data[i]}"
       if (($i == 5)) ; then
-         RELEASE_VERSION="${from_data[i]}"
-   
+         RELEASE_VERSION=$from_data[i]
+         echo "RELEASE_VERSION = $RELEASE_VERSION"
       elif (($i == 6)) ; then
-         DEPLOYMENT_VERSION="${from_data[i]}"
-   
+         DEPLOYMENT_VERSION=$from_data[i]
+         echo "DEPLOYMENT_VERSION = $DEPLOYMENT_VERSION"
       elif (($i == 7)); then
          BUILD_VERSION="${from_data[i]}"
-
+         echo "BUILD_VERSION = $BUILD_VERSION"
       fi;
    
    done
@@ -68,7 +68,7 @@ do
        ((data[i]=data[i]+1));
        echo "$i after increment ${data[i]}";
 
-     elif [[ "$FROM_BRANCH" == "develop" ]] || [[ "$FROM_BRANCH" == "test" ]] || [[ "$FROM_BRANCH" == "sandbox" ]] || [[ "$FROM_BRANCH" == "demo" ]] ; then
+     elif [[ "$FROM_BRANCH_NAME" == "develop" ]] || [[ "$FROM_BRANCH_NAME" == "test" ]] || [[ "$FROM_BRANCH_NAME" == "sandbox" ]] || [[ "$FROM_BRANCH_NAME" == "demo" ]] ; then
        data[i]=$DEPLOYMENT_VERSION
      fi;
       TAG_VERSION="$TAG_VERSION${data[i]}."
@@ -78,7 +78,7 @@ do
         ((data[i]=data[i]+1));
         echo "$i after increment ${data[i]}";
        
-     elif [[ "$FROM_BRANCH" == "develop" ]] || [[ "$FROM_BRANCH" == "test" ]] || [[ "$FROM_BRANCH" == "sandbox" ]] || [[ "$FROM_BRANCH" == "demo" ]] ; then
+     elif [[ "$FROM_BRANCH_NAME" == "develop" ]] || [[ "$FROM_BRANCH_NAME" == "test" ]] || [[ "$FROM_BRANCH_NAME" == "sandbox" ]] || [[ "$FROM_BRANCH_NAME" == "demo" ]] ; then
         data[i]=$BUILD_VERSION
      fi;
      TAG_VERSION="$TAG_VERSION${data[i]}";
