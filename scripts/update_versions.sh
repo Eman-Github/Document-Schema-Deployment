@@ -15,6 +15,7 @@ FROM_BRANCH=${TRAVIS_COMMIT_MESSAGE}
 TO_BRANCH=$TRAVIS_BRANCH
 
 echo "From Branch: $FROM_BRANCH"
+echo "To Branch: $FROM_BRANCH_NAME"
 echo "To Branch: $TO_BRANCH"
 
 #Get the Document Schema versions from document_schema_data.csv file
@@ -31,7 +32,7 @@ TO_LINE=`grep "${CHANGED_DOC_NAME},${TO_BRANCH}" ./document_schema_data.csv`
 
 if [[ "$FROM_BRANCH" != *"feature"* ]] && [[ "$FROM_BRANCH" != *"fixbug"* ]] ; then
 
-   FROM_LINE=`grep "${CHANGED_DOC_NAME},${FROM_BRANCH}" ./document_schema_data.csv`
+   FROM_LINE=`grep "${CHANGED_DOC_NAME},${FROM_BRANCH_NAME}" ./document_schema_data.csv`
 
    IFS=',' read -r -a from_data <<< "$FROM_LINE"
 
