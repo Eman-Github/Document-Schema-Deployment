@@ -9,22 +9,28 @@ fi;
 if [ "$TRAVIS_BRANCH" == "develop" ]; then
    API_KEY=$DEV_API_KEY;
    HOST_URL=$DEV_URL;
+   SOLUTION_ID="gtd-dev"
 
 elif [ "$TRAVIS_BRANCH" == "test" ]; then
    API_KEY=$TEST_API_KEY;
    HOST_URL=$TEST_URL;
+   SOLUTION_ID="gtd-test"
 
 elif [ "$TRAVIS_BRANCH" == "sandbox" ]; then
    API_KEY=$SANDBOX_API_KEY;
    HOST_URL=$SANDBOX_URL;
+   SOLUTION_ID="gtd-sandbox"
 
 elif [ "$TRAVIS_BRANCH" == "prod" ]; then
    API_KEY=$PROD_API_KEY;
    HOST_URL=$PROD_URL;
+   SOLUTION_ID="gtd-prod"
 
 elif [ "$TRAVIS_BRANCH" == "demo" ]; then
    API_KEY=$DEMO_API_KEY;
    HOST_URL=$DEMO_URL;
+   SOLUTION_ID="gtd-demo"
+
 fi;
 
 
@@ -33,7 +39,7 @@ fi;
 HEADER_CONTENT_TYPE="Content-Type:application/x-www-form-urlencoded"
 BODY="grant_type=urn:ibm:params:oauth:grant-type:apikey&apikey=$API_KEY"
 
-#echo "parameters = $HEADER_CONTENT_TYPE and $BODY "
+echo "parameters = $HEADER_CONTENT_TYPE and $BODY "
 RESPONSE_REFRESH_TOKEN=`curl --location --request POST 'https://iam.ng.bluemix.net/oidc/token' --header ${HEADER_CONTENT_TYPE} --data-raw ${BODY}`
 echo "RESPONSE_REFRESH_TOKEN = $RESPONSE_REFRESH_TOKEN"
 #---------------------------------------------------------------------------------
@@ -42,7 +48,7 @@ echo "RESPONSE_REFRESH_TOKEN = $RESPONSE_REFRESH_TOKEN"
 #==============================
 HEADER_CONTENT_TYPE="Content-Type:application/json"
 HEADER_ACCEPT="Accept:application/json"
-URL="$HOST_URL/onboarding/v1/iam/exchange_token/solution/gtd-dev/organization/gtd-ibm-authority"
+URL="$HOST_URL/onboarding/v1/iam/exchange_token/solution/$SOLUTION_ID/organization/gtd-ibm-authority"
 echo "URL = $URL"
 
 RESPONSE_BEARER=`curl --location --request POST "$URL" \
