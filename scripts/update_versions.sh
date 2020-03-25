@@ -25,9 +25,35 @@ temp=${1#*/}
 CHANGED_DOC_NAME=${temp%.*}
 echo "Document Name $CHANGED_DOC_NAME"
 echo "${CHANGED_DOC_NAME},${TO_BRANCH}"
-LINE=`grep "${CHANGED_DOC_NAME},${TO_BRANCH}" ./document_schema_data.csv`
+TO_LINE=`grep "${CHANGED_DOC_NAME},${TO_BRANCH}" ./document_schema_data.csv`
 
-IFS=',' read -r -a data <<< "$LINE"
+#------------- Get From Branch Data ------------
+
+if [[ "$FROM_BRANCH" != *"feature"* ]] && [[ "$FROM_BRANCH" != *"fixbug"* ]] ; then
+
+   FROM_LINE=`grep "${CHANGED_DOC_NAME},${FROM_BRANCH}" ./document_schema_data.csv`
+
+   IFS=',' read -r -a from_data <<< "$FROM_LINE"
+
+   for i in "${!from_data[@]}"
+   do
+      echo "$i ${from_data[i]}"
+      if (($i == 5)) ; then
+         RELEASE_VERSION="${from_data[i]}"
+   
+      elif (($i == 6)) ; then
+         DEPLOYMENT_VERSION="${from_data[i]}"
+   
+      elif (($i == 7)); then
+         BUILD_VERSION="${from_data[i]}"
+
+      fi;
+   
+   done
+
+fi;
+#-----------------------------------------
+IFS=',' read -r -a data <<< "$TO_LINE"
 
 for i in "${!data[@]}"
 do
@@ -40,16 +66,19 @@ do
      if [[ "$FROM_BRANCH" == *"feature"* ]]; then
        ((data[i]=data[i]+1));
        echo "$i after increment ${data[i]}";
+       TAG_VERSION="$TAG_VERSION${data[i]}."
+     else
+       data[i]=DEPLOYMENT_VERSION
      fi;
-     TAG_VERSION="$TAG_VERSION${data[i]}."
 
    elif (($i == 7)); then
      if [[ "$FROM_BRANCH" == *"fixbug"* ]]; then
         ((data[i]=data[i]+1));
         echo "$i after increment ${data[i]}";
+        TAG_VERSION="$TAG_VERSION${data[i]}"
+     else
+        data[i]=BUILD_VERSION
      fi;
-     TAG_VERSION="$TAG_VERSION${data[i]}"
-
    fi;
 
    if (($i == 0)) ; then
@@ -66,17 +95,22 @@ do
    fi;
 done
 
-echo "LINE = $LINE"
+#------------------------------------------------
+
+echo "TO_LINE = $TO_LINE"
+echo "FROM_LINE = $FROM_LINE"
 echo "NEWLINE = $NEWLINE"
 echo "TAG_VERSION = $TAG_VERSION"
 
-COMMIT_ID=`git rev-parse HEAD`
-echo "COMMIT_ID = $COMMIT_ID"
+if [[ "$TO_BRANCH" == "develop" ]]
+   COMMIT_ID=`git rev-parse HEAD`
+   echo "COMMIT_ID = $COMMIT_ID"
 
-git tag -a "v$TAG_VERSION" $COMMIT_ID -m "${TO_BRANCH} v$TAG_VERSION"
-git push --tags https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git
+   git tag -a "v$TAG_VERSION" $COMMIT_ID -m "${TO_BRANCH} v$TAG_VERSION"
+   git push --tags https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git
+fi;
 
-sed -i 's/'"$LINE"'/'"$NEWLINE"'/g' ./document_schema_data.csv
+sed -i 's/'"$TO_LINE"'/'"$NEWLINE"'/g' ./document_schema_data.csv
 
 cat ./document_schema_data.csv
 
