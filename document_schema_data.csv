@@ -1,6 +1,6 @@
 document_name,environment,deployment_timestamp,schema_id,tl_version,release_version,depolyment_version,build_version 
 BookingConfirmation,test,2020-02-17 15:31:00.449,2f541f09dbbb41d29a4156465c078ee5,18,1,0,0
-BillOfLading,develop,2020-03-25 17:40:30,e6ff7547-46de-4b18-af8b-5b4f45e3db88,21,1,10,14
+BillOfLading,develop,2020-03-25 18:00:51,e6ff7547-46de-4b18-af8b-5b4f45e3db88,21,1,10,15
 BookingRequest,develop,2020-02-17 15:31:00.000,1847e163-b4a9-44e2-ad76-1ed83d8a2012,2,1,0,0
 SeaWaybill,develop,2020-02-17 15:31:00.000,23b14277cb904441814e27c14e85ca6e,10,1,0,0
 ShippingInstructions,develop,2020-02-17 15:31:00.000,b3d5da8a-8006-4cb0-a058-c09e8dd90f02,12,1,0,0
