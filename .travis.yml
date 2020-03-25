@@ -3,6 +3,10 @@ language: generic
 env:
   global:
     - DEV_URL=https://platform-dev.tradelens.com
+    - TEST_URL=https://platform-test.tradelens.com
+    - SANDBOX_URL=https://platform-sandbox.tradelens.com
+    - PROD_URL=https://platform.tradelens.com
+    - DEMO_URL=https://platform-demo.tradelens.com
 
 notifications:
   email:
@@ -19,31 +23,23 @@ addons:
     - postgresql-client-10
 
 script:
-  - CHANGED_FILE=`git diff --name-only $TRAVIS_COMMIT_RANGE | grep ".json"`
-  - echo "Changed file = $CHANGED_FILE"
-  - if  [[ -z $CHANGED_FILE ]] ; then
-     echo "Not running CI since no json file was changed." ;
-       exit;
-    else
-       ./scripts/prepare-target.sh $TRAVIS_COMMIT_RANGE $CHANGED_FILE;
-       ./scripts/deploy-develop.sh $CHANGED_FILE; 
+  - echo "TRAVIS_PULL_REQUEST = $TRAVIS_PULL_REQUEST"
+  - echo "TRAVIS_PULL_REQUEST_BRANCH = $TRAVIS_PULL_REQUEST_BRANCH"
+  - echo "TRAVIS_BRANCH = $TRAVIS_BRANCH"
+  - echo "TRAVIS_JOB_NAME = $TRAVIS_JOB_NAME"
+  - echo "TRAVIS_JOB_ID = $TRAVIS_JOB_ID"
+  - echo "TRAVIS_COMMIT_MESSAGE = $TRAVIS_COMMIT_MESSAGE"
+  - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+       CHANGED_FILES=`git diff --name-only $TRAVIS_COMMIT_RANGE | grep ".json"`;
+       echo "Changed file = $CHANGED_FILES";
+       if  [[ -z $CHANGED_FILES ]] ; then
+          echo "Not running CI since no json file was changed." ;
+       elif [[ "$TRAVIS_BRANCH" == "develop" ]] || [[ "$TRAVIS_BRANCH" == "test" ]] || [[ "$TRAVIS_BRANCH" == "sandbox" ]] || [[ "$TRAVIS_BRANCH" == "prod" ]] || [[ "$TRAVIS_BRANCH" == "demo" ]]; then 
+          ./scripts/deploy-develop.sh $CHANGED_FILES;
+          TL_VERSION_DEV=$? ;
+          echo "Out TL_VERSION_DEV = $TL_VERSION_DEV";
+          if (( $TL_VERSION_DEV > 0)) ; then
+            ./scripts/update_versions.sh $CHANGED_FILES $TL_VERSION_DEV;
+          fi;
+       fi;
     fi;
-  
-deploy:
-  - provider: script
-    script: ./scripts/deploy-develop.sh $CHANGED_FILE
-    on:
-      branch: develop
-  - provider: script
-    script: ./scripts/deploy-prod.sh $CHANGED_FILE
-    on:
-      branch: master
-  - provider: script
-    script: ./scripts/deploy-test.sh $CHANGED_FILE
-    on:
-      branch: test
-  - provider: script
-    script: ./scripts/deploy-sandbox.sh $CHANGED_FILE
-    on:
-      branch: sandbox
-
