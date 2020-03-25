@@ -74,18 +74,16 @@ COMMIT_ID=`git rev-parse HEAD`
 echo "COMMIT_ID = $COMMIT_ID"
 
 git tag -a "v$TAG_VERSION" $COMMIT_ID -m "${TO_BRANCH} v$TAG_VERSION"
-git push origin "v$TAG_VERSION"
+git push --tags https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git
 
 sed -i 's/'"$LINE"'/'"$NEWLINE"'/g' ./document_schema_data.csv
 
 cat ./document_schema_data.csv
 
-#git remote add origin https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git
 git status
 git add ./document_schema_data.csv
 git commit -m "Auto update the versions"
 git show-ref
-#git push origin HEAD:"$FROM_BRANCH_NAME" https://Eman-Github:$GITHUB_ACCESS_TOKEN:x-oauth-basic@github.com/Document-Schema-Deployment origin HEAD:"$FROM_BRANCH_NAME"
 git branch
 git push https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git HEAD:"$TO_BRANCH"
 git push https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git HEAD:"$FROM_BRANCH_NAME"
