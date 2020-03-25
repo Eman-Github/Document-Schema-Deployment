@@ -40,10 +40,10 @@ if [[ "$FROM_BRANCH" != *"feature"* ]] && [[ "$FROM_BRANCH" != *"fixbug"* ]] ; t
    do
       echo "$i ${from_data[i]}"
       if (($i == 5)) ; then
-         RELEASE_VERSION=$from_data[i]
+         RELEASE_VERSION="${from_data[i]}"
          echo "RELEASE_VERSION = $RELEASE_VERSION"
       elif (($i == 6)) ; then
-         DEPLOYMENT_VERSION=$from_data[i]
+         DEPLOYMENT_VERSION="${from_data[i]}"
          echo "DEPLOYMENT_VERSION = $DEPLOYMENT_VERSION"
       elif (($i == 7)); then
          BUILD_VERSION="${from_data[i]}"
@@ -121,7 +121,7 @@ cat ./document_schema_data.csv
 
 git status
 git add ./document_schema_data.csv
-git commit -m "Auto update the versions"
+git commit -m "Auto update versions"
 git show-ref
 git branch
 git push https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git HEAD:"$TO_BRANCH"
