@@ -66,19 +66,21 @@ do
      if [[ "$FROM_BRANCH" == *"feature"* ]]; then
        ((data[i]=data[i]+1));
        echo "$i after increment ${data[i]}";
-       TAG_VERSION="$TAG_VERSION${data[i]}."
+
      elif [[ "$FROM_BRANCH" == "develop" ]] || [[ "$FROM_BRANCH" == "test" ]] || [[ "$FROM_BRANCH" == "sandbox" ]] || [[ "$FROM_BRANCH" == "demo" ]] ; then
        data[i]=$DEPLOYMENT_VERSION
      fi;
-
+      TAG_VERSION="$TAG_VERSION${data[i]}."
    elif (($i == 7)); then
+
      if [[ "$FROM_BRANCH" == *"fixbug"* ]]; then
         ((data[i]=data[i]+1));
         echo "$i after increment ${data[i]}";
-        TAG_VERSION="$TAG_VERSION${data[i]}"
+       
      elif [[ "$FROM_BRANCH" == "develop" ]] || [[ "$FROM_BRANCH" == "test" ]] || [[ "$FROM_BRANCH" == "sandbox" ]] || [[ "$FROM_BRANCH" == "demo" ]] ; then
         data[i]=$BUILD_VERSION
      fi;
+     TAG_VERSION="$TAG_VERSION${data[i]}";
    fi;
 
    if (($i == 0)) ; then
