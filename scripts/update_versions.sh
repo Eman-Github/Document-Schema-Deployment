@@ -67,8 +67,8 @@ do
        ((data[i]=data[i]+1));
        echo "$i after increment ${data[i]}";
        TAG_VERSION="$TAG_VERSION${data[i]}."
-     else
-       data[i]=DEPLOYMENT_VERSION
+     elif [[ "$FROM_BRANCH" == "develop" ]] || [[ "$FROM_BRANCH" == "test" ]] || [[ "$FROM_BRANCH" == "sandbox" ]] || [[ "$FROM_BRANCH" == "demo" ]] ; then
+       data[i]=$DEPLOYMENT_VERSION
      fi;
 
    elif (($i == 7)); then
@@ -76,8 +76,8 @@ do
         ((data[i]=data[i]+1));
         echo "$i after increment ${data[i]}";
         TAG_VERSION="$TAG_VERSION${data[i]}"
-     else
-        data[i]=BUILD_VERSION
+     elif [[ "$FROM_BRANCH" == "develop" ]] || [[ "$FROM_BRANCH" == "test" ]] || [[ "$FROM_BRANCH" == "sandbox" ]] || [[ "$FROM_BRANCH" == "demo" ]] ; then
+        data[i]=$BUILD_VERSION
      fi;
    fi;
 
@@ -102,12 +102,14 @@ echo "FROM_LINE = $FROM_LINE"
 echo "NEWLINE = $NEWLINE"
 echo "TAG_VERSION = $TAG_VERSION"
 
-if [[ "$TO_BRANCH" == "develop" ]]
+if [[ "$TO_BRANCH" == "develop" ]]; then
+
    COMMIT_ID=`git rev-parse HEAD`
    echo "COMMIT_ID = $COMMIT_ID"
 
    git tag -a "v$TAG_VERSION" $COMMIT_ID -m "${TO_BRANCH} v$TAG_VERSION"
    git push --tags https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git
+
 fi;
 
 sed -i 's/'"$TO_LINE"'/'"$NEWLINE"'/g' ./document_schema_data.csv
