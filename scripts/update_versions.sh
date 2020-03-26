@@ -62,7 +62,7 @@ do
   array=($line)
   echo ${array[0]}
   echo ${array[1]}
-done < "$TO_LINE"
+done <<< "$TO_LINE"
 
 
 IFS=',' read -r -a data <<< "$TO_LINE"
