@@ -65,7 +65,7 @@ do
    do
       echo "$i ${line_data[i]}"
       if (($i == 6)) ; then
-         if (( $line_data[i] > $max_deployment_version )); then
+         if ((line_data[i] > $max_deployment_version)); then
             max_deployment_version="${line_data[i]}"    
             max_deployment_line="$line"
          fi;
