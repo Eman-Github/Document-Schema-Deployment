@@ -56,7 +56,7 @@ if [[ "$FROM_BRANCH" != *"feature"* ]] && [[ "$FROM_BRANCH" != *"fixbug"* ]] ; t
 
 fi;
 #-----------------------------------------
-max_deployment_version = 0
+echo max_deployment_version=0
 while read line
 do
   echo "line = $line"
