@@ -72,12 +72,17 @@ do
        data[i]=$DEPLOYMENT_VERSION
      fi;
       TAG_VERSION="$TAG_VERSION${data[i]}."
+   
    elif (($i == 7)); then
 
      if [[ "$FROM_BRANCH" == *"fixbug"* ]]; then
         ((data[i]=data[i]+1));
         echo "$i after increment ${data[i]}";
-       
+
+     elif [[ "$FROM_BRANCH" == *"feature"* ]]; then
+       ((data[i]=0));
+       echo "$i new feature with Build version ${data[i]}";
+  
      elif [[ "$FROM_BRANCH_NAME" == "develop" ]] || [[ "$FROM_BRANCH_NAME" == "test" ]] || [[ "$FROM_BRANCH_NAME" == "sandbox" ]] || [[ "$FROM_BRANCH_NAME" == "demo" ]] ; then
         data[i]=$BUILD_VERSION
      fi;
