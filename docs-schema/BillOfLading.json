@@ -1,4 +1,4 @@
-Test 005{
+Test 006{
     "schema": {
         "model": "BillOfLading",
         "type": "object",
