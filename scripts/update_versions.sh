@@ -104,7 +104,7 @@ do
         echo "$i after increment ${data[i]}";
 
      elif [[ "$FROM_BRANCH" == *"feature"* ]]; then
-       ((data[i]=0));
+       data[i]=0;
        echo "$i new feature with Build version ${data[i]}";
   
      elif [[ "$FROM_BRANCH_NAME" == "develop" ]] || [[ "$FROM_BRANCH_NAME" == "test" ]] || [[ "$FROM_BRANCH_NAME" == "sandbox" ]] || [[ "$FROM_BRANCH_NAME" == "demo" ]] ; then
