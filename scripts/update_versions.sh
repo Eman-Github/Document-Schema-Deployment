@@ -56,16 +56,29 @@ if [[ "$FROM_BRANCH" != *"feature"* ]] && [[ "$FROM_BRANCH" != *"fixbug"* ]] ; t
 
 fi;
 #-----------------------------------------
+max_deployment_version = 0
 while read line
 do
   echo "line = $line"
-  array=($line)
-  echo ${array[0]}
-  echo ${array[1]}
+  IFS=',' read -r -a line_data <<< "$line"
+  for i in "${!line_data[@]}"
+   do
+      echo "$i ${line_data[i]}"
+      if (($i == 6)) ; then
+         if(${line_data[i]} > max_deployment_version); then
+            max_deployment_version=${line_data[i]}    
+            max_deployment_line=$line
+         fi;
+      fi;
+
+   done
+
 done <<< "$TO_LINE"
 
+echo "max_deployment_version = $max_deployment_version"
+echo "max_deployment_line = $max_deployment_line"
 
-IFS=',' read -r -a data <<< "$TO_LINE"
+IFS=',' read -r -a data <<< "$max_deployment_line"
 
 for i in "${!data[@]}"
 do
@@ -116,7 +129,7 @@ done
 
 #------------------------------------------------
 
-echo "TO_LINE = $TO_LINE"
+echo "TO_LINE = $max_deployment_line"
 echo "FROM_LINE = $FROM_LINE"
 echo "NEWLINE = $NEWLINE"
 echo "TAG_VERSION = $TAG_VERSION"
