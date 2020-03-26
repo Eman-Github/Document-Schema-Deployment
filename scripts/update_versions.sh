@@ -27,12 +27,14 @@ CHANGED_DOC_NAME=${temp%.*}
 echo "Document Name $CHANGED_DOC_NAME"
 echo "${CHANGED_DOC_NAME},${TO_BRANCH}"
 TO_LINE=`grep "${CHANGED_DOC_NAME},${TO_BRANCH}" ./document_schema_data.csv`
+echo "TO_LINE = $TO_LINE"
 
 #------------- Get From Branch Data ------------
 
 if [[ "$FROM_BRANCH" != *"feature"* ]] && [[ "$FROM_BRANCH" != *"fixbug"* ]] ; then
 
    FROM_LINE=`grep "${CHANGED_DOC_NAME},${FROM_BRANCH_NAME}" ./document_schema_data.csv`
+   echo "FROM_LINE = $FROM_LINE"
 
    IFS=',' read -r -a from_data <<< "$FROM_LINE"
 
@@ -54,6 +56,15 @@ if [[ "$FROM_BRANCH" != *"feature"* ]] && [[ "$FROM_BRANCH" != *"fixbug"* ]] ; t
 
 fi;
 #-----------------------------------------
+while read line
+do
+  echo "line = $line"
+  array=($line)
+  echo ${array[0]}
+  echo ${array[1]}
+done < "$TO_LINE"
+
+
 IFS=',' read -r -a data <<< "$TO_LINE"
 
 for i in "${!data[@]}"
@@ -121,9 +132,11 @@ if [[ "$TO_BRANCH" == "develop" ]]; then
 fi;
 
 if [[ "$FROM_BRANCH" == *"fixbug"* ]]; then
- sed -i 's/'"$TO_LINE"'/'"$NEWLINE"'/g' ./document_schema_data.csv
+  sed -i 's/'"$TO_LINE"'/'"$NEWLINE"'/g' ./document_schema_data.csv
+
 elif [[ "$FROM_BRANCH" == *"feature"* ]]; then
- echo "$NEWLINE"  >> ./document_schema_data.csv 
+  echo "$NEWLINE"  >> ./document_schema_data.csv 
+
 fi;
 
 cat ./document_schema_data.csv
