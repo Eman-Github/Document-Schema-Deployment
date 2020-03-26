@@ -115,7 +115,11 @@ if [[ "$TO_BRANCH" == "develop" ]]; then
 
 fi;
 
-sed -i 's/'"$TO_LINE"'/'"$NEWLINE"'/g' ./document_schema_data.csv
+if [[ "$FROM_BRANCH" == *"fixbug"* ]]; then
+ sed -i 's/'"$TO_LINE"'/'"$NEWLINE"'/g' ./document_schema_data.csv
+elif [[ "$FROM_BRANCH" == *"feature"* ]]; then
+ echo "$NEWLINE"  >> ./document_schema_data.csv 
+fi;
 
 cat ./document_schema_data.csv
 
