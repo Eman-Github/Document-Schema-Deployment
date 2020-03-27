@@ -30,6 +30,30 @@ TO_LINE=`grep "${CHANGED_DOC_NAME},${TO_BRANCH}" ./document_schema_data.csv`
 echo "TO_LINE = $TO_LINE"
 
 #------------- Get From Branch Data ------------
+if [[ "$FROM_BRANCH" == *"fixbug"* ]] ; then
+   IFS='_' read -r -a FIXBUG_NAME <<< "$FROM_BRANCH_NAME"
+   for i in "${!FIXBUG_NAME[@]}"
+   do
+      echo "$i ${FIXBUG_NAME[i]}"
+      if (($i == 1)) ; then
+         IFS='_' read -r -a RELEASE_NUM <<< "${FIXBUG_NAME[i]}"
+         for j in "${!RELEASE_NUM[@]}"
+         do
+           echo "$j ${RELEASE_NUM[j]}"
+           if (($j == 0)) ; then
+              BUG_RELEASE_VERSION="${RELEASE_NUM[j]}"
+              echo "BUG_RELEASE_VERSION = $BUG_RELEASE_VERSION"
+           elif (($j == 1)) ; then
+              BUG_DEPLOYMNET_VERSION="${RELEASE_NUM[j]}"
+              echo "BUG_DEPLOYMNET_VERSION = $BUG_DEPLOYMNET_VERSION"
+           elif (($j == 2)) ; then
+              BUG_BUILD_VERSION="${RELEASE_NUM[j]}"
+              echo "BUG_BUILD_VERSION = $BUG_BUILD_VERSION"
+           fi;
+         done
+      fi;
+   done     
+fi;
 
 if [[ "$FROM_BRANCH" != *"feature"* ]] && [[ "$FROM_BRANCH" != *"fixbug"* ]] ; then
 
