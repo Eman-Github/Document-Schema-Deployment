@@ -36,7 +36,7 @@ if [[ "$FROM_BRANCH" == *"fixbug"* ]] ; then
    do
       echo "$i ${FIXBUG_NAME[i]}"
       if (($i == 1)) ; then
-         IFS='_' read -r -a RELEASE_NUM <<< "${FIXBUG_NAME[i]}"
+         IFS='.' read -r -a RELEASE_NUM <<< "${FIXBUG_NAME[i]}"
          for j in "${!RELEASE_NUM[@]}"
          do
            echo "$j ${RELEASE_NUM[j]}"
