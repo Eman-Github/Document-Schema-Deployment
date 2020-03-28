@@ -169,7 +169,7 @@ if [[ "$TO_BRANCH" == "develop" ]]; then
 fi;
 
 if [[ "$FROM_BRANCH" == *"fixbug"* ]]; then
-sed -i 's/'"$TO_LINE"'/'"$NEWLINE"'/g' ./document_schema_data.csv
+sed -i 's/'"$max_deployment_line"'/'"$NEWLINE"'/g' ./document_schema_data.csv
 
 elif [[ "$FROM_BRANCH" == *"feature"* ]]; then
   echo "$NEWLINE"  >> ./document_schema_data.csv 
