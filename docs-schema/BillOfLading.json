@@ -1,4 +1,4 @@
-feature v1.4.0{
+fixbug v1.2{
     "schema": {
         "model": "BillOfLading",
         "type": "object",
