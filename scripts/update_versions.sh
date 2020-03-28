@@ -27,12 +27,73 @@ CHANGED_DOC_NAME=${temp%.*}
 echo "Document Name $CHANGED_DOC_NAME"
 echo "${CHANGED_DOC_NAME},${TO_BRANCH}"
 TO_LINE=`grep "${CHANGED_DOC_NAME},${TO_BRANCH}" ./document_schema_data.csv`
+echo "TO_LINE = $TO_LINE"
 
-#------------- Get From Branch Data ------------
+#------------- Get From Branch Data In case of fixbug ------------
+if [[ "$FROM_BRANCH" == *"fixbug"* ]] ; then
+   IFS='_' read -r -a FIXBUG_NAME <<< "$FROM_BRANCH_NAME"
+   for i in "${!FIXBUG_NAME[@]}"
+   do
+      echo "$i ${FIXBUG_NAME[i]}"
+      if (($i == 1)) ; then
+         IFS='.' read -r -a RELEASE_NUM <<< "${FIXBUG_NAME[i]}"
+         for j in "${!RELEASE_NUM[@]}"
+         do
+           echo "$j ${RELEASE_NUM[j]}"
+           if (($j == 0)) ; then
+              BUG_RELEASE_VERSION="${RELEASE_NUM[j]}"
+              echo "BUG_RELEASE_VERSION = $BUG_RELEASE_VERSION"
+           elif (($j == 1)) ; then
+              BUG_DEPLOYMNET_VERSION="${RELEASE_NUM[j]}"
+              echo "BUG_DEPLOYMNET_VERSION = $BUG_DEPLOYMNET_VERSION"
+           fi;
+         done
+      fi;
+   done     
+   
+   while read line
+   do 
+      echo "line = $line"
+      IFS=',' read -r -a line_data <<< "$line"
+      for i in "${!line_data[@]}"
+      do
+         echo "$i ${line_data[i]}"
+         if (($i == 6)) ; then
+            if [[ "${line_data[i]}" == "$BUG_DEPLOYMNET_VERSION" ]]; then
+              current_deployment_version="${line_data[i]}"
+              current_deployment_line="$line"
+            fi;
+         fi;
 
+      done
+
+   done <<< "$TO_LINE"
+#-------- Get the deployment and build Line of document to be updated in case of feature ------------------------------------
+elif [[ "$FROM_BRANCH" == *"feature"* ]] ; then
+  
+   echo current_deployment_version=0
+   while read line
+   do
+     echo "line = $line"
+     IFS=',' read -r -a line_data <<< "$line"
+     for i in "${!line_data[@]}"        
+     do
+       echo "$i ${line_data[i]}"
+       if (($i == 6)) ; then
+          if [[ "${line_data[i]}" -gt "$current_deployment_version" ]]; then
+            current_deployment_version="${line_data[i]}"
+            current_deployment_line="$line"
+          fi;
+       fi;
+     done
+
+   done <<< "$TO_LINE"   
+fi;
+#------------------------------------------------------------------------
 if [[ "$FROM_BRANCH" != *"feature"* ]] && [[ "$FROM_BRANCH" != *"fixbug"* ]] ; then
 
    FROM_LINE=`grep "${CHANGED_DOC_NAME},${FROM_BRANCH_NAME}" ./document_schema_data.csv`
+   echo "FROM_LINE = $FROM_LINE"
 
    IFS=',' read -r -a from_data <<< "$FROM_LINE"
 
@@ -53,8 +114,11 @@ if [[ "$FROM_BRANCH" != *"feature"* ]] && [[ "$FROM_BRANCH" != *"fixbug"* ]] ; t
    done
 
 fi;
-#-----------------------------------------
-IFS=',' read -r -a data <<< "$TO_LINE"
+#----------------------------------------------------------------------------------
+echo "current_deployment_version = $current_deployment_version"
+echo "current_deployment_line = $current_deployment_line"
+
+IFS=',' read -r -a data <<< "$current_deployment_line"
 
 for i in "${!data[@]}"
 do
@@ -72,12 +136,17 @@ do
        data[i]=$DEPLOYMENT_VERSION
      fi;
       TAG_VERSION="$TAG_VERSION${data[i]}."
+   
    elif (($i == 7)); then
 
      if [[ "$FROM_BRANCH" == *"fixbug"* ]]; then
         ((data[i]=data[i]+1));
         echo "$i after increment ${data[i]}";
-       
+
+     elif [[ "$FROM_BRANCH" == *"feature"* ]]; then
+       data[i]=0;
+       echo "$i new feature with Build version ${data[i]}";
+  
      elif [[ "$FROM_BRANCH_NAME" == "develop" ]] || [[ "$FROM_BRANCH_NAME" == "test" ]] || [[ "$FROM_BRANCH_NAME" == "sandbox" ]] || [[ "$FROM_BRANCH_NAME" == "demo" ]] ; then
         data[i]=$BUILD_VERSION
      fi;
@@ -100,7 +169,7 @@ done
 
 #------------------------------------------------
 
-echo "TO_LINE = $TO_LINE"
+echo "TO_LINE = $current_deployment_line"
 echo "FROM_LINE = $FROM_LINE"
 echo "NEWLINE = $NEWLINE"
 echo "TAG_VERSION = $TAG_VERSION"
@@ -115,7 +184,13 @@ if [[ "$TO_BRANCH" == "develop" ]]; then
 
 fi;
 
-sed -i 's/'"$TO_LINE"'/'"$NEWLINE"'/g' ./document_schema_data.csv
+if [[ "$FROM_BRANCH" == *"fixbug"* ]]; then
+sed -i 's/'"$current_deployment_line"'/'"$NEWLINE"'/g' ./document_schema_data.csv
+
+elif [[ "$FROM_BRANCH" == *"feature"* ]]; then
+  echo "$NEWLINE"  >> ./document_schema_data.csv 
+
+fi;
 
 cat ./document_schema_data.csv
 
