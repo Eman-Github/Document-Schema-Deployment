@@ -69,7 +69,7 @@ if [[ "$FROM_BRANCH" == *"fixbug"* ]] ; then
 
    done <<< "$TO_LINE"
 #-------- Get the deployment and build Line of document to be updated in case of feature ------------------------------------
-elif [[ "$FROM_BRANCH" == *"feature"* ]]
+elif [[ "$FROM_BRANCH" == *"feature"* ]] ; then
   
    echo current_deployment_version=0
    while read line

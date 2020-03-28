@@ -1,4 +1,4 @@
-FixBug v1.3.3{
+FixBugv1.3.3{
     "schema": {
         "model": "BillOfLading",
         "type": "object",
