@@ -29,7 +29,7 @@ echo "${CHANGED_DOC_NAME},${TO_BRANCH}"
 TO_LINE=`grep "${CHANGED_DOC_NAME},${TO_BRANCH}" ./document_schema_data.csv`
 echo "TO_LINE = $TO_LINE"
 
-#------------- Get From Branch Data ------------
+#------------- Get From Branch Data In case of fixbug ------------
 if [[ "$FROM_BRANCH" == *"fixbug"* ]] ; then
    IFS='_' read -r -a FIXBUG_NAME <<< "$FROM_BRANCH_NAME"
    for i in "${!FIXBUG_NAME[@]}"
@@ -54,7 +54,7 @@ if [[ "$FROM_BRANCH" == *"fixbug"* ]] ; then
       fi;
    done     
 fi;
-
+#------------------------------------------------------------------------
 if [[ "$FROM_BRANCH" != *"feature"* ]] && [[ "$FROM_BRANCH" != *"fixbug"* ]] ; then
 
    FROM_LINE=`grep "${CHANGED_DOC_NAME},${FROM_BRANCH_NAME}" ./document_schema_data.csv`
@@ -169,7 +169,7 @@ if [[ "$TO_BRANCH" == "develop" ]]; then
 fi;
 
 if [[ "$FROM_BRANCH" == *"fixbug"* ]]; then
-  sed -i 's/'"$TO_LINE"'/'"$NEWLINE"'/g' ./document_schema_data.csv
+sed -i 's/'"$TO_LINE"'/'"$NEWLINE"'/g' ./document_schema_data.csv
 
 elif [[ "$FROM_BRANCH" == *"feature"* ]]; then
   echo "$NEWLINE"  >> ./document_schema_data.csv 
