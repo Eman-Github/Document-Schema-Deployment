@@ -46,13 +46,48 @@ if [[ "$FROM_BRANCH" == *"fixbug"* ]] ; then
            elif (($j == 1)) ; then
               BUG_DEPLOYMNET_VERSION="${RELEASE_NUM[j]}"
               echo "BUG_DEPLOYMNET_VERSION = $BUG_DEPLOYMNET_VERSION"
-           elif (($j == 2)) ; then
-              BUG_BUILD_VERSION="${RELEASE_NUM[j]}"
-              echo "BUG_BUILD_VERSION = $BUG_BUILD_VERSION"
            fi;
          done
       fi;
    done     
+   
+   while read line
+   do 
+      echo "line = $line"
+      IFS=',' read -r -a line_data <<< "$line"
+      for i in "${!line_data[@]}"
+      do
+         echo "$i ${line_data[i]}"
+         if (($i == 6)) ; then
+            if [[ "${line_data[i]}" == "$BUG_DEPLOYMNET_VERSION" ]]; then
+              current_deployment_version="${line_data[i]}"
+              current_deployment_line="$line"
+            fi;
+         fi;
+
+      done
+
+   done <<< "$TO_LINE"
+#-------- Get the deployment and build Line of document to be updated in case of feature ------------------------------------
+elif [[ "$FROM_BRANCH" == *"feature"* ]]
+  
+   echo current_deployment_version=0
+   while read line
+   do
+     echo "line = $line"
+     IFS=',' read -r -a line_data <<< "$line"
+     for i in "${!line_data[@]}"        
+     do
+       echo "$i ${line_data[i]}"
+       if (($i == 6)) ; then
+          if [[ "${line_data[i]}" -gt "$current_deployment_version" ]]; then
+            current_deployment_version="${line_data[i]}"
+            current_deployment_line="$line"
+          fi;
+       fi;
+     done
+
+   done <<< "$TO_LINE"   
 fi;
 #------------------------------------------------------------------------
 if [[ "$FROM_BRANCH" != *"feature"* ]] && [[ "$FROM_BRANCH" != *"fixbug"* ]] ; then
@@ -79,30 +114,11 @@ if [[ "$FROM_BRANCH" != *"feature"* ]] && [[ "$FROM_BRANCH" != *"fixbug"* ]] ; t
    done
 
 fi;
-#-----------------------------------------
-echo max_deployment_version=0
-while read line
-do
-  echo "line = $line"
-  IFS=',' read -r -a line_data <<< "$line"
-  for i in "${!line_data[@]}"
-   do
-      echo "$i ${line_data[i]}"
-      if (($i == 6)) ; then
-         if [[ "${line_data[i]}" -gt "$max_deployment_version" ]]; then
-            max_deployment_version="${line_data[i]}"    
-            max_deployment_line="$line"
-         fi;
-      fi;
+#----------------------------------------------------------------------------------
+echo "current_deployment_version = $current_deployment_version"
+echo "current_deployment_line = $current_deployment_line"
 
-   done
-
-done <<< "$TO_LINE"
-
-echo "max_deployment_version = $max_deployment_version"
-echo "max_deployment_line = $max_deployment_line"
-
-IFS=',' read -r -a data <<< "$max_deployment_line"
+IFS=',' read -r -a data <<< "$current_deployment_line"
 
 for i in "${!data[@]}"
 do
@@ -153,7 +169,7 @@ done
 
 #------------------------------------------------
 
-echo "TO_LINE = $max_deployment_line"
+echo "TO_LINE = $current_deployment_line"
 echo "FROM_LINE = $FROM_LINE"
 echo "NEWLINE = $NEWLINE"
 echo "TAG_VERSION = $TAG_VERSION"
@@ -169,7 +185,7 @@ if [[ "$TO_BRANCH" == "develop" ]]; then
 fi;
 
 if [[ "$FROM_BRANCH" == *"fixbug"* ]]; then
-sed -i 's/'"$max_deployment_line"'/'"$NEWLINE"'/g' ./document_schema_data.csv
+sed -i 's/'"$current_deployment_line"'/'"$NEWLINE"'/g' ./document_schema_data.csv
 
 elif [[ "$FROM_BRANCH" == *"feature"* ]]; then
   echo "$NEWLINE"  >> ./document_schema_data.csv 
