@@ -92,11 +92,14 @@ fi;
 #------------------------------------------------------------------------
 if [[ "$FROM_BRANCH" != *"feature"* ]] && [[ "$FROM_BRANCH" != *"fixbug"* ]] ; then
 
-   VERSION_TO_DEPLOY=${FIRSTLINE[6]}
+   #VERSION_TO_DEPLOY=${FIRSTLINE[6]}
+   #echo "VERSION_TO_DEPLOY = $VERSION_TO_DEPLOY"
+   #FROM_LINE=`grep "${CHANGED_DOC_NAME},${FROM_BRANCH_NAME}" ./document_schema_data.csv`
+   #echo "FROM_LINE = $FROM_LINE"
+
+   VERSION_TO_DEPLOY=${FROM_BRANCH_NAME#*/v}
    echo "VERSION_TO_DEPLOY = $VERSION_TO_DEPLOY"
-   FROM_LINE=`grep "${CHANGED_DOC_NAME},${FROM_BRANCH_NAME}" ./document_schema_data.csv`
-   echo "FROM_LINE = $FROM_LINE"
-   
+
    IFS='.' read -r -a from_data <<< "$VERSION_TO_DEPLOY"
 
    for i in "${!from_data[@]}"
