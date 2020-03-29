@@ -92,26 +92,45 @@ fi;
 #------------------------------------------------------------------------
 if [[ "$FROM_BRANCH" != *"feature"* ]] && [[ "$FROM_BRANCH" != *"fixbug"* ]] ; then
 
+   VERSION_TO_DEPLOY=${FIRSTLINE[6]}
+   echo "VERSION_TO_DEPLOY = $VERSION_TO_DEPLOY"
    FROM_LINE=`grep "${CHANGED_DOC_NAME},${FROM_BRANCH_NAME}" ./document_schema_data.csv`
    echo "FROM_LINE = $FROM_LINE"
-
-   IFS=',' read -r -a from_data <<< "$FROM_LINE"
+   
+   IFS='.' read -r -a from_data <<< "$VERSION_TO_DEPLOY"
 
    for i in "${!from_data[@]}"
    do
       echo "$i ${from_data[i]}"
-      if (($i == 5)) ; then
+      if (($i == 0)) ; then
          RELEASE_VERSION="${from_data[i]}"
          echo "RELEASE_VERSION = $RELEASE_VERSION"
-      elif (($i == 6)) ; then
+      elif (($i == 1)) ; then
          DEPLOYMENT_VERSION="${from_data[i]}"
          echo "DEPLOYMENT_VERSION = $DEPLOYMENT_VERSION"
-      elif (($i == 7)); then
+      elif (($i == 2)); then
          BUILD_VERSION="${from_data[i]}"
          echo "BUILD_VERSION = $BUILD_VERSION"
       fi;
-   
+
    done
+
+   while read line
+   do
+     echo "line = $line"
+     IFS=',' read -r -a line_data <<< "$line"
+     for i in "${!line_data[@]}"
+     do
+       echo "$i ${line_data[i]}"
+       if (($i == 6)) ; then
+          if [[ "${line_data[i]}" == "$DEPLOYMENT_VERSION" ]]; then
+            current_deployment_version="${line_data[i]}"
+            current_deployment_line=$line"
+          fi;
+       fi;
+     done
+
+   done <<< "$FROM_LINE"
 
 fi;
 #----------------------------------------------------------------------------------
