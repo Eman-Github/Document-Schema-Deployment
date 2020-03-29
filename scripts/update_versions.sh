@@ -130,7 +130,7 @@ if [[ "$FROM_BRANCH" != *"feature"* ]] && [[ "$FROM_BRANCH" != *"fixbug"* ]] ; t
        fi;
      done
 
-   done <<< "$FROM_LINE"
+   done <<< "$TO_LINE"
 
 fi;
 #----------------------------------------------------------------------------------
@@ -209,6 +209,8 @@ sed -i 's/'"$current_deployment_line"'/'"$NEWLINE"'/g' ./document_schema_data.cs
 elif [[ "$FROM_BRANCH" == *"feature"* ]]; then
   echo "$NEWLINE"  >> ./document_schema_data.csv 
 
+elif [[ "$FROM_BRANCH_NAME" == "develop" ]] || [[ "$FROM_BRANCH_NAME" == "test" ]] || [[ "$FROM_BRANCH_NAME" == "sandbox" ]] || [[ "$FROM_BRANCH_NAME" == "demo" ]] ; then
+  sed -i 's/'"$current_deployment_line"'/'"$NEWLINE"'/g' ./document_schema_data.csv
 fi;
 
 cat ./document_schema_data.csv
