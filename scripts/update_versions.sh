@@ -131,7 +131,14 @@ if [[ "$FROM_BRANCH" != *"feature"* ]] && [[ "$FROM_BRANCH" != *"fixbug"* ]] ; t
      done
 
    done <<< "$TO_LINE"
-
+   
+   if [ -z $current_deployment_line ]; then
+    echo "version $VERSION_TO_DEPLOY not deployed to $TO_BRANCH previously ";
+    TEMP_LINE_1=`sed -n ${1}p <<< "$TO_LINE"`
+    current_deployment_line="$TEMP_LINE_1"
+    NOT_DEPLOYED_BEFORE="true"
+   fi;
+   NOT_DEPLOYED_BEFORE="false"
 fi;
 #----------------------------------------------------------------------------------
 echo "current_deployment_version = $current_deployment_version"
@@ -210,7 +217,11 @@ elif [[ "$FROM_BRANCH" == *"feature"* ]]; then
   echo "$NEWLINE"  >> ./document_schema_data.csv 
 
 elif [[ "$FROM_BRANCH_NAME" == "develop" ]] || [[ "$FROM_BRANCH_NAME" == "test" ]] || [[ "$FROM_BRANCH_NAME" == "sandbox" ]] || [[ "$FROM_BRANCH_NAME" == "demo" ]] ; then
-  sed -i 's/'"$current_deployment_line"'/'"$NEWLINE"'/g' ./document_schema_data.csv
+   if [[ "$NOT_DEPLOYED_BEFORE" == "false" ]]; then
+     sed -i 's/'"$current_deployment_line"'/'"$NEWLINE"'/g' ./document_schema_data.csv
+   else
+     echo "$NEWLINE"  >> ./document_schema_data.csv
+   fi;
 fi;
 
 cat ./document_schema_data.csv
