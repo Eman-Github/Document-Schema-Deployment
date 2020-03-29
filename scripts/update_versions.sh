@@ -132,13 +132,15 @@ if [[ "$FROM_BRANCH" != *"feature"* ]] && [[ "$FROM_BRANCH" != *"fixbug"* ]] ; t
 
    done <<< "$TO_LINE"
    
+   NOT_DEPLOYED_BEFORE="false"
+
    if [ -z $current_deployment_line ]; then
     echo "version $VERSION_TO_DEPLOY not deployed to $TO_BRANCH previously ";
     TEMP_LINE_1=`sed -n 1p <<< "$TO_LINE"`
     current_deployment_line="$TEMP_LINE_1"
     NOT_DEPLOYED_BEFORE="true"
    fi;
-   NOT_DEPLOYED_BEFORE="false"
+
 fi;
 #----------------------------------------------------------------------------------
 echo "current_deployment_version = $current_deployment_version"
