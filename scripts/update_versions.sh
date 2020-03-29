@@ -202,16 +202,6 @@ echo "FROM_LINE = $FROM_LINE"
 echo "NEWLINE = $NEWLINE"
 echo "TAG_VERSION = $TAG_VERSION"
 
-if [[ "$TO_BRANCH" == "develop" ]]; then
-
-   COMMIT_ID=`git rev-parse HEAD`
-   echo "COMMIT_ID = $COMMIT_ID"
-
-   git tag -a "v$TAG_VERSION" $COMMIT_ID -m "${TO_BRANCH} v$TAG_VERSION"
-   git push --tags https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git
-
-fi;
-
 if [[ "$FROM_BRANCH" == *"fixbug"* ]]; then
 sed -i 's/'"$current_deployment_line"'/'"$NEWLINE"'/g' ./document_schema_data.csv
 
@@ -235,3 +225,14 @@ git show-ref
 git branch
 git push https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git HEAD:"$TO_BRANCH"
 git push https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git HEAD:"$FROM_BRANCH_NAME"
+
+if [[ "$TO_BRANCH" == "develop" ]]; then
+
+   COMMIT_ID=`git rev-parse HEAD`
+   echo "COMMIT_ID = $COMMIT_ID"
+   git checkout -b release/"v$TAG_VERSION" origin/develop
+   git push release/"v$TAG_VERSION" https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git
+   git tag -a "v$TAG_VERSION" $COMMIT_ID -m "${TO_BRANCH} v$TAG_VERSION"
+   git push --tags https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git
+
+fi;
