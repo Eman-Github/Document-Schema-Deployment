@@ -25,7 +25,7 @@ CommercialInvoice,prod,2020-02-17 15:49:31.090,38757d54d8f64929ac69baffe00c7cfd,
 VerifyCopy,prod,2020-02-17 15:50:03.280,986f47c4-6892-45d6-86e2-25461bd1701f,4,1,0,0
 BillOfLading,prod,2020-02-17 15:50:38.032,322da775-7405-49fa-9e93-6f4b99fbf096,2,1,0,0
 CommercialInvoice,sandbox,2020-02-17 15:44:07.141,245ebe4bc89b47f3b9e2951ad64c22d3,3,1,0,0
-BillOfLading,develop,2020-03-29 11:49:49,e6ff7547-46de-4b18-af8b-5b4f45e3db88,32,1,2,12
+BillOfLading,develop,2020-03-29 12:45:47,e6ff7547-46de-4b18-af8b-5b4f45e3db88,32,1,2,13
 BillOfLading,develop,2020-03-28 20:52:32,e6ff7547-46de-4b18-af8b-5b4f45e3db88,32,1,3,3
 CommercialInvoice,sandbox,2020-02-17 15:44:07.141,245ebe4bc89b47f3b9e2951ad64c22d3,3,1,0,0
 BillOfLading,develop,2020-03-28 21:04:48,e6ff7547-46de-4b18-af8b-5b4f45e3db88,32,1,4,0
