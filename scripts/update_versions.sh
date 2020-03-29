@@ -125,7 +125,7 @@ if [[ "$FROM_BRANCH" != *"feature"* ]] && [[ "$FROM_BRANCH" != *"fixbug"* ]] ; t
        if (($i == 6)) ; then
           if [[ "${line_data[i]}" == "$DEPLOYMENT_VERSION" ]]; then
             current_deployment_version="${line_data[i]}"
-            current_deployment_line=$line"
+            current_deployment_line="$line"
           fi;
        fi;
      done

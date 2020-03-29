@@ -1,4 +1,4 @@
-fixbug yyy v1.2{
+fixbugyyy v1.2{
     "schema": {
         "model": "BillOfLading",
         "type": "object",
