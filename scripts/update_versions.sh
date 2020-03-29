@@ -134,7 +134,7 @@ if [[ "$FROM_BRANCH" != *"feature"* ]] && [[ "$FROM_BRANCH" != *"fixbug"* ]] ; t
    
    if [ -z $current_deployment_line ]; then
     echo "version $VERSION_TO_DEPLOY not deployed to $TO_BRANCH previously ";
-    TEMP_LINE_1=`sed -n ${1}p <<< "$TO_LINE"`
+    TEMP_LINE_1=`sed -n 1p <<< "$TO_LINE"`
     current_deployment_line="$TEMP_LINE_1"
     NOT_DEPLOYED_BEFORE="true"
    fi;

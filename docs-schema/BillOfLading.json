@@ -1,4 +1,4 @@
-fixbugyyy v1.2 and deploy to Test2{
+fixbugyyy v1.2 and deploy to Test3{
     "schema": {
         "model": "BillOfLading",
         "type": "object",
