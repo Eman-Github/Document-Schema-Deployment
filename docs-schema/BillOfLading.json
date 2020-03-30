@@ -1,4 +1,4 @@
-Feature BOL XXXX {
+Fixbug BOL YYYY {
     "schema": {
         "model": "BillOfLading",
         "type": "object",
