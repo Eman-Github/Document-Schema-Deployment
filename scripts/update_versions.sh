@@ -137,7 +137,7 @@ if [[ "$FROM_BRANCH" != *"feature"* ]] && [[ "$FROM_BRANCH" != *"fixbug"* ]] ; t
    
    NOT_DEPLOYED_BEFORE="false"
 
-   if [ -z $current_deployment_line ]; then
+   if [ -z "$current_deployment_line" ]; then
     echo "version $VERSION_TO_DEPLOY not deployed to $TO_BRANCH previously ";
     TEMP_LINE_1=`sed -n 1p <<< "$TO_LINE"`
     current_deployment_line="$TEMP_LINE_1"
@@ -228,6 +228,10 @@ git show-ref
 git branch
 git push https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git HEAD:"$TO_BRANCH"
 git push https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git HEAD:"$FROM_BRANCH_NAME"
+
+if [[ "$TO_BRANCH" != "develop" ]]; then
+    git push https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git HEAD:"develop"
+fi;
 
 if [[ "$TO_BRANCH" == "develop" ]]; then
 
