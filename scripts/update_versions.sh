@@ -219,7 +219,7 @@ elif [[ "$FROM_BRANCH_NAME" == "release/"* ]] ||[[ "$FROM_BRANCH_NAME" == "devel
    fi;
 fi;
 
-Sort -n -k1 ./document_schema_data.csv
+sort -n -k1 ./document_schema_data.csv
 cat ./document_schema_data.csv
 
 git status
