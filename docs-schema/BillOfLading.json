@@ -1,4 +1,4 @@
-Create new release branch 5 {
+Feature BOL XXXX {
     "schema": {
         "model": "BillOfLading",
         "type": "object",
