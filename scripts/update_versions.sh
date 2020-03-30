@@ -163,7 +163,7 @@ do
        ((data[i]=data[i]+1));
        echo "$i after increment ${data[i]}";
 
-     elif [[ "$FROM_BRANCH_NAME" == "develop" ]] || [[ "$FROM_BRANCH_NAME" == "test" ]] || [[ "$FROM_BRANCH_NAME" == "sandbox" ]] || [[ "$FROM_BRANCH_NAME" == "demo" ]] ; then
+     elif [[ "$FROM_BRANCH_NAME" == "release/"* ]] || [[ "$FROM_BRANCH_NAME" == "develop" ]] || [[ "$FROM_BRANCH_NAME" == "test" ]] || [[ "$FROM_BRANCH_NAME" == "sandbox" ]] || [[ "$FROM_BRANCH_NAME" == "demo" ]] ; then
        data[i]=$DEPLOYMENT_VERSION
      fi;
       TAG_VERSION="$TAG_VERSION${data[i]}."
@@ -178,7 +178,7 @@ do
        data[i]=0;
        echo "$i new feature with Build version ${data[i]}";
   
-     elif [[ "$FROM_BRANCH_NAME" == "develop" ]] || [[ "$FROM_BRANCH_NAME" == "test" ]] || [[ "$FROM_BRANCH_NAME" == "sandbox" ]] || [[ "$FROM_BRANCH_NAME" == "demo" ]] ; then
+     elif [[ "$FROM_BRANCH_NAME" == "release/"* ]] || [[ "$FROM_BRANCH_NAME" == "develop" ]] || [[ "$FROM_BRANCH_NAME" == "test" ]] || [[ "$FROM_BRANCH_NAME" == "sandbox" ]] || [[ "$FROM_BRANCH_NAME" == "demo" ]] ; then
         data[i]=$BUILD_VERSION
      fi;
      TAG_VERSION="$TAG_VERSION${data[i]}";
@@ -211,7 +211,7 @@ sed -i 's/'"$current_deployment_line"'/'"$NEWLINE"'/g' ./document_schema_data.cs
 elif [[ "$FROM_BRANCH" == *"feature"* ]]; then
   echo "$NEWLINE"  >> ./document_schema_data.csv 
 
-elif [[ "$FROM_BRANCH_NAME" == "develop" ]] || [[ "$FROM_BRANCH_NAME" == "test" ]] || [[ "$FROM_BRANCH_NAME" == "sandbox" ]] || [[ "$FROM_BRANCH_NAME" == "demo" ]] ; then
+elif [[ "$FROM_BRANCH_NAME" == "release/"* ]] ||[[ "$FROM_BRANCH_NAME" == "develop" ]] || [[ "$FROM_BRANCH_NAME" == "test" ]] || [[ "$FROM_BRANCH_NAME" == "sandbox" ]] || [[ "$FROM_BRANCH_NAME" == "demo" ]] ; then
    if [[ "$NOT_DEPLOYED_BEFORE" == "false" ]]; then
      sed -i 's/'"$current_deployment_line"'/'"$NEWLINE"'/g' ./document_schema_data.csv
    else
