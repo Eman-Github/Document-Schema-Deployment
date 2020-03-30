@@ -220,6 +220,10 @@ elif [[ "$FROM_BRANCH_NAME" == "release/"* ]] ||[[ "$FROM_BRANCH_NAME" == "devel
 fi;
 
 sort -n -k1 ./document_schema_data.csv
+head -n 1 ./document_schema_data.csv > ./temp.csv &&
+tail -n +2 ./document_schema_data.csv | sort n -k1 >> ./temp.csv
+cp ./temp.csv ./document_schema_data.csv
+rm ./temp.csv
 cat ./document_schema_data.csv
 
 git status
