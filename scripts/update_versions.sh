@@ -213,7 +213,11 @@ if [[ "$FROM_BRANCH" == *"fixbug"* ]]; then
 sed -i 's/'"$current_deployment_line"'/'"$NEWLINE"'/g' ./document_schema_data.csv
 
 elif [[ "$FROM_BRANCH" == *"feature"* ]]; then
-  echo "$NEWLINE"  >> ./document_schema_data.csv 
+  if [[ "$current_deployment_version" == 0 ]]  
+   sed -i 's/'"$current_deployment_line"'/'"$NEWLINE"'/g' ./document_schema_data.csv
+  else
+    echo "$NEWLINE"  >> ./document_schema_data.csv
+  fi; 
 
 elif [[ "$FROM_BRANCH_NAME" == "release/"* ]] ||[[ "$FROM_BRANCH_NAME" == "develop" ]] || [[ "$FROM_BRANCH_NAME" == "test" ]] || [[ "$FROM_BRANCH_NAME" == "sandbox" ]] || [[ "$FROM_BRANCH_NAME" == "demo" ]] ; then
    if [[ "$NOT_DEPLOYED_BEFORE" == "false" ]]; then
