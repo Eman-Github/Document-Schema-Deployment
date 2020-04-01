@@ -213,7 +213,7 @@ if [[ "$FROM_BRANCH" == *"fixbug"* ]]; then
 sed -i 's/'"$current_deployment_line"'/'"$NEWLINE"'/g' ./document_schema_data.csv
 
 elif [[ "$FROM_BRANCH" == *"feature"* ]]; then
-  if [[ "$current_deployment_version" == 0 ]]  
+  if [[ "$current_deployment_version" == 0 ]]; then  
    sed -i 's/'"$current_deployment_line"'/'"$NEWLINE"'/g' ./document_schema_data.csv
   else
     echo "$NEWLINE"  >> ./document_schema_data.csv
