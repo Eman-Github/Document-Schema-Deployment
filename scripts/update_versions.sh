@@ -71,7 +71,7 @@ if [[ "$FROM_BRANCH" == *"fixbug"* ]] ; then
 #-------- Get the deployment and build Line of document to be updated in case of feature ------------------------------------
 elif [[ "$FROM_BRANCH" == *"feature"* ]] ; then
   
-   echo "current_deployment_version=-1"
+   echo "current_deployment_version=e"
    while read line
    do
      echo "line = $line"
@@ -81,7 +81,7 @@ elif [[ "$FROM_BRANCH" == *"feature"* ]] ; then
        echo "$i ${line_data[i]}"
        if (($i == 6)) ; then
              echo "Inside current_deployment_version = $current_deployment_version"
-          if [[ "$current_deployment_version" -eq "-1" ]]; then
+          if [[ "$current_deployment_version" == "e" ]]; then
             current_deployment_version="${line_data[i]}"
             current_deployment_line="$line"
           elif [[ "${line_data[i]}" -gt "$current_deployment_version" ]]; then
