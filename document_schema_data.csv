@@ -1,6 +1,4 @@
 document_name,environment,deployment_timestamp,schema_id,tl_version,release_version,depolyment_version,build_version 
-
-
 BillOfLading,develop,2020-03-28 21:04:48,e6ff7547-46de-4b18-af8b-5b4f45e3db88,32,1,0,0
 BillOfLading,prod,2020-02-17 15:50:38.032,322da775-7405-49fa-9e93-6f4b99fbf096,2,1,0,0
 BillOfLading,sandbox,2020-02-17 15:46:30.056,adfc7c2f-62ed-407d-873a-b4f0640e06da,2,1,0,0
