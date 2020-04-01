@@ -1,4 +1,4 @@
-Feature BOL OOO 5 {
+Feature BOL OOO 6 {
     "schema": {
         "model": "BillOfLading",
         "type": "object",
