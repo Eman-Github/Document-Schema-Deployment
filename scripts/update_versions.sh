@@ -80,10 +80,11 @@ elif [[ "$FROM_BRANCH" == *"feature"* ]] ; then
      do
        echo "$i ${line_data[i]}"
        if (($i == 6)) ; then
-          if [[ "${current_deployment_version}" -eq "-1" ]]; then
+             echo "Inside current_deployment_version = $current_deployment_version"
+          if [[ "$current_deployment_version" -eq "-1" ]]; then
             current_deployment_version="${line_data[i]}"
             current_deployment_line="$line"
-          elif [[ "${line_data[i]}" -gt "${current_deployment_version}" ]]; then
+          elif [[ "${line_data[i]}" -gt "$current_deployment_version" ]]; then
             current_deployment_version="${line_data[i]}"
             current_deployment_line="$line"
           fi;
