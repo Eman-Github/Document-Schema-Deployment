@@ -1,4 +1,4 @@
-Fixbug BOL OOO 4  {
+feature BOL XXX 1  {
     "schema": {
         "model": "BillOfLading",
         "type": "object",
