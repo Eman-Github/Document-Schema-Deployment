@@ -4,6 +4,7 @@ BillOfLading,develop,2020-04-02 09:58:22,e6ff7547-46de-4b18-af8b-5b4f45e3db88,32
 BillOfLading,prod,2020-02-17 15:50:38.032,322da775-7405-49fa-9e93-6f4b99fbf096,2,1,0,0
 BillOfLading,sandbox,2020-02-17 15:46:30.056,adfc7c2f-62ed-407d-873a-b4f0640e06da,2,1,0,0
 BillOfLading,test,2020-04-02 08:25:39,891eb5433ab446ef89e0fadff4648c35,4,1,1,4
+BillOfLading,test,2020-04-02 10:08:29,891eb5433ab446ef89e0fadff4648c35,4,1,2,0
 BookingConfirmation,sandbox,2020-02-17 15:40:02.405,60f9fafc-d26a-4859-af8d-4fbed3a1a380,1,1,0,0
 BookingConfirmation,test,2020-02-17 15:31:00.449,2f541f09dbbb41d29a4156465c078ee5,18,1,0,0
 BookingRequest,develop,2020-02-17 15:31:00.000,1847e163-b4a9-44e2-ad76-1ed83d8a2012,2,1,0,0
