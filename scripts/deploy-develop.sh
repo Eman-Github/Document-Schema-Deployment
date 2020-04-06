@@ -83,7 +83,8 @@ LINE=`grep "${CHANGED_DOC_NAME},${TRAVIS_BRANCH}" ./document_schema_data.csv`
 echo "LINE = $LINE"
 
 if [ -z $LINE  ]; then
-    echo "Document Schema ${CHANGED_DOC_NAME} doesn't deployed on branch ${TRAVIS_BRANCH} previously Please use POST API to create the schema first";
+    echo "Document Schema ${CHANGED_DOC_NAME} doesn't deployed on branch ${TRAVIS_BRANCH} previously";
+    echo "Please use POST API to create the schema first and get the schema ID"
     exit;
 fi;
 
@@ -114,10 +115,10 @@ if [ "$TRAVIS_BRANCH" == "develop" ]; then
    --header "${HEADER_AUTHORIZATION}" \
    --data-raw "${JSON_FILE}"`
 
-   echo "UPDATE_RESPONSE = $UPDATE_RESPONSE"
+   echo "UPDATE_RESPONSE = $UPDATE_RESPONSE";
    
    if [ -z $UPDATE_RESPONSE  ]; then
-    echo "API for uppdating the documentSchema by id (${data[3]}) for document schema name ${CHANGED_DOC_NAME} has failed doesn't deployed on branch ";
+    echo "API for uppdating the documentSchema by id = ${data[3]} name = ${CHANGED_DOC_NAME} has failed to deploy ";
     exit;
    fi;
 
