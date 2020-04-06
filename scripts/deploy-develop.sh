@@ -92,13 +92,13 @@ echo "API_URL = $API_URL"
 if [ "$TRAVIS_BRANCH" == "develop" ]; then
    
    JSON_FILE=`cat "${1}"`
-   #echo "$JSON_FILE"
+   echo "$JSON_FILE"
 
-   #UPDATE_RESPONSE=`curl --location --request PUT "$API_URL" \
-   #--header "${HEADER_AUTHORIZATION}" \
-   #--data-raw "${JSON_FILE}"`
+   UPDATE_RESPONSE=`curl --location --request PUT "$API_URL" \
+   --header "${HEADER_AUTHORIZATION}" \
+   --data-raw "${JSON_FILE}"`
 
-   #echo "curl --location --request PUT "$API_URL" --header "${HEADER_AUTHORIZATION}" --data-raw "${JSON_FILE}" "
+   echo "curl --location --request PUT "$API_URL" --header "${HEADER_AUTHORIZATION}" --data-raw "${JSON_FILE}" "
    
    GET_RESPONSE=`curl --location --request GET "$API_URL" \
    --header "${HEADER_AUTHORIZATION}"`
