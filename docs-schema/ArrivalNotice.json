@@ -1,4 +1,14 @@
-Test{
+{
+"name": "ARRIVAL_NOTICE",
+"docType": "CONTAINER_ARRIVAL_NOTICE",
+"description": "Arrival Notice",
+"supportedContentTypes": [
+"application/json"
+],
+"jsonSupport": true,
+"sampleModel": {
+"changeme": "changeme"
+},
     "schema": {
         "model": "ArrivalNotice",
         "type": "object",
