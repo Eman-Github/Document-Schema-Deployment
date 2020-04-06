@@ -99,7 +99,8 @@ if [ "$TRAVIS_BRANCH" == "develop" ]; then
    --data-raw "${JSON_FILE}"`
 
    echo "curl --location --request PUT "$API_URL" --header "${HEADER_AUTHORIZATION}" --data-raw "${JSON_FILE}" "
-   
+   echo "UPDATE_RESPONSE = $UPDATE_RESPONSE"
+
    GET_RESPONSE=`curl --location --request GET "$API_URL" \
    --header "${HEADER_AUTHORIZATION}"`
    echo "GET_RESPONSE = $GET_RESPONSE"
