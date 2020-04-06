@@ -9,7 +9,6 @@
 "sampleModel": {
 "changeme": "changeme"
 },
-
     "schema": {
         "model": "ArrivalNotice",
         "type": "object",

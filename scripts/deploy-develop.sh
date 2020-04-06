@@ -116,11 +116,17 @@ if [ "$TRAVIS_BRANCH" == "develop" ]; then
    --data-raw "${JSON_FILE}"`
 
    echo "UPDATE_RESPONSE = $UPDATE_RESPONSE";
-   
-   if [ -z $UPDATE_RESPONSE  ]; then
-    echo "API for uppdating the documentSchema by id = ${data[3]} name = ${CHANGED_DOC_NAME} has failed to deploy ";
-    exit;
+   if echo "$UPDATE_RESPONSE" | grep -q "${data[3]}"; then
+         echo "Update Schema API run successfully";
+   else
+      echo "API for uppdating the documentSchema $API_URL name = ${CHANGED_DOC_NAME} has failed to deploy ";
+      exit;
    fi;
+   
+   for i in {1..10}
+   do
+      sleep 5s
+   done 
 
    GET_RESPONSE=`curl --location --request GET "$API_URL" \
    --header "${HEADER_AUTHORIZATION}"`
