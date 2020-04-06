@@ -13,6 +13,7 @@ CommercialInvoice,sandbox,2020-02-17 15:44:07.141,245ebe4bc89b47f3b9e2951ad64c22
 CommercialInvoice,sandbox,2020-02-17 15:44:07.141,245ebe4bc89b47f3b9e2951ad64c22d3,3,1,0,0
 CommercialInvoice,test,2020-02-17 15:36:59.006,4003e0377fe94278864be4bb04476b07,8,1,0,0
 ContainerArrivalNotice,develop,2020-04-06 11:24:47,b7bea539-4421-4258-aec4-d0850533815e,1,1,1,0
+ContainerArrivalNotice,develop,2020-04-06 15:10:24,b7bea539-4421-4258-aec4-d0850533815e,1,1,2,0
 ContainerArrivalNotice,test,2020-02-17 15:39:04.876,1ed353f3-9efe-4cd3-be3e-1bce740d679e,6,1,0,0
 PackingList,prod,2020-02-17 15:48:51.998,3a7c34b185fb43a6b7b6f1aea58d1ee2,1,1,0,0
 PackingList,sandbox,2020-02-17 15:43:13.670,9ad45164c44f4092973c1c02bc612608,3,1,0,0
