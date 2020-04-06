@@ -250,9 +250,9 @@ if [[ "$TO_BRANCH" == "develop" ]]; then
 
    COMMIT_ID=`git rev-parse HEAD`
    echo "COMMIT_ID = $COMMIT_ID"
-   git checkout -b release/"v$TAG_VERSION" $COMMIT_ID
+   git checkout -b release/$CHANGED_DOC_NAME/"v$TAG_VERSION" $COMMIT_ID
    git push https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git
-   git tag -a "v$TAG_VERSION" $COMMIT_ID -m "${TO_BRANCH} v$TAG_VERSION"
+   git tag -a "$CHANGED_DOC_NAMEv$TAG_VERSION" $COMMIT_ID -m "${TO_BRANCH} $CHANGED_DOC_NAME v$TAG_VERSION"
    git push --tags https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git
 
 fi;
