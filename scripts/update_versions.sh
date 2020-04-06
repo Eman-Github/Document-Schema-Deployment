@@ -242,7 +242,7 @@ git branch
 git push https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git HEAD:"$TO_BRANCH"
 if [[ "$FROM_BRANCH_NAME" == "release/"* ]]; then
   git push https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git HEAD:"$FROM_BRANCH_NAME"
-if;
+fi;
 
 if [[ "$TO_BRANCH" != "develop" ]]; then
     git push https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git HEAD:"develop"
