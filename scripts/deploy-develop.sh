@@ -139,6 +139,32 @@ if [ "$TRAVIS_BRANCH" == "develop" ]; then
 #------------------- Get Current TL Version on Test env. --------------
 elif [ "$TRAVIS_BRANCH" == "test" ]; then
 
+   DOC_ACTIONABLE_FLOWS=`grep "${CHANGED_DOC_NAME}" ./config.ini`
+   echo "DOC_ACTIONABLE_FLOWS = $DOC_ACTIONABLE_FLOWS"
+   if [[ ! -z $DOC_ACTIONABLE_FLOWS ]]; then
+ 
+       JSON_FILE=`cat "${1}"`
+       echo "$JSON_FILE"
+
+       UPDATE_RESPONSE=`curl --location --request PUT "$API_URL" \
+       --header "${HEADER_CONTENT_TYPE}" \
+       --header "${HEADER_AUTHORIZATION}" \
+       --data-raw "${JSON_FILE}"`
+
+       echo "UPDATE_RESPONSE = $UPDATE_RESPONSE";
+       if echo "$UPDATE_RESPONSE" | grep -q "${data[3]}"; then
+           echo "Update Schema API run successfully";
+       else
+           echo "API for uppdating the documentSchema $API_URL name = ${CHANGED_DOC_NAME} has failed to deploy ";
+           exit;
+       fi;
+
+       for i in {1..10}
+       do
+          sleep 5s
+       done
+   fi;
+   
    GET_RESPONSE=`curl --location --request GET "$API_URL" \
    --header "${HEADER_AUTHORIZATION}"`
    echo "GET_RESPONSE = $GET_RESPONSE"
@@ -149,6 +175,32 @@ elif [ "$TRAVIS_BRANCH" == "test" ]; then
 
 #------------------- Get Current TL Version on SandBox env. --------------
 elif [ "$TRAVIS_BRANCH" == "sandbox" ]; then
+   
+   DOC_ACTIONABLE_FLOWS=`grep "${CHANGED_DOC_NAME}" ./config.ini`
+   echo "DOC_ACTIONABLE_FLOWS = $DOC_ACTIONABLE_FLOWS"
+   if [[ ! -z $DOC_ACTIONABLE_FLOWS ]]; then
+
+       JSON_FILE=`cat "${1}"`
+       echo "$JSON_FILE"
+
+   #    UPDATE_RESPONSE=`curl --location --request PUT "$API_URL" \
+   #    --header "${HEADER_CONTENT_TYPE}" \
+   #    --header "${HEADER_AUTHORIZATION}" \
+  #     --data-raw "${JSON_FILE}"`
+
+       echo "UPDATE_RESPONSE = $UPDATE_RESPONSE";
+       if echo "$UPDATE_RESPONSE" | grep -q "${data[3]}"; then
+           echo "Update Schema API run successfully";
+       else
+           echo "API for uppdating the documentSchema $API_URL name = ${CHANGED_DOC_NAME} has failed to deploy ";
+           exit;
+       fi;
+
+       for i in {1..10}
+       do
+          sleep 5s
+       done
+   fi;
 
    GET_RESPONSE=`curl --location --request GET "$API_URL" \
    --header "${HEADER_AUTHORIZATION}"`
@@ -161,6 +213,32 @@ elif [ "$TRAVIS_BRANCH" == "sandbox" ]; then
 #------------------- Get Current TL Version on Prod env. --------------
 elif [ "$TRAVIS_BRANCH" == "prod" ]; then
 
+   DOC_ACTIONABLE_FLOWS=`grep "${CHANGED_DOC_NAME}" ./config.ini`
+   echo "DOC_ACTIONABLE_FLOWS = $DOC_ACTIONABLE_FLOWS"
+   if [[ ! -z $DOC_ACTIONABLE_FLOWS ]]; then
+
+       JSON_FILE=`cat "${1}"`
+       echo "$JSON_FILE"
+
+   #    UPDATE_RESPONSE=`curl --location --request PUT "$API_URL" \
+   #    --header "${HEADER_CONTENT_TYPE}" \
+   #    --header "${HEADER_AUTHORIZATION}" \
+  #     --data-raw "${JSON_FILE}"`
+
+       echo "UPDATE_RESPONSE = $UPDATE_RESPONSE";
+       if echo "$UPDATE_RESPONSE" | grep -q "${data[3]}"; then
+           echo "Update Schema API run successfully";
+       else
+           echo "API for uppdating the documentSchema $API_URL name = ${CHANGED_DOC_NAME} has failed to deploy ";
+           exit;
+       fi;
+
+       for i in {1..10}
+       do
+          sleep 5s
+       done
+   fi;
+
    GET_RESPONSE=`curl --location --request GET "$API_URL" \
    --header "${HEADER_AUTHORIZATION}"`
    echo "GET_RESPONSE = $GET_RESPONSE"
@@ -171,6 +249,32 @@ elif [ "$TRAVIS_BRANCH" == "prod" ]; then
 
 #------------------- Get Current TL Version on Demo env. --------------
 elif [ "$TRAVIS_BRANCH" == "demo" ]; then
+   
+   DOC_ACTIONABLE_FLOWS=`grep "${CHANGED_DOC_NAME}" ./config.ini`
+   echo "DOC_ACTIONABLE_FLOWS = $DOC_ACTIONABLE_FLOWS"
+   if [[ ! -z $DOC_ACTIONABLE_FLOWS ]]; then
+
+       JSON_FILE=`cat "${1}"`
+       echo "$JSON_FILE"
+
+   #    UPDATE_RESPONSE=`curl --location --request PUT "$API_URL" \
+   #    --header "${HEADER_CONTENT_TYPE}" \
+   #    --header "${HEADER_AUTHORIZATION}" \
+  #     --data-raw "${JSON_FILE}"`
+
+       echo "UPDATE_RESPONSE = $UPDATE_RESPONSE";
+       if echo "$UPDATE_RESPONSE" | grep -q "${data[3]}"; then
+           echo "Update Schema API run successfully";
+       else
+           echo "API for uppdating the documentSchema $API_URL name = ${CHANGED_DOC_NAME} has failed to deploy ";
+           exit;
+       fi;
+
+       for i in {1..10}
+       do
+          sleep 5s
+       done
+   fi;
 
    GET_RESPONSE=`curl --location --request GET "$API_URL" \
    --header "${HEADER_AUTHORIZATION}"`
