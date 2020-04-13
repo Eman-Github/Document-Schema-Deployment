@@ -6,6 +6,16 @@ if [ -z $1 ]; then
     exit;
 fi;
 
+if [[ "$2" =~ ^[0-9]+$ ]]; then
+   echo "TL version is a number"
+else
+   echo "TL Version is not right number";
+   exit;
+fi;
+
+echo "Changed file = $1";
+echo "TradeLens Version = $2 ";
+
 FIRSTLINE=(${TRAVIS_COMMIT_MESSAGE[@]})
 temp1=${FIRSTLINE[5]}
 echo "temp1 = $temp1"
