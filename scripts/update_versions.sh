@@ -1,10 +1,21 @@
 #!/bin/bash
 set -ev
 
+echo "Changed file = $1";
+echo "TradeLens Version = $2 ";
+
 if [ -z $1 ]; then
     echo "CHANGED_FILES can't be null ";
     exit;
 fi;
+
+if [[ "$2" =~ ^[0-9]+$ ]]; then
+   echo "TL version is a number"
+else
+   echo "TL Version is not right number";
+   exit;
+fi;
+
 
 FIRSTLINE=(${TRAVIS_COMMIT_MESSAGE[@]})
 temp1=${FIRSTLINE[5]}
