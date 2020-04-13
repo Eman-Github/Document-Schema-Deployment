@@ -19,6 +19,7 @@ ContainerArrivalNotice,develop,2020-04-06 19:50:27,b7bea539-4421-4258-aec4-d0850
 ContainerArrivalNotice,develop,2020-04-06 23:09:21,b7bea539-4421-4258-aec4-d0850533815e,5,1,5,0
 ContainerArrivalNotice,develop,2020-04-07 08:28:09,b7bea539-4421-4258-aec4-d0850533815e,6,1,6,0
 ContainerArrivalNotice,test,2020-02-17 15:39:04.876,1ed353f3-9efe-4cd3-be3e-1bce740d679e,6,1,0,0
+ContainerArrivalNotice,test,2020-04-13 12:39:00,1ed353f3-9efe-4cd3-be3e-1bce740d679e,7,1,6,0
 PackingList,prod,2020-02-17 15:48:51.998,3a7c34b185fb43a6b7b6f1aea58d1ee2,1,1,0,0
 PackingList,sandbox,2020-02-17 15:43:13.670,9ad45164c44f4092973c1c02bc612608,3,1,0,0
 PackingList,test,2020-02-17 15:35:26.632,9cd4adf72a8f41ffaf6dd6927a94371a,10,1,0,0

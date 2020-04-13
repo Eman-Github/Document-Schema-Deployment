@@ -1,6 +1,9 @@
 #!/bin/bash
 set -ev
 
+echo "Changed file = $1";
+echo "TradeLens Version = $2 ";
+
 if [ -z $1 ]; then
     echo "CHANGED_FILES can't be null ";
     exit;
@@ -13,8 +16,6 @@ else
    exit;
 fi;
 
-echo "Changed file = $1";
-echo "TradeLens Version = $2 ";
 
 FIRSTLINE=(${TRAVIS_COMMIT_MESSAGE[@]})
 temp1=${FIRSTLINE[5]}
