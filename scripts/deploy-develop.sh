@@ -42,6 +42,11 @@ BODY="grant_type=urn:ibm:params:oauth:grant-type:apikey&apikey=$API_KEY"
 echo "parameters = $HEADER_CONTENT_TYPE and $BODY "
 RESPONSE_REFRESH_TOKEN=`curl --location --request POST 'https://iam.ng.bluemix.net/oidc/token' --header ${HEADER_CONTENT_TYPE} --data-raw ${BODY}`
 echo "RESPONSE_REFRESH_TOKEN = $RESPONSE_REFRESH_TOKEN"
+
+if [ -z $RESPONSE_REFRESH_TOKEN ]; then
+    echo "RESPONSE_REFRESH_TOKEN failed to be returned using POST API 'https://iam.ng.bluemix.net/oidc/token' ";
+    exit;
+fi;
 #---------------------------------------------------------------------------------
 
 #Getting Bearer Token
@@ -60,6 +65,11 @@ RESPONSE_BEARER=`curl --location --request POST "$URL" \
 
 BEARER_TOKEN=`echo $RESPONSE_BEARER | grep -oP '(?<="onboarding_token":")[^"]*'`
 echo "BEARER_TOKEN = $BEARER_TOKEN"
+
+if [ -z $$RESPONSE_BEARER ]; then
+    echo "RESPONSE_BEARER failed to be returned using API $URL ";
+    exit;
+fi; 
 #------------------------------------------------------------------------------------
 #Get the Document Schema Id from document_schema_data.csv file
 #==============================================================
@@ -71,6 +81,12 @@ echo "Document Name $CHANGED_DOC_NAME"
 echo "${CHANGED_DOC_NAME},${TRAVIS_BRANCH}"
 LINE=`grep "${CHANGED_DOC_NAME},${TRAVIS_BRANCH}" ./document_schema_data.csv`
 echo "LINE = $LINE"
+
+if [ -z $LINE  ]; then
+    echo "Document Schema ${CHANGED_DOC_NAME} doesn't deployed on branch ${TRAVIS_BRANCH} previously";
+    echo "Please use POST API to create the schema first and get the schema ID"
+    exit;
+fi;
 
 IFS=',' read -r -a data <<< "$LINE"
 
@@ -92,14 +108,26 @@ echo "API_URL = $API_URL"
 if [ "$TRAVIS_BRANCH" == "develop" ]; then
    
    JSON_FILE=`cat "${1}"`
-   #echo "$JSON_FILE"
+   echo "$JSON_FILE"
 
-   #UPDATE_RESPONSE=`curl --location --request PUT "$API_URL" \
-   #--header "${HEADER_AUTHORIZATION}" \
-   #--data-raw "${JSON_FILE}"`
+   UPDATE_RESPONSE=`curl --location --request PUT "$API_URL" \
+   --header "${HEADER_CONTENT_TYPE}" \
+   --header "${HEADER_AUTHORIZATION}" \
+   --data-raw "${JSON_FILE}"`
 
-   #echo "curl --location --request PUT "$API_URL" --header "${HEADER_AUTHORIZATION}" --data-raw "${JSON_FILE}" "
+   echo "UPDATE_RESPONSE = $UPDATE_RESPONSE";
+   if echo "$UPDATE_RESPONSE" | grep -q "${data[3]}"; then
+         echo "Update Schema API run successfully";
+   else
+      echo "API for uppdating the documentSchema $API_URL name = ${CHANGED_DOC_NAME} has failed to deploy ";
+      exit;
+   fi;
    
+   for i in {1..10}
+   do
+      sleep 5s
+   done 
+
    GET_RESPONSE=`curl --location --request GET "$API_URL" \
    --header "${HEADER_AUTHORIZATION}"`
    echo "GET_RESPONSE = $GET_RESPONSE"
@@ -111,6 +139,32 @@ if [ "$TRAVIS_BRANCH" == "develop" ]; then
 #------------------- Get Current TL Version on Test env. --------------
 elif [ "$TRAVIS_BRANCH" == "test" ]; then
 
+   DOC_ACTIONABLE_FLOWS=`grep "${CHANGED_DOC_NAME}" ./config.ini`
+   echo "DOC_ACTIONABLE_FLOWS = $DOC_ACTIONABLE_FLOWS"
+   if [[ ! -z $DOC_ACTIONABLE_FLOWS ]]; then
+ 
+       JSON_FILE=`cat "${1}"`
+       echo "$JSON_FILE"
+
+       UPDATE_RESPONSE=`curl --location --request PUT "$API_URL" \
+       --header "${HEADER_CONTENT_TYPE}" \
+       --header "${HEADER_AUTHORIZATION}" \
+       --data-raw "${JSON_FILE}"`
+
+       echo "UPDATE_RESPONSE = $UPDATE_RESPONSE";
+       if echo "$UPDATE_RESPONSE" | grep -q "${data[3]}"; then
+           echo "Update Schema API run successfully";
+       else
+           echo "API for uppdating the documentSchema $API_URL name = ${CHANGED_DOC_NAME} has failed to deploy ";
+           exit;
+       fi;
+
+       for i in {1..10}
+       do
+          sleep 5s
+       done
+   fi;
+   
    GET_RESPONSE=`curl --location --request GET "$API_URL" \
    --header "${HEADER_AUTHORIZATION}"`
    echo "GET_RESPONSE = $GET_RESPONSE"
@@ -121,6 +175,32 @@ elif [ "$TRAVIS_BRANCH" == "test" ]; then
 
 #------------------- Get Current TL Version on SandBox env. --------------
 elif [ "$TRAVIS_BRANCH" == "sandbox" ]; then
+   
+   DOC_ACTIONABLE_FLOWS=`grep "${CHANGED_DOC_NAME}" ./config.ini`
+   echo "DOC_ACTIONABLE_FLOWS = $DOC_ACTIONABLE_FLOWS"
+   if [[ ! -z $DOC_ACTIONABLE_FLOWS ]]; then
+
+       JSON_FILE=`cat "${1}"`
+       echo "$JSON_FILE"
+
+   #    UPDATE_RESPONSE=`curl --location --request PUT "$API_URL" \
+   #    --header "${HEADER_CONTENT_TYPE}" \
+   #    --header "${HEADER_AUTHORIZATION}" \
+  #     --data-raw "${JSON_FILE}"`
+
+       echo "UPDATE_RESPONSE = $UPDATE_RESPONSE";
+       if echo "$UPDATE_RESPONSE" | grep -q "${data[3]}"; then
+           echo "Update Schema API run successfully";
+       else
+           echo "API for uppdating the documentSchema $API_URL name = ${CHANGED_DOC_NAME} has failed to deploy ";
+           exit;
+       fi;
+
+       for i in {1..10}
+       do
+          sleep 5s
+       done
+   fi;
 
    GET_RESPONSE=`curl --location --request GET "$API_URL" \
    --header "${HEADER_AUTHORIZATION}"`
@@ -133,6 +213,32 @@ elif [ "$TRAVIS_BRANCH" == "sandbox" ]; then
 #------------------- Get Current TL Version on Prod env. --------------
 elif [ "$TRAVIS_BRANCH" == "prod" ]; then
 
+   DOC_ACTIONABLE_FLOWS=`grep "${CHANGED_DOC_NAME}" ./config.ini`
+   echo "DOC_ACTIONABLE_FLOWS = $DOC_ACTIONABLE_FLOWS"
+   if [[ ! -z $DOC_ACTIONABLE_FLOWS ]]; then
+
+       JSON_FILE=`cat "${1}"`
+       echo "$JSON_FILE"
+
+   #    UPDATE_RESPONSE=`curl --location --request PUT "$API_URL" \
+   #    --header "${HEADER_CONTENT_TYPE}" \
+   #    --header "${HEADER_AUTHORIZATION}" \
+  #     --data-raw "${JSON_FILE}"`
+
+       echo "UPDATE_RESPONSE = $UPDATE_RESPONSE";
+       if echo "$UPDATE_RESPONSE" | grep -q "${data[3]}"; then
+           echo "Update Schema API run successfully";
+       else
+           echo "API for uppdating the documentSchema $API_URL name = ${CHANGED_DOC_NAME} has failed to deploy ";
+           exit;
+       fi;
+
+       for i in {1..10}
+       do
+          sleep 5s
+       done
+   fi;
+
    GET_RESPONSE=`curl --location --request GET "$API_URL" \
    --header "${HEADER_AUTHORIZATION}"`
    echo "GET_RESPONSE = $GET_RESPONSE"
@@ -143,6 +249,32 @@ elif [ "$TRAVIS_BRANCH" == "prod" ]; then
 
 #------------------- Get Current TL Version on Demo env. --------------
 elif [ "$TRAVIS_BRANCH" == "demo" ]; then
+   
+   DOC_ACTIONABLE_FLOWS=`grep "${CHANGED_DOC_NAME}" ./config.ini`
+   echo "DOC_ACTIONABLE_FLOWS = $DOC_ACTIONABLE_FLOWS"
+   if [[ ! -z $DOC_ACTIONABLE_FLOWS ]]; then
+
+       JSON_FILE=`cat "${1}"`
+       echo "$JSON_FILE"
+
+   #    UPDATE_RESPONSE=`curl --location --request PUT "$API_URL" \
+   #    --header "${HEADER_CONTENT_TYPE}" \
+   #    --header "${HEADER_AUTHORIZATION}" \
+  #     --data-raw "${JSON_FILE}"`
+
+       echo "UPDATE_RESPONSE = $UPDATE_RESPONSE";
+       if echo "$UPDATE_RESPONSE" | grep -q "${data[3]}"; then
+           echo "Update Schema API run successfully";
+       else
+           echo "API for uppdating the documentSchema $API_URL name = ${CHANGED_DOC_NAME} has failed to deploy ";
+           exit;
+       fi;
+
+       for i in {1..10}
+       do
+          sleep 5s
+       done
+   fi;
 
    GET_RESPONSE=`curl --location --request GET "$API_URL" \
    --header "${HEADER_AUTHORIZATION}"`
