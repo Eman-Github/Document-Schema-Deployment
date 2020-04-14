@@ -31,15 +31,18 @@ script:
   - echo "TRAVIS_COMMIT_MESSAGE = $TRAVIS_COMMIT_MESSAGE"
   - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
        CHANGED_FILES=`git diff --name-only $TRAVIS_COMMIT_RANGE | grep ".json"`;
-       echo "Changed file = $CHANGED_FILES";
+       echo "Changed files = $CHANGED_FILES";
        if  [[ -z $CHANGED_FILES ]] ; then
           echo "Not running CI since no json file was changed." ;
        elif [[ "$TRAVIS_BRANCH" == "develop" ]] || [[ "$TRAVIS_BRANCH" == "test" ]] || [[ "$TRAVIS_BRANCH" == "sandbox" ]] || [[ "$TRAVIS_BRANCH" == "prod" ]] || [[ "$TRAVIS_BRANCH" == "demo" ]]; then 
-          ./scripts/deploy-develop.sh $CHANGED_FILES;
-          TL_VERSION_DEV=$? ;
-          echo "Out TL_VERSION_DEV = $TL_VERSION_DEV";
-          if (( $TL_VERSION_DEV > 0)) ; then
-            ./scripts/update_versions.sh $CHANGED_FILES $TL_VERSION_DEV;
-          fi;
+         while IFS= read -r file; do
+             echo "... $file ...";
+             ./scripts/deploy-develop.sh $file;
+             TL_VERSION=$? ;
+             echo "Out TL_VERSION = $TL_VERSION";
+             if (( $TL_VERSION > 0)) ; then
+               ./scripts/update_versions.sh $file $TL_VERSION;
+             fi;
+         done <<< "$CHANGED_FILES"; 
        fi;
     fi;

@@ -16,7 +16,6 @@ else
    exit;
 fi;
 
-
 FIRSTLINE=(${TRAVIS_COMMIT_MESSAGE[@]})
 temp1=${FIRSTLINE[5]}
 echo "temp1 = $temp1"
