@@ -82,12 +82,13 @@ echo "${CHANGED_DOC_NAME},${TRAVIS_BRANCH}"
 grep "${CHANGED_DOC_NAME},${TRAVIS_BRANCH}" ./document_schema_data.csv || :
 echo "Result1 = ${PIPESTATUS[0]} , Result 2 = ${PIPESTATUS[1]}"
 if [[ "${PIPESTATUS[0]}" == "0" ]];then
-   LINE=`grep "${CHANGED_DOC_NAME},${TRAVIS_BRANCH}" ./document_schema_data.csv`;
-   SCHEMA_FOUND = "true";
-else
+  
    echo "Document Schema ${CHANGED_DOC_NAME} doesn't deployed on branch ${TRAVIS_BRANCH} previously";
    #echo "Please use POST API to create the schema first and get the schema ID"
    SCHEMA_FOUND = "false"
+else
+   LINE=`grep "${CHANGED_DOC_NAME},${TRAVIS_BRANCH}" ./document_schema_data.csv`;
+   SCHEMA_FOUND = "true";
 fi;
 
 echo "LINE = $LINE"
