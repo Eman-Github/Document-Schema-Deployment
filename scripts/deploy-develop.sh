@@ -81,11 +81,12 @@ echo "Document Name $CHANGED_DOC_NAME"
 echo "${CHANGED_DOC_NAME},${TRAVIS_BRANCH}"
 LINE=`grep "${CHANGED_DOC_NAME},${TRAVIS_BRANCH}" ./document_schema_data.csv`
 echo "LINE = $LINE"
-
+SCHEMA_FOUND = "true"
 if [ -z $LINE  ]; then
     echo "Document Schema ${CHANGED_DOC_NAME} doesn't deployed on branch ${TRAVIS_BRANCH} previously";
     echo "Please use POST API to create the schema first and get the schema ID"
-    exit;
+    SCHEMA_FOUND = "false"
+    #exit;
 fi;
 
 IFS=',' read -r -a data <<< "$LINE"
@@ -102,25 +103,73 @@ HEADER_CONTENT_TYPE="Content-Type:application/json"
 HEADER_ACCEPT="Accept:application/json"
 HEADER_AUTHORIZATION="Authorization: Bearer $BEARER_TOKEN"
 API_URL="$HOST_URL/api/v1/documentSchema/${data[3]}"
+POST_API_URL="$HOST_URL/api/v1/documentSchema"
 echo "API_URL = $API_URL"
+echo "POST_API_URL = $POST_API_URL"
 
 #------------------- Deploy to Development env. --------------
 if [ "$TRAVIS_BRANCH" == "develop" ]; then
    
    JSON_FILE=`cat "${1}"`
    echo "$JSON_FILE"
-
-   UPDATE_RESPONSE=`curl --location --request PUT "$API_URL" \
-   --header "${HEADER_CONTENT_TYPE}" \
-   --header "${HEADER_AUTHORIZATION}" \
-   --data-raw "${JSON_FILE}"`
-
-   echo "UPDATE_RESPONSE = $UPDATE_RESPONSE";
-   if echo "$UPDATE_RESPONSE" | grep -q "${data[3]}"; then
+   
+   if [[ $SCHEMA_FOUND == "true" ]]; then
+   
+      UPDATE_RESPONSE=`curl --location --request PUT "$API_URL" \
+      --header "${HEADER_CONTENT_TYPE}" \
+      --header "${HEADER_AUTHORIZATION}" \
+      --data-raw "${JSON_FILE}"`
+      
+      echo "UPDATE_RESPONSE = $UPDATE_RESPONSE";
+      if echo "$UPDATE_RESPONSE" | grep -q "${data[3]}"; then
          echo "Update Schema API run successfully";
-   else
-      echo "API for uppdating the documentSchema $API_URL name = ${CHANGED_DOC_NAME} has failed to deploy ";
+      else
+         echo "API for uppdating the documentSchema $API_URL name = ${CHANGED_DOC_NAME} has failed to deploy ";
       exit;
+      fi;
+
+   elif [[ $SCHEMA_FOUND == "false" ]]; then
+      
+      #UPDATE_RESPONSE=`curl --location --request POST "$POST_API_URL" \
+      #--header "${HEADER_CONTENT_TYPE}" \
+      #--header "${HEADER_AUTHORIZATION}" \
+      #--data-raw "${JSON_FILE}"`   
+     UPDATE_RESPONSE = "{ "description": "Packing list of US Customs", "docType": "Packing list","id": "1111111111","name": "Packing list","organizationId": "IBM", "transactionId": "t2f2ff97d2bf49e985b507854e6d597f"}"
+     echo "UPDATE_RESPONSE = $UPDATE_RESPONSE";
+      if echo "$UPDATE_RESPONSE" | grep -q "id"; then
+         echo "Update Schema API run successfully";
+         declare -i TL_SCHEMA_ID=`echo $GET_RESPONSE | grep -oP '(?<="id":)[^,]*'`
+         echo "In TL_SCHEMA_ID = $TL_SCHEMA_ID"
+         POST_API_URL_ID = "$POST_API_URL"\"$TL_SCHEMA_ID"
+         GET_RESPONSE=`curl --location --request GET "$POST_API_URL_ID" \
+         --header "${HEADER_AUTHORIZATION}"`
+         echo "GET_RESPONSE = $GET_RESPONSE"
+
+         declare -i TL_VERSION_DEV=`echo $GET_RESPONSE | grep -oP '(?<="version":)[^,]*'`
+         echo "In TL_VERSION_DEV = $TL_VERSION_DEV"
+         CURRENT_DATE=`date +'%Y-%m-%d %T'`
+         echo "CURRENT_DATE = $CURRENT_DATE"
+         NEWLINE="${CHANGED_DOC_NAME},$TRAVIS_BRANCH,${CURRENT_DATE},$TL_SCHEMA_ID,$TL_VERSION_DEV,1,1,0";
+         echo "$NEWLINE"  >> ./document_schema_data.csv
+         head -n 1 ./document_schema_data.csv > ./temp.csv &&
+         tail -n +2 ./document_schema_data.csv | sort -t "," -k 1 >> ./temp.csv
+         cp ./temp.csv ./document_schema_data.csv
+         rm ./temp.csv
+         cat ./document_schema_data.csv
+
+         git status
+         git add ./document_schema_data.csv
+         git commit -m "Auto update versions"
+         git show-ref
+         git branch
+         git push https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git HEAD:"$TRAVIS_BRANCH"
+         exit 0;
+
+      else
+         echo "API for deploy the documentSchema POST_API_URL ${CHANGED_DOC_NAME} has failed";
+         exit;
+      fi;
+
    fi;
    
    for i in {1..10}
