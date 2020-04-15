@@ -80,7 +80,7 @@ CHANGED_DOC_NAME=${temp%.*}
 echo "Document Name $CHANGED_DOC_NAME"
 echo "${CHANGED_DOC_NAME},${TRAVIS_BRANCH}"
 grep "${CHANGED_DOC_NAME},${TRAVIS_BRANCH}" ./document_schema_data.csv || :
-if [[ $? = 0 ]];then
+if [[ "${PIPESTATUS[0]}" == 0 ]];then
    LINE=`grep "${CHANGED_DOC_NAME},${TRAVIS_BRANCH}" ./document_schema_data.csv`;
    SCHEMA_FOUND = "true";
 else
