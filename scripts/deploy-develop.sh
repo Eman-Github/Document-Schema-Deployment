@@ -85,10 +85,10 @@ if [[ "${PIPESTATUS[0]}" == "0" ]];then
   
    echo "Document Schema ${CHANGED_DOC_NAME} doesn't deployed on branch ${TRAVIS_BRANCH} previously";
    #echo "Please use POST API to create the schema first and get the schema ID"
-   SCHEMA_FOUND = "false"
+   SCHEMA_FOUND="false";
 else
    LINE=`grep "${CHANGED_DOC_NAME},${TRAVIS_BRANCH}" ./document_schema_data.csv`;
-   SCHEMA_FOUND = "true";
+   SCHEMA_FOUND="true";
 fi;
 
 echo "LINE = $LINE"
