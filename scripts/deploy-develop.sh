@@ -139,7 +139,7 @@ if [ "$TRAVIS_BRANCH" == "develop" ]; then
       #--header "${HEADER_CONTENT_TYPE}" \
       #--header "${HEADER_AUTHORIZATION}" \
       #--data-raw "${JSON_FILE}"`   
-     UPDATE_RESPONSE = "{ "description": "Packing list of US Customs", "docType": "Packing list","id": "1111111111","name": "Packing list","organizationId": "IBM", "transactionId": "t2f2ff97d2bf49e985b507854e6d597f"}"
+     UPDATE_RESPONSE={"description": "Packing list of US Customs", "docType": "Packing list","id": "1111111111","name": "Packing list","organizationId": "IBM", "transactionId": "t2f2ff97d2bf49e985b507854e6d597f"}"
      echo "UPDATE_RESPONSE = $UPDATE_RESPONSE";
       if echo "$UPDATE_RESPONSE" | grep -q "id"; then
          echo "Update Schema API run successfully";
