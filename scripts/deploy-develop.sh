@@ -79,15 +79,18 @@ temp=${1#*/}
 CHANGED_DOC_NAME=${temp%.*}
 echo "Document Name $CHANGED_DOC_NAME"
 echo "${CHANGED_DOC_NAME},${TRAVIS_BRANCH}"
-LINE=`grep "${CHANGED_DOC_NAME},${TRAVIS_BRANCH}" ./document_schema_data.csv`
-echo "LINE = $LINE"
-SCHEMA_FOUND = "true"
-if [ -z $LINE  ]; then
-    echo "Document Schema ${CHANGED_DOC_NAME} doesn't deployed on branch ${TRAVIS_BRANCH} previously";
-    echo "Please use POST API to create the schema first and get the schema ID"
-    SCHEMA_FOUND = "false"
-    #exit;
+grep "${CHANGED_DOC_NAME},${TRAVIS_BRANCH}" ./document_schema_data.csv
+if [[ $? = 0 ]];then
+   LINE=`grep "${CHANGED_DOC_NAME},${TRAVIS_BRANCH}" ./document_schema_data.csv`;
+   SCHEMA_FOUND = "true";
+else
+   echo "Document Schema ${CHANGED_DOC_NAME} doesn't deployed on branch ${TRAVIS_BRANCH} previously";
+   #echo "Please use POST API to create the schema first and get the schema ID"
+   SCHEMA_FOUND = "false"
 fi;
+
+echo "LINE = $LINE"
+echo "SCHEMA_FOUND = $SCHEMA_FOUND"
 
 IFS=',' read -r -a data <<< "$LINE"
 
