@@ -133,7 +133,7 @@ if [ "$TRAVIS_BRANCH" == "develop" ]; then
       exit;
       fi;
 
-   elif [[ $SCHEMA_FOUND == "false" ]]; then
+#   elif [[ $SCHEMA_FOUND == "false" ]]; then
       
       #UPDATE_RESPONSE=`curl --location --request POST "$POST_API_URL" \
       #--header "${HEADER_CONTENT_TYPE}" \
@@ -141,41 +141,41 @@ if [ "$TRAVIS_BRANCH" == "develop" ]; then
       #--data-raw "${JSON_FILE}"`   
 
 #     UPDATE_RESPONSE={"id":"1111111111",};
-     echo "UPDATE_RESPONSE = $UPDATE_RESPONSE";
+#     echo "UPDATE_RESPONSE = $UPDATE_RESPONSE";
 
-      if echo "$UPDATE_RESPONSE" | grep -q "id"; then
-         echo "Update Schema API run successfully";
-         declare -i TL_SCHEMA_ID=`echo $GET_RESPONSE | grep -oP '(?<="id":)[^,]*'`
-         echo "In TL_SCHEMA_ID = $TL_SCHEMA_ID"
-         POST_API_URL_ID = "$POST_API_URL"\"$TL_SCHEMA_ID"
-         GET_RESPONSE=`curl --location --request GET "$POST_API_URL_ID" \
-         --header "${HEADER_AUTHORIZATION}"`
-         echo "GET_RESPONSE = $GET_RESPONSE"
+#      if echo "$UPDATE_RESPONSE" | grep -q "id"; then
+#         echo "Update Schema API run successfully";
+#         declare -i TL_SCHEMA_ID=`echo $GET_RESPONSE | grep -oP '(?<="id":)[^,]*'`
+#         echo "In TL_SCHEMA_ID = $TL_SCHEMA_ID"
+#         POST_API_URL_ID = "$POST_API_URL"\"$TL_SCHEMA_ID"
+#         GET_RESPONSE=`curl --location --request GET "$POST_API_URL_ID" \
+#         --header "${HEADER_AUTHORIZATION}"`
+#         echo "GET_RESPONSE = $GET_RESPONSE"
 
-         declare -i TL_VERSION_DEV=`echo $GET_RESPONSE | grep -oP '(?<="version":)[^,]*'`
-         echo "In TL_VERSION_DEV = $TL_VERSION_DEV"
-         CURRENT_DATE=`date +'%Y-%m-%d %T'`
-         echo "CURRENT_DATE = $CURRENT_DATE"
-         NEWLINE="${CHANGED_DOC_NAME},$TRAVIS_BRANCH,${CURRENT_DATE},$TL_SCHEMA_ID,$TL_VERSION_DEV,1,1,0";
-         echo "$NEWLINE"  >> ./document_schema_data.csv
-         head -n 1 ./document_schema_data.csv > ./temp.csv &&
-         tail -n +2 ./document_schema_data.csv | sort -t "," -k 1 >> ./temp.csv
-         cp ./temp.csv ./document_schema_data.csv
-         rm ./temp.csv
-         cat ./document_schema_data.csv
+#         declare -i TL_VERSION_DEV=`echo $GET_RESPONSE | grep -oP '(?<="version":)[^,]*'`
+#         echo "In TL_VERSION_DEV = $TL_VERSION_DEV"
+#         CURRENT_DATE=`date +'%Y-%m-%d %T'`
+#         echo "CURRENT_DATE = $CURRENT_DATE"
+#         NEWLINE="${CHANGED_DOC_NAME},$TRAVIS_BRANCH,${CURRENT_DATE},$TL_SCHEMA_ID,$TL_VERSION_DEV,1,1,0";
+#         echo "$NEWLINE"  >> ./document_schema_data.csv
+#         head -n 1 ./document_schema_data.csv > ./temp.csv &&
+#         tail -n +2 ./document_schema_data.csv | sort -t "," -k 1 >> ./temp.csv
+#         cp ./temp.csv ./document_schema_data.csv
+#         rm ./temp.csv
+#         cat ./document_schema_data.csv
 
-         git status
-         git add ./document_schema_data.csv
-         git commit -m "Auto update versions"
-         git show-ref
-         git branch
-         git push https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git HEAD:"$TRAVIS_BRANCH"
-         exit 0;
+#         git status
+#         git add ./document_schema_data.csv
+#         git commit -m "Auto update versions"
+#         git show-ref
+#         git branch
+#         git push https://Eman-Github:$GITHUB_ACCESS_TOKEN@github.com/Eman-Github/Document-Schema-Deployment.git HEAD:"$TRAVIS_BRANCH"
+#         exit 0;
 
-      else
-         echo "API for deploy the documentSchema POST_API_URL ${CHANGED_DOC_NAME} has failed";
-         exit;
-      fi;
+#      else
+#         echo "API for deploy the documentSchema POST_API_URL ${CHANGED_DOC_NAME} has failed";
+#         exit;
+#      fi;
 
    fi;
    
