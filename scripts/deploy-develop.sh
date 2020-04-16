@@ -118,7 +118,7 @@ if [ "$TRAVIS_BRANCH" == "develop" ]; then
    JSON_FILE=`cat "${1}"`
    echo "$JSON_FILE"
    
-   if [[ $SCHEMA_FOUND == "true" ]]; then
+#   if [[ $SCHEMA_FOUND == "true" ]]; then
    
       UPDATE_RESPONSE=`curl --location --request PUT "$API_URL" \
       --header "${HEADER_CONTENT_TYPE}" \
@@ -177,7 +177,7 @@ if [ "$TRAVIS_BRANCH" == "develop" ]; then
 #         exit;
 #      fi;
 
-   fi;
+#   fi;
    
    for i in {1..10}
    do
