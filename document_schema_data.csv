@@ -3,7 +3,7 @@ ArrivalNotice,develop,2020-04-14 00:03:57,b7bea539-4421-4258-aec4-d0850533815e,8
 ArrivalNotice,sandbox,2020-02-17 15:39:04.876,067f73bf-dc45-4bac-98d7-ffe83d5e0cda,1,1,0,0
 ArrivalNotice,test,2020-02-17 15:39:04.876,1ed353f3-9efe-4cd3-be3e-1bce740d679e,8,1,0,0 
 ArrivalNotice,test,2020-04-14 00:27:12,1ed353f3-9efe-4cd3-be3e-1bce740d679e,9,1,1,0
-BillOfLading,develop,2020-04-16 10:40:23,e6ff7547-46de-4b18-af8b-5b4f45e3db88,1,1,1,3
+BillOfLading,develop,2020-04-16 10:54:34,e6ff7547-46de-4b18-af8b-5b4f45e3db88,32,1,1,4
 BillOfLading,prod,2020-02-17 15:50:38.032,322da775-7405-49fa-9e93-6f4b99fbf096,2,1,0,0
 BillOfLading,sandbox,2020-02-17 15:46:30.056,adfc7c2f-62ed-407d-873a-b4f0640e06da,2,1,0,0
 BillOfLading,test,2020-04-02 08:25:39,891eb5433ab446ef89e0fadff4648c35,4,1,1,2
