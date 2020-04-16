@@ -139,8 +139,10 @@ if [ "$TRAVIS_BRANCH" == "develop" ]; then
       #--header "${HEADER_CONTENT_TYPE}" \
       #--header "${HEADER_AUTHORIZATION}" \
       #--data-raw "${JSON_FILE}"`   
-     UPDATE_RESPONSE={"id":"1111111111"}
+
+     UPDATE_RESPONSE='{"id":"1111111111"}';
      echo "UPDATE_RESPONSE = $UPDATE_RESPONSE";
+
       if echo "$UPDATE_RESPONSE" | grep -q "id"; then
          echo "Update Schema API run successfully";
          declare -i TL_SCHEMA_ID=`echo $GET_RESPONSE | grep -oP '(?<="id":)[^,]*'`
