@@ -12,6 +12,9 @@ notifications:
   email:
     recipients:
       - emanaty@eg.ibm.com
+      - nis.jespersen@maerskgtd.com
+      - aya.ragaei@ibm.com
+      - nthabet@eg.ibm.com
     on_success: always
     on_failure: always
 
