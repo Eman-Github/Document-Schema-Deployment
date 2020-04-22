@@ -29,5 +29,5 @@ VerifyCopy,develop,2020-04-16 11:39:30,f6d11846-fb88-4dff-8eae-bf4591c62914,6,1,
 VerifyCopy,prod,2020-02-17 15:50:03.280,986f47c4-6892-45d6-86e2-25461bd1701f,4,1,0,0
 VerifyCopy,sandbox,2020-02-17 15:45:49.847,c43da033-1c99-4acd-a6d8-afc663c66756,4,1,0,0
 VerifyCopy,test,2020-02-17 15:38:30.403,1124a7a8-38a0-41ec-9fe4-4a99c2b81587,5,1,0,0
-Other,develop,2020-04-22 15:38:30.40,Other_Schema_id,0,1,0,0
-HouseBOL,develop,2020-04-22 15:38:30.40,New_Schema_id,0,1,0,0
+HouseBOL,develop,2020-04-22 15:38:30.40,419d011e-79ce-4046-8bf0-685ae8882e83,1,1,0,0
+Other,develop,2020-04-22 15:38:30.40,c60f824b-9dbb-4d02-a38c-2427d9d1b3a6,1,1,0,0
