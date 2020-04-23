@@ -302,35 +302,6 @@
                     }
                 }
             },
-            "BillOfLading": {
-                "description": "Bill of Lading document.",
-                "type": "object",
-                "properties": {
-                    "negotiable": {
-                        "description": "Indicator, whether or not the bill of lading is negotiable. ",
-                        "type": "boolean"
-                    },
-                    "dateOfAcceptance": {
-                        "description": "Acceptance date of the bill of lading. ",
-                        "type": "string",
-                        "format": "date-time"
-                    }
-                },
-                "allOf": [
-                    {
-                        "$ref": "#/definitions/TransportDocument"
-                    },
-                    {
-                        "type": "object"
-                    },
-                    {
-                        "$ref": "#/definitions/HouseBillOfLading"
-                    },
-                    {
-                        "type": "object"
-                    }
-                ]
-            },
             "Carrier": {
                 "description": "Carrier. ",
                 "type": "object",
@@ -741,7 +712,29 @@
             "HouseBillOfLading": {
                 "description": "",
                 "type": "object",
-                "properties": {}
+                "properties": {
+                    "negotiable": {
+                        "description": "Indicator, whether or not the bill of lading is negotiable. ",
+                        "type": "boolean"
+                    },
+                    "dateOfAcceptance": {
+                        "description": "Acceptance date of the bill of lading. ",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "eBL": {
+                        "description": "Indication of this being an electronic bill of lading. ",
+                        "type": "boolean"
+                    }
+                },
+                "allOf": [
+                    {
+                        "$ref": "#/definitions/TransportDocument"
+                    },
+                    {
+                        "type": "object"
+                    }
+                ]
             },
             "Location": {
                 "description": "Corresponding EDIFACT element: 3227 - Location function code qualifier.",
@@ -786,17 +779,13 @@
                             "importer",
                             "origin3PL",
                             "destination3PL",
-                            "seller",
-                            "buyer",
                             "exportCustomsBroker",
                             "importCustomsBroker",
                             "requestParty",
                             "buyersBank",
                             "sellersBank",
                             "insuranceProvider",
-                            "oceanCarrier",
                             "transportServiceBuyer",
-                            "transportServiceIntermediary",
                             "railOperator",
                             "truckOperator",
                             "bargeOperator",
@@ -841,6 +830,14 @@
                     },
                     "taxReference": {
                         "description": "Tax identification of the party.",
+                        "type": "string"
+                    },
+                    "partyRef": {
+                        "description": "Reference which represents the party.",
+                        "type": "string"
+                    },
+                    "organizationId": {
+                        "description": "Unique identifier of the party. ",
                         "type": "string"
                     },
                     "address": {
@@ -1051,6 +1048,13 @@
                     "billOfLadingNumber": {
                         "description": "Bill of lading number of the transport document. ",
                         "type": "string"
+                    },
+                    "bookingNumber": {
+                        "items": {
+                            "description": "Booking number(s). ",
+                            "type": "string"
+                        },
+                        "type": "array"
                     },
                     "partBillIndicator": {
                         "description": "Indication of whether or not this is a part bill. ",
