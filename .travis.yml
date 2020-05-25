@@ -1,13 +1,5 @@
 language: generic
 
-env:
-  global:
-    - DEV_URL=https://platform-dev.tradelens.com
-    - TEST_URL=https://platform-test.tradelens.com
-    - SANDBOX_URL=https://platform-sandbox.tradelens.com
-    - PROD_URL=https://platform.tradelens.com
-    - DEMO_URL=https://platform-demo.tradelens.com
-
 notifications:
   email:
     recipients:
@@ -17,13 +9,6 @@ notifications:
       - nthabet@eg.ibm.com
     on_success: always
     on_failure: always
-
-addons:
-  postgresql: "10"
-  apt:
-    packages:
-    - postgresql-10
-    - postgresql-client-10
 
 script:
   - echo "TRAVIS_PULL_REQUEST = $TRAVIS_PULL_REQUEST"
@@ -40,11 +25,29 @@ script:
        elif [[ "$TRAVIS_BRANCH" == "develop" ]] || [[ "$TRAVIS_BRANCH" == "test" ]] || [[ "$TRAVIS_BRANCH" == "sandbox" ]] || [[ "$TRAVIS_BRANCH" == "prod" ]] || [[ "$TRAVIS_BRANCH" == "demo" ]]; then 
          while IFS= read -r file; do
              echo "... $file ...";
-             ./scripts/deploy-develop.sh $file;
-             TL_VERSION=$? ;
-             echo "Out TL_VERSION = $TL_VERSION";
-             if (( $TL_VERSION > 0)) ; then
-               ./scripts/update_versions.sh $file $TL_VERSION;
+             echo "... $TRAVIS_BRANCH ...";     
+             temp=${file#*/};
+             CHANGED_DOC_NAME=${temp%.*};
+             echo "Document Name $CHANGED_DOC_NAME";
+             DOCUMENTS_NAMES=`cut -d "," -f 1,2 document_schema_data.csv`;
+             DOCUMENTS_NAMES_ARRAY=($DOCUMENTS_NAMES);
+             len=${#DOCUMENTS_NAMES_ARRAY[@]};
+             exist=0;
+             echo "$CHANGED_DOC_NAME,$TRAVIS_BRANCH";
+             for ((i = 0; i < $len; i++)); do
+                 echo "Document name,branch  = ${DOCUMENTS_NAMES_ARRAY[$i]} ";
+                 echo "Line number = $i ";
+                if [[ ${DOCUMENTS_NAMES_ARRAY[$i]} == "$CHANGED_DOC_NAME,$TRAVIS_BRANCH" ]] ; then
+                   exist=1;
+                   echo "Document exist in line number  = $i ";
+                fi;
+             done;
+             if (( $exist == 1 )); then       
+                 ./scripts/deploy-develop.sh $file;
+
+             elif (( $exist == 0 )); then
+                 echo "Document not exist in csv file ";                 
+                 ./scripts/deploy-new-document.sh $file $CHANGED_DOC_NAME;
              fi;
          done <<< "$CHANGED_FILES"; 
        fi;
