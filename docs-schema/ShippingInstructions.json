@@ -40,7 +40,7 @@
                                 "description": "A unique country identifier for this party."
                             },
                             {
-                                "$ref": "#/components/schemas/Country"
+                                "$ref": "#/definitions/Country"
                             }
                         ]
                     },
@@ -309,7 +309,7 @@
                     "OG",
                     "OZ"
                 ],
-                "description": "missing description",
+                "description": "Country.",
                 "type": "string"
             },
             "Carrier": {
@@ -340,7 +340,7 @@
                                 "description": "The unique identifier for this logistics service charge."
                             },
                             {
-                                "$ref": "#/components/schemas/ChargeCategories"
+                                "$ref": "#/definitions/ChargeCategories"
                             }
                         ]
                     },
@@ -350,7 +350,7 @@
                                 "description": "Charge payment term."
                             },
                             {
-                                "$ref": "#/components/schemas/PaymentTerm"
+                                "$ref": "#/definitions/PaymentTerm"
                             }
                         ]
                     },
@@ -698,7 +698,7 @@
                                 "description": "The cargo code type of consignment item. \nhttps://service.unece.org/trade/untdid/d00a/tred/tred7143.htm"
                             },
                             {
-                                "$ref": "#/components/schemas/CommodityCodeType"
+                                "$ref": "#/definitions/CommodityCodeType"
                             }
                         ]
                     },
@@ -836,10 +836,6 @@
                             }
                         ]
                     },
-                    "hazardType": {
-                        "description": "A code specifying the type of hazard for the dangerous goods.",
-                        "type": "string"
-                    },
                     "hazardClassification": {
                         "description": "A unique identifier for this hazard classification for the dangerous goods.",
                         "allOf": [
@@ -903,7 +899,7 @@
                                 "description": "A code specifying the packaging danger level for the dangerous goods."
                             },
                             {
-                                "$ref": "#/components/schemas/PackingDangerLevel"
+                                "$ref": "#/definitions/PackingDangerLevel"
                             }
                         ]
                     },
@@ -1024,7 +1020,7 @@
                                 "description": "missing description"
                             },
                             {
-                                "$ref": "#/components/schemas/MeasurementUnit"
+                                "$ref": "#/definitions/MeasurementUnit"
                             }
                         ]
                     }
@@ -1130,7 +1126,7 @@
                                 "description": "A code specifying a type of measurement."
                             },
                             {
-                                "$ref": "#/components/schemas/TemperatureUnit"
+                                "$ref": "#/definitions/TemperatureUnit"
                             }
                         ]
                     }
@@ -1234,7 +1230,7 @@
                                 "description": "Type of party. "
                             },
                             {
-                                "$ref": "#/components/schemas/PartyRole"
+                                "$ref": "#/definitions/PartyRole"
                             }
                         ]
                     }
@@ -1389,7 +1385,7 @@
                                 "description": "The code specifying the type of reefer setting."
                             },
                             {
-                                "$ref": "#/components/schemas/ReeferSettingType"
+                                "$ref": "#/definitions/ReeferSettingType"
                             }
                         ]
                     },
@@ -1399,7 +1395,7 @@
                                 "description": "Unit used for measureing the reefer setting."
                             },
                             {
-                                "$ref": "#/components/schemas/ReeferSettingUnit"
+                                "$ref": "#/definitions/ReeferSettingUnit"
                             }
                         ]
                     },
@@ -1441,7 +1437,7 @@
                                 "description": "Type of reference. "
                             },
                             {
-                                "$ref": "#/components/schemas/Reference"
+                                "$ref": "#/definitions/Reference"
                             }
                         ]
                     },
@@ -1489,7 +1485,7 @@
                                 "description": "missing description"
                             },
                             {
-                                "$ref": "#/components/schemas/SealingPartyRole"
+                                "$ref": "#/definitions/SealingPartyRole"
                             }
                         ]
                     },
@@ -1552,7 +1548,7 @@
                                 "description": "Requested type of transport document."
                             },
                             {
-                                "$ref": "#/components/schemas/TransportDocumentType"
+                                "$ref": "#/definitions/TransportDocumentType"
                             }
                         ]
                     },
@@ -1619,7 +1615,17 @@
                                 "description": "A character string used to represent a transport movement type."
                             },
                             {
-                                "$ref": "#/components/schemas/MovementTypeCode"
+                                "$ref": "#/definitions/MovementTypeCode"
+                            }
+                        ]
+                    },
+                    "paymentArrangement": {
+                        "allOf": [
+                            {
+                                "description": "The code specifying the payment arrangements for this consignment."
+                            },
+                            {
+                                "$ref": "#/definitions/PaymentTerm"
                             }
                         ]
                     },
@@ -1683,7 +1689,8 @@
             "TransportDocumentType": {
                 "enum": [
                     "billOfLading",
-                    "seaWaybill"
+                    "seaWaybill",
+                    "houseBillOfLading"
                 ],
                 "description": "missing description",
                 "type": "string"
@@ -1763,7 +1770,7 @@
                                 "description": "Type of transport document information. "
                             },
                             {
-                                "$ref": "#/components/schemas/TransportDocumentInformationType"
+                                "$ref": "#/definitions/TransportDocumentInformationType"
                             }
                         ]
                     }
@@ -1817,7 +1824,7 @@
                                 "description": "The code specifying the used capacity of this piece of transport equipment, such as full or empty."
                             },
                             {
-                                "$ref": "#/components/schemas/UsedCapacityCode"
+                                "$ref": "#/definitions/UsedCapacityCode"
                             }
                         ]
                     },
@@ -1831,7 +1838,7 @@
                                 "description": "This element indicates the party that is the supplier of the equipment."
                             },
                             {
-                                "$ref": "#/components/schemas/EquipmentSupplierIndicator"
+                                "$ref": "#/definitions/EquipmentSupplierIndicator"
                             }
                         ]
                     },
@@ -2018,7 +2025,7 @@
                                 "description": "Unit used for measurements. "
                             },
                             {
-                                "$ref": "#/components/schemas/VolumeUnit"
+                                "$ref": "#/definitions/VolumeUnit"
                             }
                         ]
                     }
@@ -2057,7 +2064,7 @@
                                 "description": "Unit used for weight measurement."
                             },
                             {
-                                "$ref": "#/components/schemas/WeightUnit"
+                                "$ref": "#/definitions/WeightUnit"
                             }
                         ]
                     }
