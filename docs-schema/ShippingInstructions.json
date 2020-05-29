@@ -1395,7 +1395,7 @@
                                 "description": "Type of reference. "
                             },
                             {
-                                "$ref": "#/components/schemas/ReferenceTypes"
+                                "$ref": "#/definitions/ReferenceTypes"
                             }
                         ]
                     },
