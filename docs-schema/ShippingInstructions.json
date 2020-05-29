@@ -2097,12 +2097,12 @@
             },
             "Text": {
                 "description": "",
-                "type": "object",
+                "type": "string",
                 "properties": {}
             },
             "Numeric": {
                 "description": "",
-                "type": "object",
+                "type": "number",
                 "properties": {}
             }
         }
