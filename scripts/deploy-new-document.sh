@@ -84,6 +84,37 @@ HEADER_AUTHORIZATION="Authorization: Bearer $BEARER_TOKEN"
 POST_API_URL="$HOST_URL/api/v1/documentSchema"
 echo "POST_API_URL = $POST_API_URL"
 
+DOC_CONFIG=`grep "${2}" ./document_config.csv`;
+echo "DOC_CONFIG = $DOC_CONFIG"
+IFS=',' read -r -a config <<< "$DOC_CONFIG"
+echo "config row = $config[@]"
+replace="{\n"name":"
+for i in "${!config[@]}"
+do
+   echo "$i ${config[i]}"
+   if [ $i == 1 ]; then
+    echo "i = $i"
+    replace="{\n\"name\": \"${config[i]}\" ,\n\"docType\": "
+    echo "replace = $replace"
+   elif [ $i == 2 ]; then
+    echo "i = $i"
+    replace="${replace} \"${config[i]}\" ,\n\"description\":  "
+    echo "replace = $replace"
+   elif [ $i == 3 ]; then
+    echo "i = $i"
+    replace="${replace} \"${config[i]}\" ,\n\"supportedContentTypes\": [\n\"application\/json\"\n],"
+    echo "replace = $replace"
+  fi;
+
+done
+
+
+#sed -i "0,/{/s/{/$replace/" "${1}"
+#sed -i '0,/{/s/{/'"$replace"'/' "${1}"
+
+sed -i "0,\~{~s~{~$replace~" "${1}"
+cat "${1}"
+
 #------------------- Deploy to Development env. --------------
 if [ "$TRAVIS_BRANCH" == "develop" ]; then
    
