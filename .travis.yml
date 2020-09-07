@@ -43,7 +43,7 @@ script:
                 fi;
              done;
              if (( $exist == 1 )); then       
-                 ./scripts/deploy-develop.sh $file;
+                 ./scripts/deploy-develop.sh $file $CHANGED_DOC_NAME;
 
              elif (( $exist == 0 )); then
                  echo "Document not exist in csv file ";                 
