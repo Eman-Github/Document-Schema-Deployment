@@ -1,0 +1,838 @@
+{
+    "schema": {
+        "model": "CertificateOfOrigin",
+        "type": "object",
+        "properties": {
+            "certificateOfOrigin": {
+                "$ref": "#/definitions/CertificateOfOrigin"
+            }
+        },
+        "definitions": {
+            "CertificateOfOrigin": {
+                "type": "object",
+                "properties": {
+                    "originCountry": {
+                        "description": "missing description",
+                        "type": "string",
+                        "enum": [
+                            "AD",
+                            "AE",
+                            "AF",
+                            "AG",
+                            "AI",
+                            "AL",
+                            "AM",
+                            "AO",
+                            "AQ",
+                            "AR",
+                            "AS",
+                            "AT",
+                            "AU",
+                            "AW",
+                            "AX",
+                            "AZ",
+                            "BA",
+                            "BB",
+                            "BD",
+                            "BE",
+                            "BF",
+                            "BG",
+                            "BH",
+                            "BI",
+                            "BJ",
+                            "BL",
+                            "BM",
+                            "BN",
+                            "BO",
+                            "BQ",
+                            "BR",
+                            "BS",
+                            "BT",
+                            "BV",
+                            "BW",
+                            "BY",
+                            "BZ",
+                            "CA",
+                            "CC",
+                            "CD",
+                            "CF",
+                            "CG",
+                            "CH",
+                            "CI",
+                            "CK",
+                            "CL",
+                            "CM",
+                            "CN",
+                            "CO",
+                            "CR",
+                            "CU",
+                            "CV",
+                            "CW",
+                            "CX",
+                            "CY",
+                            "CZ",
+                            "DE",
+                            "DJ",
+                            "DK",
+                            "DM",
+                            "DO",
+                            "DZ",
+                            "EC",
+                            "EE",
+                            "EG",
+                            "EH",
+                            "ER",
+                            "ES",
+                            "ET",
+                            "FI",
+                            "FJ",
+                            "FK",
+                            "FM",
+                            "FO",
+                            "FR",
+                            "GA",
+                            "GB",
+                            "GD",
+                            "GE",
+                            "GF",
+                            "GG",
+                            "GI",
+                            "GL",
+                            "GM",
+                            "GN",
+                            "GP",
+                            "GQ",
+                            "GR",
+                            "GS",
+                            "GT",
+                            "GU",
+                            "GW",
+                            "GY",
+                            "HK",
+                            "HM",
+                            "HN",
+                            "HR",
+                            "HT",
+                            "HU",
+                            "ID",
+                            "IE",
+                            "IL",
+                            "IM",
+                            "IN",
+                            "IO",
+                            "IQ",
+                            "IR",
+                            "IS",
+                            "IT",
+                            "JE",
+                            "JM",
+                            "JO",
+                            "JP",
+                            "KE",
+                            "KG",
+                            "KH",
+                            "KI",
+                            "KM",
+                            "KN",
+                            "KP",
+                            "KR",
+                            "KW",
+                            "KY",
+                            "KZ",
+                            "LA",
+                            "LB",
+                            "LC",
+                            "LI",
+                            "LK",
+                            "LR",
+                            "LS",
+                            "LT",
+                            "LU",
+                            "LV",
+                            "LY",
+                            "MA",
+                            "MC",
+                            "MD",
+                            "ME",
+                            "MF",
+                            "MG",
+                            "MH",
+                            "MK",
+                            "ML",
+                            "MM",
+                            "MN",
+                            "MO",
+                            "MP",
+                            "MQ",
+                            "MR",
+                            "MS",
+                            "MT",
+                            "MU",
+                            "MV",
+                            "MW",
+                            "MX",
+                            "MY",
+                            "MZ",
+                            "NA",
+                            "NC",
+                            "NE",
+                            "NF",
+                            "NG",
+                            "NI",
+                            "NL",
+                            "NO",
+                            "NP",
+                            "NR",
+                            "NU",
+                            "NZ",
+                            "OM",
+                            "PA",
+                            "PE",
+                            "PF",
+                            "PG",
+                            "PH",
+                            "PK",
+                            "PL",
+                            "PM",
+                            "PN",
+                            "PR",
+                            "PS",
+                            "PT",
+                            "PW",
+                            "PY",
+                            "QA",
+                            "RE",
+                            "RO",
+                            "RS",
+                            "RU",
+                            "RW",
+                            "SA",
+                            "SB",
+                            "SC",
+                            "SD",
+                            "SE",
+                            "SG",
+                            "SH",
+                            "SI",
+                            "SJ",
+                            "SK",
+                            "SL",
+                            "SM",
+                            "SN",
+                            "SO",
+                            "SR",
+                            "SS",
+                            "ST",
+                            "SV",
+                            "SX",
+                            "SY",
+                            "SZ",
+                            "TC",
+                            "TD",
+                            "TF",
+                            "TG",
+                            "TH",
+                            "TJ",
+                            "TK",
+                            "TL",
+                            "TM",
+                            "TN",
+                            "TO",
+                            "TR",
+                            "TT",
+                            "TV",
+                            "TW",
+                            "TZ",
+                            "UA",
+                            "UG",
+                            "UM",
+                            "US",
+                            "UY",
+                            "UZ",
+                            "VA",
+                            "VC",
+                            "VE",
+                            "VG",
+                            "VI",
+                            "VN",
+                            "VU",
+                            "WF",
+                            "WS",
+                            "YE",
+                            "YT",
+                            "ZA",
+                            "ZM",
+                            "ZW",
+                            "OA",
+                            "OB",
+                            "OC",
+                            "OD",
+                            "OE",
+                            "OF",
+                            "OG",
+                            "OZ"
+                        ]
+                    },
+                    "destinationCountry": {
+                        "description": "missing description",
+                        "type": "string",
+                        "enum": [
+                            "AD",
+                            "AE",
+                            "AF",
+                            "AG",
+                            "AI",
+                            "AL",
+                            "AM",
+                            "AO",
+                            "AQ",
+                            "AR",
+                            "AS",
+                            "AT",
+                            "AU",
+                            "AW",
+                            "AX",
+                            "AZ",
+                            "BA",
+                            "BB",
+                            "BD",
+                            "BE",
+                            "BF",
+                            "BG",
+                            "BH",
+                            "BI",
+                            "BJ",
+                            "BL",
+                            "BM",
+                            "BN",
+                            "BO",
+                            "BQ",
+                            "BR",
+                            "BS",
+                            "BT",
+                            "BV",
+                            "BW",
+                            "BY",
+                            "BZ",
+                            "CA",
+                            "CC",
+                            "CD",
+                            "CF",
+                            "CG",
+                            "CH",
+                            "CI",
+                            "CK",
+                            "CL",
+                            "CM",
+                            "CN",
+                            "CO",
+                            "CR",
+                            "CU",
+                            "CV",
+                            "CW",
+                            "CX",
+                            "CY",
+                            "CZ",
+                            "DE",
+                            "DJ",
+                            "DK",
+                            "DM",
+                            "DO",
+                            "DZ",
+                            "EC",
+                            "EE",
+                            "EG",
+                            "EH",
+                            "ER",
+                            "ES",
+                            "ET",
+                            "FI",
+                            "FJ",
+                            "FK",
+                            "FM",
+                            "FO",
+                            "FR",
+                            "GA",
+                            "GB",
+                            "GD",
+                            "GE",
+                            "GF",
+                            "GG",
+                            "GI",
+                            "GL",
+                            "GM",
+                            "GN",
+                            "GP",
+                            "GQ",
+                            "GR",
+                            "GS",
+                            "GT",
+                            "GU",
+                            "GW",
+                            "GY",
+                            "HK",
+                            "HM",
+                            "HN",
+                            "HR",
+                            "HT",
+                            "HU",
+                            "ID",
+                            "IE",
+                            "IL",
+                            "IM",
+                            "IN",
+                            "IO",
+                            "IQ",
+                            "IR",
+                            "IS",
+                            "IT",
+                            "JE",
+                            "JM",
+                            "JO",
+                            "JP",
+                            "KE",
+                            "KG",
+                            "KH",
+                            "KI",
+                            "KM",
+                            "KN",
+                            "KP",
+                            "KR",
+                            "KW",
+                            "KY",
+                            "KZ",
+                            "LA",
+                            "LB",
+                            "LC",
+                            "LI",
+                            "LK",
+                            "LR",
+                            "LS",
+                            "LT",
+                            "LU",
+                            "LV",
+                            "LY",
+                            "MA",
+                            "MC",
+                            "MD",
+                            "ME",
+                            "MF",
+                            "MG",
+                            "MH",
+                            "MK",
+                            "ML",
+                            "MM",
+                            "MN",
+                            "MO",
+                            "MP",
+                            "MQ",
+                            "MR",
+                            "MS",
+                            "MT",
+                            "MU",
+                            "MV",
+                            "MW",
+                            "MX",
+                            "MY",
+                            "MZ",
+                            "NA",
+                            "NC",
+                            "NE",
+                            "NF",
+                            "NG",
+                            "NI",
+                            "NL",
+                            "NO",
+                            "NP",
+                            "NR",
+                            "NU",
+                            "NZ",
+                            "OM",
+                            "PA",
+                            "PE",
+                            "PF",
+                            "PG",
+                            "PH",
+                            "PK",
+                            "PL",
+                            "PM",
+                            "PN",
+                            "PR",
+                            "PS",
+                            "PT",
+                            "PW",
+                            "PY",
+                            "QA",
+                            "RE",
+                            "RO",
+                            "RS",
+                            "RU",
+                            "RW",
+                            "SA",
+                            "SB",
+                            "SC",
+                            "SD",
+                            "SE",
+                            "SG",
+                            "SH",
+                            "SI",
+                            "SJ",
+                            "SK",
+                            "SL",
+                            "SM",
+                            "SN",
+                            "SO",
+                            "SR",
+                            "SS",
+                            "ST",
+                            "SV",
+                            "SX",
+                            "SY",
+                            "SZ",
+                            "TC",
+                            "TD",
+                            "TF",
+                            "TG",
+                            "TH",
+                            "TJ",
+                            "TK",
+                            "TL",
+                            "TM",
+                            "TN",
+                            "TO",
+                            "TR",
+                            "TT",
+                            "TV",
+                            "TW",
+                            "TZ",
+                            "UA",
+                            "UG",
+                            "UM",
+                            "US",
+                            "UY",
+                            "UZ",
+                            "VA",
+                            "VC",
+                            "VE",
+                            "VG",
+                            "VI",
+                            "VN",
+                            "VU",
+                            "WF",
+                            "WS",
+                            "YE",
+                            "YT",
+                            "ZA",
+                            "ZM",
+                            "ZW",
+                            "OA",
+                            "OB",
+                            "OC",
+                            "OD",
+                            "OE",
+                            "OF",
+                            "OG",
+                            "OZ"
+                        ]
+                    },
+                    "transportEquipment": {
+                        "$ref": "#/definitions/TransportEquipment"
+                    }
+                },
+                "allOf": [
+                    {
+                        "$ref": "#/definitions/Document"
+                    },
+                    {
+                        "type": "object"
+                    }
+                ]
+            },
+            "Consignee": {
+                "type": "object",
+                "properties": {},
+                "allOf": [
+                    {
+                        "$ref": "#/definitions/Party"
+                    },
+                    {
+                        "type": "object"
+                    }
+                ]
+            },
+            "Consignment": {
+                "type": "object",
+                "properties": {
+                    "departureDate": {
+                        "description": "Date and time of departure. ",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "serviceMode": {
+                        "description": "The scope of the consignment, such as CY-CY or SD-SD.",
+                        "type": "string"
+                    },
+                    "transportEquipmentQuantity": {
+                        "description": "A number of pieces of transport equipment, such as containers or similar unit load devices, in this consignment.",
+                        "type": "string"
+                    },
+                    "consignor": {
+                        "$ref": "#/definitions/Consignor"
+                    },
+                    "consignee": {
+                        "$ref": "#/definitions/Consignee"
+                    },
+                    "consignmentItems": {
+                        "items": {
+                            "$ref": "#/definitions/ConsignmentItem"
+                        },
+                        "type": "array",
+                        "minItems": 1
+                    },
+                    "utilizedTransportEquipment": {
+                        "items": {
+                            "$ref": "#/definitions/TransportEquipment"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "consignor",
+                    "consignee",
+                    "consignmentItems"
+                ]
+            },
+            "ConsignmentItem": {
+                "type": "object",
+                "properties": {
+                    "sequence": {
+                        "description": "The sequence number for this consignment item.",
+                        "type": "number"
+                    },
+                    "information": {
+                        "description": "Cargo description. Information, expressed as text, for this consignment item.",
+                        "type": "string"
+                    },
+                    "codeType": {
+                        "description": "The cargo code type of consignment item. \nhttps://service.unece.org/trade/untdid/d00a/tred/tred7143.htm",
+                        "type": "string",
+                        "enum": []
+                    },
+                    "codeValue": {
+                        "description": "A code specifying a type of consignment item.",
+                        "type": "string"
+                    }
+                }
+            },
+            "Consignor": {
+                "type": "object",
+                "properties": {},
+                "allOf": [
+                    {
+                        "$ref": "#/definitions/Party"
+                    },
+                    {
+                        "type": "object"
+                    }
+                ]
+            },
+            "Document": {
+                "type": "object",
+                "properties": {
+                    "originatorName": {
+                        "description": "The proper name (human readable) of the entity that published this event.",
+                        "type": "string"
+                    },
+                    "originatorId": {
+                        "description": "The party identification code (i.e. SCAC) of the organization publishing the event.",
+                        "type": "string"
+                    },
+                    "issue": {
+                        "description": "A date, time, date time or other date time value for an issuance of this document.",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "originalIssued": {
+                        "description": "The number of originals issued for this document.",
+                        "type": "number"
+                    },
+                    "copyIssued": {
+                        "description": "The number of copies issued for this document.",
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "originatorName",
+                    "issue"
+                ]
+            },
+            "Party": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "description": "A name, expressed as text, for this party.",
+                        "type": "string"
+                    },
+                    "printedParty": {
+                        "description": "The party name and address exactly as printed on the document.",
+                        "type": "string"
+                    },
+                    "registeredForVAT": {
+                        "description": "VAT registration indicator. ",
+                        "type": "boolean"
+                    },
+                    "taxReference": {
+                        "description": "Tax identification of the party.",
+                        "type": "string"
+                    },
+                    "partyRef": {
+                        "description": "Reference which represents the party.",
+                        "type": "string"
+                    },
+                    "organizationId": {
+                        "description": "Unique identifier of the party. ",
+                        "type": "string"
+                    }
+                }
+            },
+            "Reference": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "description": "Type of reference. ",
+                        "type": "string",
+                        "enum": []
+                    },
+                    "value": {
+                        "description": "Reference value. ",
+                        "type": "string"
+                    }
+                }
+            },
+            "Seal": {
+                "type": "object",
+                "properties": {
+                    "identification": {
+                        "description": "A unique identifier for this logistics seal.",
+                        "type": "string"
+                    },
+                    "type": {
+                        "description": "Description specifying the type of logistics seal.",
+                        "type": "string"
+                    },
+                    "sealingPartyRole": {
+                        "description": "missing description",
+                        "type": "string",
+                        "enum": []
+                    }
+                }
+            },
+            "TransportEquipment": {
+                "type": "object",
+                "properties": {
+                    "equipmentNumber": {
+                        "description": "Unique identifier for this piece of transport equipment, printed physically on the equipment.",
+                        "type": "string"
+                    },
+                    "equipmentType": {
+                        "description": "ISO 6346 size and type code (for example \"45G1\")",
+                        "type": "string"
+                    },
+                    "printedEquipmentType": {
+                        "description": "The container size and type, as printed on the transport document (for example \"40 DRY 9''6\").",
+                        "type": "string"
+                    },
+                    "code": {
+                        "items": {
+                            "description": "The harmonized system code specifying a type of loaded consignment item(s).",
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "usedCapacity": {
+                        "description": "The code specifying the used capacity of this piece of transport equipment, such as full or empty.",
+                        "type": "string",
+                        "enum": []
+                    },
+                    "haulageArrangements": {
+                        "description": "Specification of the type of equipment haulage arrangements.",
+                        "type": "string"
+                    },
+                    "equipmentSupplierIndicator": {
+                        "description": "This element indicates the party that is the supplier of the equipment.",
+                        "type": "string",
+                        "enum": []
+                    },
+                    "seals": {
+                        "items": {
+                            "$ref": "#/definitions/Seal"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "equipmentNumber"
+                ]
+            }
+        }
+    },
+    "layout": [
+        {
+            "widget": "message",
+            "message": "<h1>certificateOfOrigin</h1>"
+        },
+        {
+            "key": "originCountry",
+            "type": "array",
+            "items": []
+        },
+        {
+            "key": "destinationCountry",
+            "type": "array",
+            "items": []
+        },
+        {
+            "key": "originatorName",
+            "required": true
+        },
+        {
+            "key": "originatorId"
+        },
+        {
+            "key": "issue",
+            "required": true
+        },
+        {
+            "key": "originalIssued"
+        },
+        {
+            "key": "copyIssued"
+        },
+        {
+            "key": "equipmentNumber",
+            "required": true
+        },
+        {
+            "key": "equipmentType"
+        },
+        {
+            "key": "printedEquipmentType"
+        },
+        {
+            "key": "code"
+        },
+        {
+            "key": "usedCapacity",
+            "type": "array",
+            "items": []
+        },
+        {
+            "key": "haulageArrangements"
+        },
+        {
+            "key": "equipmentSupplierIndicator",
+            "type": "array",
+            "items": []
+        }
+    ]
+}
