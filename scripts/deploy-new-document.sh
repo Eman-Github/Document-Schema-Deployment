@@ -103,6 +103,7 @@ do
    elif [ $i == 3 ]; then
     echo "i = $i"
     replace="${replace} \"${config[i]}\" ,\n\"supportedContentTypes\": [\n\"application\/json\"\n],"
+    replace="${replace}  \n\"jsonSupport\": true, \n\"sampleModel\" : {\n\"changeme\": \"changeme\"\n}," 
     echo "replace = $replace"
   fi;
 
