@@ -1,5 +1,5 @@
 {
-   "schema": {
+    "schema": {
         "model": "CertificateOfOrigin",
         "type": "object",
         "properties": {
@@ -615,8 +615,7 @@
                     },
                     "codeType": {
                         "description": "The cargo code type of consignment item. \nhttps://service.unece.org/trade/untdid/d00a/tred/tred7143.htm",
-                        "type": "string",
-                        "enum": []
+                        "type": "string"
                     },
                     "codeValue": {
                         "description": "A code specifying a type of consignment item.",
@@ -700,8 +699,7 @@
                 "properties": {
                     "type": {
                         "description": "Type of reference. ",
-                        "type": "string",
-                        "enum": []
+                        "type": "string"
                     },
                     "value": {
                         "description": "Reference value. ",
@@ -722,8 +720,7 @@
                     },
                     "sealingPartyRole": {
                         "description": "missing description",
-                        "type": "string",
-                        "enum": []
+                        "type": "string"
                     }
                 }
             },
@@ -751,8 +748,7 @@
                     },
                     "usedCapacity": {
                         "description": "The code specifying the used capacity of this piece of transport equipment, such as full or empty.",
-                        "type": "string",
-                        "enum": []
+                        "type": "string"
                     },
                     "haulageArrangements": {
                         "description": "Specification of the type of equipment haulage arrangements.",
@@ -760,8 +756,7 @@
                     },
                     "equipmentSupplierIndicator": {
                         "description": "This element indicates the party that is the supplier of the equipment.",
-                        "type": "string",
-                        "enum": []
+                        "type": "string"
                     },
                     "seals": {
                         "items": {
@@ -775,64 +770,5 @@
                 ]
             }
         }
-    },
-    "layout": [
-        {
-            "widget": "message",
-            "message": "<h1>certificateOfOrigin</h1>"
-        },
-        {
-            "key": "originCountry",
-            "type": "array",
-            "items": []
-        },
-        {
-            "key": "destinationCountry",
-            "type": "array",
-            "items": []
-        },
-        {
-            "key": "originatorName",
-            "required": true
-        },
-        {
-            "key": "originatorId"
-        },
-        {
-            "key": "issue",
-            "required": true
-        },
-        {
-            "key": "originalIssued"
-        },
-        {
-            "key": "copyIssued"
-        },
-        {
-            "key": "equipmentNumber",
-            "required": true
-        },
-        {
-            "key": "equipmentType"
-        },
-        {
-            "key": "printedEquipmentType"
-        },
-        {
-            "key": "code"
-        },
-        {
-            "key": "usedCapacity",
-            "type": "array",
-            "items": []
-        },
-        {
-            "key": "haulageArrangements"
-        },
-        {
-            "key": "equipmentSupplierIndicator",
-            "type": "array",
-            "items": []
-        }
-    ]
+    }
 }
